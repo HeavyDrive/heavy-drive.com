@@ -8,24 +8,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller{
-    /**
-     * @Route("/registration", name="Registration")
-     *
-     */
-    public function registrationAction(){
-
-        return $this->render('frontend/user/register.html.twig', []);
-    }
-
-    /**
-     * @Route("/connection", name="connection")
-     *
-     */
-    public function connectionAction(){
-
-        return $this->render('frontend/user/connection.html.twig', []);
-    }
+class CompteController extends Controller
+{
     /**
      * @Route("/compte", name="compte")
      *
@@ -35,6 +19,8 @@ class UserController extends Controller{
 
         return $this->render('frontend/user/compte.html.twig', []);
     }
+
+
     /**
      * @Route("/compte/historique", name="historique")
      *
@@ -44,4 +30,5 @@ class UserController extends Controller{
 
         return $this->render('frontend/user/historique.html.twig', []);
     }
+
 }
