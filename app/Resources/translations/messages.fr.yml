@@ -20,6 +20,27 @@ heavy:
         forgotpassword: Mot de passe oublié ?
         connection: Connexion
         register: Inscription
+        deconnexion: Se déconnecter
+
+    account:
+        name: Name example
+        information: Mes coordonnées
+        commandes: Mes commandes
+        info : informations
+        paramétres: Paramétres du compte
+        upload:    Uploder Mes Documents
+        presentation: Vous trouverez ici vos commandes passées depuis la création de votre compte
+        commande: Commande
+        car: Voiture
+        date: Date
+        price: Prix
+        status: Status
+
+
+
+
+
+
 
     website:
         name: Heavy-Drive
