@@ -7,7 +7,7 @@
             </column>
             <column name="pick_up_origin_id" type="INT"/>
             <column name="uuid" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="registration" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -40,6 +40,7 @@
             <column name="transmission" type="VARCHAR(255)"/>
             <column name="mileage_real" type="INT"/>
             <column name="mileage_estimate" type="INT"/>
+            <column name="last_servicing_mileage" type="INT"/>
             <column name="last_maintenance_mileage" type="INT"/>
             <column name="chassis_jig" type="bool">
                 <constraints nullable="false"/>
@@ -208,10 +209,190 @@
     </changeSet>
     <!--<changeSet author="Ashley (generated)" id="15">
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="service" constraintName="FK_773DE69D4D42DB5D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="service_id" referencedTableName="price"/>
-    </changeSet>
-    <changeSet author="Ashley (generated)" id="16">
+    </changeSet>-->
+    <!--<changeSet author="Ashley (generated)" id="16">
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="car" constraintName="FK_773DE69D4D42DB6D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="car_id" referencedTableName="price"/>
     </changeSet>-->
+    <changeSet author="Guillaume (generated)" id="17">
+        <createTable tableName="calendar">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="availability_id" type="INT"/>
+            <column name="car_id" type="INT"/>
+            <column name="date"  type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="18">
+        <createTable tableName="rentCar">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="car_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="20">
+        <createTable tableName="fare">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rental_id" type="INT"/>
+            <column name="amount" type="DECIMAL"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="21">
+        <createTable tableName="avability_driver">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="22">
+        <createTable tableName="contract">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rental_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="23">
+        <createTable tableName="rental">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="pick_up_renting_id" type="INT"/>
+            <column name="drop_off_renting_id" type="INT"/>
+            <column name="client_id" type="INT"/>
+            <column name="discount_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="24">
+        <createTable tableName="renting">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="agency_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="25">
+        <createTable tableName="reservation">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="pick_up_location_id" type="INT"/>
+            <column name="drop_off_location_id" type="INT"/>
+            <column name="client_id" type="INT"/>
+            <column name="identityCard_id" type="INT"/>
+            <column name="adr_id" type="INT"/>
+            <column name="lic_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="26">
+        <createTable tableName="availabilityCar">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="car_id" type="INT"/>
+            <column name="reservation_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="27">
+        <createTable tableName="delivery">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="reservation_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="29">
+        <createTable tableName="identityCard_id">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="30">
+        <createTable tableName="adress_proof">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="31">
+        <createTable tableName="license_driver">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="32">
+        <createTable tableName="discount">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="pourcentage_discount" type="DECIMAL"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="33">
+        <createTable tableName="rentalInvoice">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rental_id" type="INT"/>
+            <column name="rentCar" type="INT"/>
+            <!--<column name="attribute_4" type=""/>-->
+        </createTable>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="34">
+        <createTable tableName="note">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="client_id" type="INT"/>
+            <column name="reservation_id" type="INT"/>
+            <column name="note" type="text"/>
+        </createTable>
+    </changeSet>
+    <!--<changeSet author="Guillaume (generated)" id="47">
+        <createTable name="loyalityCard">
+            <column autoIncrement="true" name="id" type="bool">
+            <constraints primaryKey="true"/>
+        </createTable>-
+    </changeSet>-->
+    <changeSet author="Guillaume (generated)" id="35">
+        <addForeignKeyConstraint baseColumnNames="car_id" baseTableName="calendar" constraintName="FK_773DE69D4D42DB7D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="36">
+        <addForeignKeyConstraint baseColumnNames="car_id" baseTableName="rentCar" constraintName="FK_773DE69D4D42DB9D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="38">
+        <addForeignKeyConstraint baseColumnNames="rental_id" baseTableName="fare" constraintName="FK_773DE69D4D42DB11D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="rental"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="39">
+        <addForeignKeyConstraint baseColumnNames="rental_id" baseTableName="contract" constraintName="FK_773DE69D4D42DB12D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="rental"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="40">
+        <addForeignKeyConstraint baseColumnNames="agency_id" baseTableName="renting" constraintName="FK_773DE69D4D42DB13D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="agency"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="41">
+        <addForeignKeyConstraint baseColumnNames="car_id" baseTableName="availabilityCar" constraintName="FK_773DE69D4D42DB14D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="42">
+        <addForeignKeyConstraint baseColumnNames="reservation_id" baseTableName="availabilityCar" constraintName="FK_773DE69D4D42DB15D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="reservation"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="43">
+        <addForeignKeyConstraint baseColumnNames="availability_id" baseTableName="calendar" constraintName="FK_773DE69D4D42DB16D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="availabilityCar"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="44">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="note" constraintName="FK_773DE69D4D42DB17D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="client"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="45">
+        <addForeignKeyConstraint baseColumnNames="reservation_id" baseTableName="note" constraintName="FK_773DE69D4D42DB18D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="reservation"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="46">
+        <addForeignKeyConstraint baseColumnNames="reservation_id" baseTableName="delivery" constraintName="FK_773DE69D4D42DB19D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="reservation"/>
+    </changeSet>
+    <changeSet author="Guillaume (generated)" id="47">
+        <addForeignKeyConstraint baseColumnNames="rental_id" baseTableName="rentalInvoice" constraintName="FK_773DE69D4D42DB20D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="fare"/>
+    </changeSet>
 </databaseChangeLog>
-
-
