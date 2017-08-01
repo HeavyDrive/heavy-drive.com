@@ -29,8 +29,8 @@ class CarData extends BaseFixtureLoader implements OrderedFixtureInterface, Cont
             $car->setOptions($carData['PUISSANCE_FISCALE']);
             $car->setPassengerCapacity($carData['NB_PLACE']);
             $car->setTransmission($carData['TRANSMISSION']);
-            $car->setVehicleModel($carData['ID_MODELE']);
-            $car->setVehicleMaker($carData['MARQUE']);
+            $car->setCarModel($carData['ID_MODELE']);
+            $car->setCarMaker($carData['MARQUE']);
 
             $car->setUuid($this->faker->uuid);
             $car->setRegistration($this->faker->randomLetter . $this->faker->randomNumber(5));

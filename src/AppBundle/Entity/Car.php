@@ -66,51 +66,51 @@ class Car
     /**
      * @var integer
      *
-     * @ORM\Column(name="vehicle_type", type="integer", nullable=true)
+     * @ORM\Column(name="car_type", type="integer", nullable=true)
      */
-    private $vehicleType;
+    private $carType;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="vehicle_energy_type", type="integer", nullable=true)
+     * @ORM\Column(name="car_energy_type", type="integer", nullable=true)
      */
-    private $vehicleEnergyType;
+    private $carEnergyType;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vehicle_maker", type="string", length=255, nullable=true)
+     * @ORM\Column(name="car_maker", type="string", length=255, nullable=true)
      */
-    private $vehicleMaker;
+    private $carMaker;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vehicle_cnit", type="string", length=255, nullable=true)
+     * @ORM\Column(name="car_cnit", type="string", length=255, nullable=true)
      */
-    private $vehicleCnit;
+    private $carCnit;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vehicle_model", type="string", length=255, nullable=true)
+     * @ORM\Column(name="car_model", type="string", length=255, nullable=true)
      */
-    private $vehicleModel;
+    private $carModel;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vehicle_model_variant", type="string", length=255, nullable=true)
+     * @ORM\Column(name="car_model_variant", type="string", length=255, nullable=true)
      */
-    private $vehicleModelVariant;
+    private $carModelVariant;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vehicle_engine", type="string", length=255, nullable=true)
+     * @ORM\Column(name="car_engine", type="string", length=255, nullable=true)
      */
-    private $vehicleEngine;
+    private $carEngine;
 
     /**
      * @var boolean
@@ -247,8 +247,6 @@ class Car
      * })
      */
     private $pickUpOrigin;
-
-
 
     /**
      * Get id
@@ -405,171 +403,171 @@ class Car
     }
 
     /**
-     * Set vehicleType
+     * Set carType
      *
-     * @param integer $vehicleType
+     * @param integer $carType
      *
      * @return Car
      */
-    public function setVehicleType($vehicleType)
+    public function setCarType($carType)
     {
-        $this->vehicleType = $vehicleType;
+        $this->carType = $carType;
 
         return $this;
     }
 
     /**
-     * Get vehicleType
+     * Get carType
      *
      * @return integer
      */
-    public function getVehicleType()
+    public function getCarType()
     {
-        return $this->vehicleType;
+        return $this->carType;
     }
 
     /**
-     * Set vehicleEnergyType
+     * Set carEnergyType
      *
-     * @param integer $vehicleEnergyType
+     * @param integer $carEnergyType
      *
      * @return Car
      */
-    public function setVehicleEnergyType($vehicleEnergyType)
+    public function setCarEnergyType($carEnergyType)
     {
-        $this->vehicleEnergyType = $vehicleEnergyType;
+        $this->carEnergyType = $carEnergyType;
 
         return $this;
     }
 
     /**
-     * Get vehicleEnergyType
+     * Get carEnergyType
      *
      * @return integer
      */
-    public function getVehicleEnergyType()
+    public function getCarEnergyType()
     {
-        return $this->vehicleEnergyType;
+        return $this->carEnergyType;
     }
 
     /**
-     * Set vehicleMaker
+     * Set carMaker
      *
-     * @param string $vehicleMaker
+     * @param string $carMaker
      *
      * @return Car
      */
-    public function setVehicleMaker($vehicleMaker)
+    public function setCarMaker($carMaker)
     {
-        $this->vehicleMaker = $vehicleMaker;
+        $this->carMaker = $carMaker;
 
         return $this;
     }
 
     /**
-     * Get vehicleMaker
+     * Get carMaker
      *
      * @return string
      */
-    public function getVehicleMaker()
+    public function getCarMaker()
     {
-        return $this->vehicleMaker;
+        return $this->carMaker;
     }
 
     /**
-     * Set vehicleCnit
+     * Set carCnit
      *
-     * @param string $vehicleCnit
+     * @param string $carCnit
      *
      * @return Car
      */
-    public function setVehicleCnit($vehicleCnit)
+    public function setCarCnit($carCnit)
     {
-        $this->vehicleCnit = $vehicleCnit;
+        $this->carCnit = $carCnit;
 
         return $this;
     }
 
     /**
-     * Get vehicleCnit
+     * Get carCnit
      *
      * @return string
      */
-    public function getVehicleCnit()
+    public function getCarCnit()
     {
-        return $this->vehicleCnit;
+        return $this->carCnit;
     }
 
     /**
-     * Set vehicleModel
+     * Set carModel
      *
-     * @param string $vehicleModel
+     * @param string $carModel
      *
      * @return Car
      */
-    public function setVehicleModel($vehicleModel)
+    public function setCarModel($carModel)
     {
-        $this->vehicleModel = $vehicleModel;
+        $this->carModel = $carModel;
 
         return $this;
     }
 
     /**
-     * Get vehicleModel
+     * Get carModel
      *
      * @return string
      */
-    public function getVehicleModel()
+    public function getCarModel()
     {
-        return $this->vehicleModel;
+        return $this->carModel;
     }
 
     /**
-     * Set vehicleModelVariant
+     * Set carModelVariant
      *
-     * @param string $vehicleModelVariant
+     * @param string $carModelVariant
      *
      * @return Car
      */
-    public function setVehicleModelVariant($vehicleModelVariant)
+    public function setCarModelVariant($carModelVariant)
     {
-        $this->vehicleModelVariant = $vehicleModelVariant;
+        $this->carModelVariant = $carModelVariant;
 
         return $this;
     }
 
     /**
-     * Get vehicleModelVariant
+     * Get carModelVariant
      *
      * @return string
      */
-    public function getVehicleModelVariant()
+    public function getCarModelVariant()
     {
-        return $this->vehicleModelVariant;
+        return $this->carModelVariant;
     }
 
     /**
-     * Set vehicleEngine
+     * Set carEngine
      *
-     * @param string $vehicleEngine
+     * @param string $carEngine
      *
      * @return Car
      */
-    public function setVehicleEngine($vehicleEngine)
+    public function setCarEngine($carEngine)
     {
-        $this->vehicleEngine = $vehicleEngine;
+        $this->carEngine = $carEngine;
 
         return $this;
     }
 
     /**
-     * Get vehicleEngine
+     * Get carEngine
      *
      * @return string
      */
-    public function getVehicleEngine()
+    public function getCarEngine()
     {
-        return $this->vehicleEngine;
+        return $this->carEngine;
     }
 
     /**

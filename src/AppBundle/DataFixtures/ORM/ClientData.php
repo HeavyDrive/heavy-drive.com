@@ -75,6 +75,10 @@ class ClientData extends BaseFixtureLoader implements OrderedFixtureInterface, C
         $client->setPassword('heavy');
         $client->setEnabled(true);
         $client->setUsername($this->faker->userName);
+        $client->setLastName($this->faker->lastName);
+        $client->setTelephone($this->faker->phoneNumber);
+        $client->setPlainPassword('blabla');
+        $client->setFirstName($this->faker->firstName);
         $this->userManager->updateUser($client, false);
 
         return $client;
@@ -85,7 +89,7 @@ class ClientData extends BaseFixtureLoader implements OrderedFixtureInterface, C
      */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 
     /**

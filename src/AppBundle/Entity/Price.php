@@ -43,7 +43,7 @@ class Price
     private $updatedAt;
 
     /**
-     * @var \Car
+     * @var Car
      *
      * @ORM\ManyToOne(targetEntity="Car")
      * @ORM\JoinColumns({
@@ -53,7 +53,7 @@ class Price
     private $car;
 
     /**
-     * @var \Service
+     * @var Service
      *
      * @ORM\ManyToOne(targetEntity="Service")
      * @ORM\JoinColumns({
@@ -61,8 +61,6 @@ class Price
      * })
      */
     private $service;
-
-
 
     /**
      * Get id
