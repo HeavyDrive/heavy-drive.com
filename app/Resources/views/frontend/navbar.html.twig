@@ -11,9 +11,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i>Mon compte ({{ app.user.username }})  <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Mes réservations</a></li>
-                        <li><a href="#">Mon historique</a></li>
-                        <li><a href="#">Mes informations</a></li>
+                        <li><a href="{{ path('cars_booking') }}">Mes réservations</a></li>
+                        <li><a href="{{ path('cars_booking_done') }}">Mon historique</a></li>
+                        <li><a href="{{ path('fos_user_profile_edit') }}">Mes informations</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
                     </ul>

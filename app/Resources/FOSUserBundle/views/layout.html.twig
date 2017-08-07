@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
 </head>
 <body>
-<p>coucou</p>
 <div>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
