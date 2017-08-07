@@ -90,3 +90,6 @@ fos_user:
         #    enabled: true
         form:
             type: AppBundle\Form\Type\RegistrationType
+    profile:
+        form:
+            type: AppBundle\Form\Type\UserEditType
