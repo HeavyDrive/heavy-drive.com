@@ -50,6 +50,9 @@ class ReservationData extends BaseFixtureLoader implements OrderedFixtureInterfa
                     $reservation->setClient($client);
                     $reservation->setPickUpLocationId($pickUpCenter);
                     $reservation->setDropOffLocationId($pickUpCenter);
+                    $reservation->setCreatedAt($this->faker->dateTime);
+                    $reservation->setDateStart($this->faker->dateTime);
+                    $reservation->setDateEnd($this->faker->dateTime);
 
                     $manager->persist($reservation);
                 }

@@ -79,6 +79,10 @@ class ClientData extends BaseFixtureLoader implements OrderedFixtureInterface, C
         $client->setTelephone($this->faker->phoneNumber);
         $client->setPlainPassword('blabla');
         $client->setFirstName($this->faker->firstName);
+        $client->setAddress($this->faker->address);
+        $client->setCity($this->faker->city);
+        $client->setZipCode($this->faker->postcode);
+
         $this->userManager->updateUser($client, false);
 
         return $client;

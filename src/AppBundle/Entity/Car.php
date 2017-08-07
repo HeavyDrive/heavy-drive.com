@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Car
  *
  * @ORM\Table(name="car", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_773DE69DD17F50A6", columns={"uuid"})}, indexes={@ORM\Index(name="FK_773DE69D4D42DB1D", columns={"pick_up_origin_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CarRepository")
  */
 class Car
 {
