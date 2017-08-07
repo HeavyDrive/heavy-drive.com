@@ -22,7 +22,15 @@ heavy:
         password_error: mot de passe érroné
         remember_me: Se souvenir de moi
         proof_paper: Pièces justificatives
-
+        status:
+            created: Demande de réservation
+            waitting: En attente de validation
+            accepted: Réservation confirmée
+            in_progress: En cours
+            sold : Paiement reçu
+            not_sold: En attente du paiement
+            closed: Terminée
+            cancelled: annulée
     register:
         description: Créer votre compte Heavy-Drive!
         firstname: Prénom*
@@ -41,7 +49,8 @@ heavy:
         signup: S'inscrire
         mobile: Téléphone*
         zipCode: Code postale
-        confirmed: Félicitations, votre compte est maintenant activé. Vous pouvez dés à présent réaliser vos réservations
+        confirmed: Félicitation, votre compte est maintenant activé. Vous pouvez dés à présent réaliser vos réservations
+        change: Félicitation vos données ont bien été modifiées
 
     connection:
         description: Connectez-vous à votre compte Heavy-Drive!
@@ -70,7 +79,13 @@ heavy:
         services : Nos services
         wedding: Mariage
     cars:
+        list:
+            header:
+                default: "Notre Sélection de voiture"
+                booking: "Mes réservation"
+                historique: Mon historique
         selection: Notre Sélection
+
 
     homepage:
         welcome: Bienvenue !
