@@ -1,0 +1,73 @@
+{% extends 'frontend/base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h2 class="centered">Modification de vos informations</h2>
+            <hr class="star-light">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-primary panel-register">
+                    <div class="panel-heading">{{ 'heavy.register.description' | trans }}</div>
+                    <div class="panel-body">
+                        <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST">
+                            <div class="row fields__container">
+                                <div class="col-lg-5 fields__column--1">
+                                    <div class="input__container">
+                                        <label for="fname">{{ 'heavy.register.username' | trans }}</label>
+                                        {{ form_widget(form.username) }}
+                                        <i class="fa fa-2x fa-user"></i>
+                                    </div>
+                                    {{ form_errors(form.username) }}
+                                    <div class="input__container">
+                                        <label for="emailaddr" class="m-t-10">{{ 'heavy.register.mail' | trans }}</label>
+                                        {{ form_widget(form.email) }}
+                                        <i class="fa fa-2x fa-at"></i>
+                                        {% if form.email.vars.required %}
+                                            <i class="fa fa-asterisk"></i>
+                                        {% endif %}
+                                    </div>
+                                    {{ form_errors(form.email) }}
+                                    <div class="input__container">
+                                        <label for="mobile" class="m-t-10">{{ 'heavy.register.mobile' | trans }}</label>
+                                        {{ form_widget(form.telephone) }}
+                                        <i class="fa fa-2x fa-mobile"></i>
+                                        {% if form.telephone.vars.required %}
+                                            <i class="fa fa-asterisk"></i>
+                                        {% endif %}
+                                    </div>
+                                    {{ form_errors(form.telephone) }}
+                                </div>
+                                <div class="col-lg-5 fields__column--2">
+                                    <div class="input__container">
+                                        <label for="fname">{{ 'heavy.register.address' | trans }}</label>
+                                        {{ form_widget(form.address) }}
+                                        <i class="fa fa-2x fa-user"></i>
+                                    </div>
+                                    {{ form_errors(form.address) }}
+
+                                    <div class="input__container">
+                                        <label for="fname">{{ 'heavy.register.city' | trans }}</label>
+                                        {{ form_widget(form.city) }}
+                                        <i class="fa fa-2x fa-user"></i>
+                                    </div>
+                                    {{ form_errors(form.city) }}
+
+                                    <div class="input__container">
+                                        <label for="fname">{{ 'heavy.register.zipCode' | trans }}</label>
+                                        {{ form_widget(form.zipCode) }}
+                                        <i class="fa fa-2x fa-user"></i>
+                                    </div>
+                                    {{ form_errors(form.zipCode) }}
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                            <div>
+                                <input type="submit" class="btn btn-primary m-t-10 centered" id="submitbtn" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

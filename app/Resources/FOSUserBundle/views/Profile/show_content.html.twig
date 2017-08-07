@@ -1,0 +1,12 @@
+{% extends 'frontend/base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <div class="jumbotron">
+            <h1>Mise à jour de vos données</h1>
+            <p class="text-r">{{ 'heavy.register.change'|trans() }}</p>
+            <p><a class="btn btn-default m-t-10" id="submitbtn" href="{{ path('car') }}" role="button">Nos véhicules</a></p>
+        </div>
+    </div>
+{% endblock %}
