@@ -1,0 +1,31 @@
+@mixin flex-width($taille) {
+  flex-basis: $taille;
+  max-width: $taille;
+}
+
+@mixin flex ($dir:0, $wrap:0, $jc:0, $ai:0, $ac:0){
+  display: flex;
+
+  @if $dir == col         { flex-direction : column; }
+  @else if $dir == row    { flex-direction : row; }
+  @else if $dir == col-r  { flex-direction : column-reverse; }
+  @else if $dir == row-r  { flex-direction : row-reverse; }
+
+  @if $wrap == wrap         { flex-wrap : wrap; }
+  @else if $wrap == wrap-r  { flex-wrap : wrap-reverse; }
+
+  @if $jc == 0{  }
+  @else { justify-content : $jc; }
+
+  @if $ai == 0{  }
+  @else { align-items : $ai; }
+
+  @if $ac == 0{  }
+  @else { align-content : $ac; }
+}
+
+@mixin md {
+  @media screen and (min-width: $md-min){
+    @content;
+  }
+}
