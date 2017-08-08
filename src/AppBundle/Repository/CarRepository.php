@@ -23,6 +23,24 @@ use Doctrine\ORM\QueryBuilder;
 class CarRepository extends EntityRepository
 {
     /**
+     * Get car by id
+     *
+     * @param $id
+     *
+     * @return null|Car
+     *
+     */
+    public function findById($id)
+    {
+        $qb = $this->createCarQueryBuilder();
+
+        $qb->andWhere('car.id = :id');
+        $qb->setParameter('id', $id);
+
+        return $qb->getQuery()->getSingleResult();
+    }
+
+    /**
      * @return \Doctrine\ORM\QueryBuilder
      */
     protected function createCarQueryBuilder()

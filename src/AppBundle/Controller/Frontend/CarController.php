@@ -11,22 +11,45 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class CarController extends Controller
 {
     /**
      * @Route("/car", name="car")
+     *
+     * @return Response
      */
     public function showAction()
     {
-        return $this->render('frontend/car/show.html.twig');
+        $carRepository = $this->getDoctrine()->getRepository( Car::class);
+
+        $cars = $carRepository->findAll();
+
+        return $this->render('frontend/car/show.html.twig', [
+            'cars' => $cars
+        ]);
     }
+
     /**
-     * @Route("/details", name="details")
+     * @Route("/car/{id}", name="car_details")
+     * @ParamConverter("GET, POST", class="AppBundle\Entity\Car", options={"repository_method" = "findById"})
+     *
+     * @param Request $request
+     * @param Car     $car
+     *
+     * @return Response
      */
-    public function detailsAction()
+    public function detailsAction(Request $request, Car $car)
     {
-        return $this->render('frontend/car/details.html.twig');
+        /** @var \AppBundle\Repository\CarRepository $carRepository */
+        $carRepository     = $this->getDoctrine()->getRepository(Car::class);
+        $car = $carRepository->findById($car);
+
+        return $this->render('frontend/car/details.html.twig', [
+            'car' => $car
+        ]);
     }
 
     /**
