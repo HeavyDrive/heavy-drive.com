@@ -3,6 +3,8 @@
 @import "components/_homepage.scss";
 @import "components/_header.scss";
 
+@import "components/_mixin.scss";
+@import "components/_global.scss";
 
 @import "components/_cars.scss";
 @import "components/_contact.scss";
@@ -11,3 +13,4 @@
 @import "components/_details.scss";
 //@import "components/_reservation.scss";
 @import "components/login.scss";
+@import "components/account.scss";

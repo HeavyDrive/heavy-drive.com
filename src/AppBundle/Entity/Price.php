@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Price
  *
  * @ORM\Table(name="price", indexes={@ORM\Index(name="FK_773DE69D4D42DB5D", columns={"service_id"}), @ORM\Index(name="FK_773DE69D4D42DB6D", columns={"car_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PriceRepository")
  */
 class Price
 {
@@ -43,7 +43,7 @@ class Price
     private $updatedAt;
 
     /**
-     * @var \Car
+     * @var Car
      *
      * @ORM\ManyToOne(targetEntity="Car")
      * @ORM\JoinColumns({
@@ -53,7 +53,7 @@ class Price
     private $car;
 
     /**
-     * @var \Service
+     * @var Service
      *
      * @ORM\ManyToOne(targetEntity="Service")
      * @ORM\JoinColumns({
@@ -61,8 +61,6 @@ class Price
      * })
      */
     private $service;
-
-
 
     /**
      * Get id

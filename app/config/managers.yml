@@ -1,0 +1,5 @@
+services:
+    heavy.manager.car:
+        class: AppBundle\Manager\CarManager
+        arguments:
+            - '@doctrine'

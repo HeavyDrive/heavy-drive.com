@@ -16,3 +16,9 @@ services:
         arguments: [~, AppBundle\Entity\Car, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des véhicules, label: Car}
+
+    heavy.admin.client:
+            class: AppBundle\Admin\ClientAdmin
+            arguments: [~, AppBundle\Entity\Client, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Administration, label: Client}

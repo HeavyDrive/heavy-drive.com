@@ -1,0 +1,96 @@
+.vertical-line {
+  padding: 0;
+  border: none;
+  border-top: 4px solid #6E1F7C;
+  text-align: center;
+  margin: 25px auto 30px;
+}
+
+.redirect-car a {
+  background-color: #6E1F7C;
+  border-color: #6E1F7C;
+}
+
+.redirect-car a:hover {
+  background-color: #6E1F7C;
+  border-color: #6E1F7C;
+}
+
+.list__header {
+
+  span {
+    color: purple;
+    font-size: 14px;
+    padding: 5px 0;
+    text-align: center;
+
+    &.size--1 {
+      @include flex-width(5%);
+      margin-right: 5%;
+      margin-left: 5%;
+    }
+    &.size--2 {
+      @include flex-width(10%);
+      margin-right: 5%;
+      margin-left: 5%;
+    }
+    &.size--3 {
+      @include flex-width(15%);
+      margin-right: 15%;
+      margin-left: 15%;
+    }
+    &.size--4 {
+      @include flex-width(20%);
+      margin-right: 20%;
+      margin-left: 20%;
+    }
+    &.size--5 {
+      @include flex-width(25%);
+      margin-right: 25%;
+      margin-left: 25%;
+    }
+
+  }
+}
+
+.carlist__car {
+
+  list-style: none;
+  display: flex;
+
+  div {
+    color: purple;
+    font-size: 14px;
+    padding: 5px 0;
+    text-align: center;
+
+    &.size--1 {
+      @include flex-width(5%);
+      margin-right: 5%;
+      margin-left: 2%;
+    }
+    &.size--2 {
+      @include flex-width(10%);
+      margin-right: 3%;
+      margin-left: 5%;
+    }
+    &.size--3 {
+      @include flex-width(15%);
+      margin-right: 5%;
+      margin-left: 5%;
+    }
+    &.size--4 {
+      @include flex-width(20%);
+      margin-right: 6%;
+      margin-left: 6%;
+    }
+    &.size--5 {
+      @include flex-width(25%);
+      margin-right: 25%;
+      margin-left: 25%;
+    }
+
+  }
+}
+
+

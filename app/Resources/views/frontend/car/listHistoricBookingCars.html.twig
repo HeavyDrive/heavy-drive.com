@@ -1,0 +1,58 @@
+{% extends 'frontend/car/baseList.html.twig' %}
+{% import 'frontend/car/macros.html.twig' as car_macro %}
+
+{% block body %}
+    <div class="section">
+        <h2 class="centered"> {{ 'heavy.cars.list.header.historique'|trans }}</h2>
+        <hr class="star-light">
+
+        {% block car_list_car %}
+            {% if carHasBooking %}
+                {% block list_header %}
+                    {{ parent() }}
+                {% endblock %}
+                {% for carHasBook in carHasBooking %}
+                    <hr class="vertical-line">
+                    <li class="carlist__car">
+                        <div class="size--1"><img src="{{ carHasBook.car.pictures }}" class="img-rounded" width="140" height="140"></div>
+                        <div class="size--3">
+                            <span class="text-big bold color-info">{{ carHasBook.car.carMaker }} {{ carHasBook.car.carModel }}</span>
+                            <span class="text-big bold color-info">{{ carHasBook.car.carModelVariant }}</span>
+                            <div class="separator"></div>
+                            <span class="car__info">{{ carHasBook.car.carEngine }}</span>
+                            <span class="car__info">{{ carHasBook.car.transmission }}</span>
+                        </div>
+                        <div class="size--4">{{ carHasBook.dateStart|date }}</div>
+                        <div class="size--4">{{ carHasBook.dateEnd|date }}</div>
+                        <div class="size--3"><p>299€</p></div>
+                        <div class="size--3">{{ carHasBook.status|trans }}</div>
+                        <div class="size--3"><input type="button" value="Télécharger"></div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                {% block no_car_has_booking %}
+                    <div class="jumbotron">
+                        <h2 class="centered">VOUS N'AVEZ PAS ENCORE FAIT DE LOCATION !</h2>
+                    </div>
+                    <div class="content">
+                        <h3 class="centered">Que retrouvez dans " Mon historique "</h3>
+                        <hr class="vertical-line">
+                        <div class="container">
+                            <p>Dès lors ou une location est cloturer vous retrouverez le détail de la voiture ainsi que la facture <br><br></p>
+
+                            <p> Important : <br><br>
+                                Vous pouvez à tout moment noter le véhicule afin de nous permettre de nous améliorer pour les prochainnes locations et vous satisfaire.
+                                De plus la note du service est également important et bonne à prendre afin d'améliorer nos services proposés. <br><br>
+                            </p>
+                            <p>Heavy-Drive vous remercie d'avance pour vos futures locations :D</p>
+                            <br>
+                            <div class="redirect-car">
+                                <a href="{{ path('car') }}" class="btn btn-primary m-t-10">Notre sélection de véhicules</a><br><br>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}

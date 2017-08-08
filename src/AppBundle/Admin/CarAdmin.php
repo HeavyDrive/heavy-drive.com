@@ -20,13 +20,13 @@ class CarAdmin extends AbstractAdmin
             ->add('status')
             ->add('pickUpStatus')
             ->add('pickUpDoneAt')
-            ->add('vehicleType')
-            ->add('vehicleEnergyType')
-            ->add('vehicleMaker')
-            ->add('vehicleCnit')
-            ->add('vehicleModel')
-            ->add('vehicleModelVariant')
-            ->add('vehicleEngine')
+            ->add('carType')
+            ->add('carEnergyType')
+            ->add('carMaker')
+            ->add('carCnit')
+            ->add('carModel')
+            ->add('carModelVariant')
+            ->add('carEngine')
             ->add('firstHand')
             ->add('duplicateKeys')
             ->add('interiorColor')
@@ -50,7 +50,7 @@ class CarAdmin extends AbstractAdmin
         $formMapper
             ->with('Général')
                 ->add('uuid', 'text')
-                ->add('vehicleCnit', 'text', [
+                ->add('carCnit', 'text', [
                     'required' => false
                 ])
                 ->add('registration', 'text')
@@ -67,22 +67,22 @@ class CarAdmin extends AbstractAdmin
                 ])
             ->end()
             ->with('Fiche technique', array('collapsed' => true))
-                ->add('vehicleType', 'text', [
+                ->add('carType', 'text', [
                     'required' => false
                 ])
-                ->add('vehicleEnergyType', 'text', [
+                ->add('carEnergyType', 'text', [
                     'required' => false
                 ])
-                ->add('vehicleMaker', 'text', [
+                ->add('carMaker', 'text', [
                     'required' => false
                 ])
-                ->add('vehicleModel', 'text', [
+                ->add('carModel', 'text', [
                     'required' => false
                 ])
-                ->add('vehicleModelVariant', 'text', [
+                ->add('carModelVariant', 'text', [
                     'required' => false
                 ])
-                ->add('vehicleEngine', 'text', [
+                ->add('carEngine', 'text', [
                     'required' => false
                 ])
                 ->add('transmission', 'text', [
@@ -152,9 +152,9 @@ class CarAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('registration')
             ->add('firstRegistrationAt')
-            ->add('vehicleType')
-            ->add('vehicleEnergyType')
-            ->add('vehicleModel')
+            ->add('carType')
+            ->add('carEnergyType')
+            ->add('carModel')
             ->add('interiorColor')
             ->add('exteriorColor')
             ->add('passengerCapacity')

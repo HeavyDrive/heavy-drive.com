@@ -22,53 +22,14 @@ class PickUpCenter
     private $id;
 
     /**
-     * @var string
+     * @var Agency
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Agency")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="agency_id", referencedColumnName="id")
+     * })
      */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
-     */
-    private $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="zip_code", type="string", length=255, nullable=false)
-     */
-    private $zipCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255, nullable=false)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="full_name", type="string", length=255, nullable=false)
-     */
-    private $fullName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=255, nullable=false)
-     */
-    private $phone;
+    protected $agency;
 
     /**
      * @var string
@@ -84,8 +45,6 @@ class PickUpCenter
      */
     private $enabled;
 
-
-
     /**
      * Get id
      *
@@ -94,174 +53,6 @@ class PickUpCenter
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return PickUpCenter
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return PickUpCenter
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set zipCode
-     *
-     * @param string $zipCode
-     *
-     * @return PickUpCenter
-     */
-    public function setZipCode($zipCode)
-    {
-        $this->zipCode = $zipCode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipCode
-     *
-     * @return string
-     */
-    public function getZipCode()
-    {
-        return $this->zipCode;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     *
-     * @return PickUpCenter
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set fullName
-     *
-     * @param string $fullName
-     *
-     * @return PickUpCenter
-     */
-    public function setFullName($fullName)
-    {
-        $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    /**
-     * Get fullName
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->fullName;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return PickUpCenter
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return PickUpCenter
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
     }
 
     /**
@@ -310,5 +101,29 @@ class PickUpCenter
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * get Agency
+     *
+     * @return Agency
+     */
+    public function getAgency()
+    {
+        return $this->agency;
+    }
+
+    /**
+     * set agency
+     *
+     * @param Agency $agency
+     *
+     * @return self
+     */
+    public function setAgency($agency)
+    {
+        $this->agency = $agency;
+
+        return $this;
     }
 }

@@ -1,0 +1,25 @@
+{% extends 'frontend/base.html.twig' %}
+
+{# page title #}
+{% block page_title %}
+    <h1 class="baselist__title centered">
+        {% block page_title_content %}
+            {{ 'heavy.cars.list.header.default'|trans }}
+        {% endblock %}
+    </h1>
+{% endblock %}
+
+{# list header #}
+{% block list_header %}
+    <div class="list__header list-displayed">
+        {% block car_list_header %}
+            <span class="size--2">Photos</span>
+            <span class="size--1">Description</span>
+            <span class="size--1">Date de début</span>
+            <span class="size--1">Date de fin</span>
+            <span class="size--1">Montant payé</span>
+            <span class="size--1">Statut</span>
+            <span class="size--1">Facture</span>
+        {% endblock %}
+    </div>
+{% endblock %}
