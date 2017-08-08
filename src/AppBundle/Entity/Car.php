@@ -1025,4 +1025,9 @@ class Car
     {
         return $this->pickUpOrigin;
     }
+
+    public function carLabel()
+    {
+        return $this->carMaker . ' ' . $this->carModel;
+    }
 }
