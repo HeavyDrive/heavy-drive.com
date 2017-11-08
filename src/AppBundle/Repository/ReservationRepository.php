@@ -13,6 +13,7 @@ use AppBundle\Entity\Client;
 use AppBundle\Entity\Reservation;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Entity\Car;
 
 class ReservationRepository extends EntityRepository
 {
@@ -71,11 +72,69 @@ class ReservationRepository extends EntityRepository
             Reservation::STATUS_SOLD
         ]);
 
-        dump($qb);
-
         return $qb;
     }
 
+    /**
+     * Get all cars is not available today
+     *
+     * @return array|null
+     */
+    public function getAvailabilityCarForDay()
+    {
+        $date = date_create('now');
+        $date->setTime(00,00,00);
+
+        $dateFin = date_create('now');
+        $dateFin->setTime(23,59,59);
+
+        $qb = $this->createReservationQueryBuilder();
+
+        $qb->select('reservation');
+
+        $qb->where('reservation.dateStart between :dateDeb AND :dateFin ');
+        $qb->setParameter('dateDeb', $date);
+        $qb->setParameter('dateFin', $dateFin);
+
+        if(count($qb->getQuery()->getResult()) == 0) {
+            return null;
+        } else {
+            return $qb->getQuery()->getResult();
+        }
+    }
+
+    /**
+     * Get if an car is available between this period
+     *
+     * @param $car
+     * @param $dateStart
+     * @param $dateEnd
+     *
+     * @return array
+     */
+    public function getAvailabilityCarForPeriod($car, $dateStart, $dateEnd)
+    {
+        $qb = $this->createReservationQueryBuilder();
+
+        $qb->select('reservation');
+
+        $qb->innerJoin('reservation.car', 'reservationCar');
+        $qb->where('reservationCar = :car');
+        $qb->setParameter('car', $car);
+
+        $qb->andWhere('reservation.dateStart <= :dateStart AND reservation.dateEnd >= :dateEnd');
+        $qb->orWhere('reservation.dateStart >= :dateStart AND reservation.dateEnd <= :dateEnd');
+        $qb->orWhere('reservation.dateStart >= :dateStart AND reservation.dateEnd = :dateEnd');
+        $qb->orWhere('reservation.dateStart = :dateStart AND reservation.dateEnd >= :dateEnd');
+        $qb->orWhere('reservation.dateStart between :dateStart AND :dateEnd');
+
+        $qb->setParameter('dateStart', $dateStart);
+        $qb->setParameter('dateEnd', $dateEnd);
+
+        dump($qb->getQuery()->getResult());
+
+        return $qb->getQuery()->getResult();
+    }
 
     /*
     * @return \Doctrine\ORM\QueryBuilder
@@ -86,7 +145,6 @@ class ReservationRepository extends EntityRepository
 
         return $qb;
     }
-
 
 
 }

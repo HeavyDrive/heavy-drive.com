@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
 
 class PriceRepository extends EntityRepository
 {
-    public function getPriceCarByService($service,  $car)
+    public function getPriceCarByService($service, $car)
     {
         $qb = $this->createPriceQueryBuilder();
 
@@ -23,13 +23,26 @@ class PriceRepository extends EntityRepository
 
         $qb->innerJoin('price.car', 'priceCar');
         $qb->where('priceCar.id = :car');
-        $qb->setParameter('car', $service);
+        $qb->setParameter('car', $car);
 
         $qb->innerJoin('price.service', 'priceService');
         $qb->andWhere('priceService.id = :service');
-        $qb->setParameter('service', $car);
+        $qb->setParameter('service', $service);
 
-        return $qb;
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getPriceCar($car)
+    {
+        $qb = $this->createPriceQueryBuilder();
+
+        $qb->addSelect('price');
+
+        $qb->innerJoin('price.car', 'priceCar');
+        $qb->where('priceCar.id = :car');
+        $qb->setParameter('car', $car);
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
