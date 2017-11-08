@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Car;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -9,7 +10,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class CarAdmin extends AbstractAdmin
 {
-
+    public function getSubject()
+    {
+        return $this->subject;
+    }
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -47,7 +51,15 @@ class CarAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
+       // dump($this->subject);
         $formMapper
+            ->with('Pictures')
+                ->add('pictures', 'file', [
+                    'required' => false,
+                    'help' => 'b',
+                    "data_class" => null,
+                ])
+            ->end()
             ->with('Général')
                 ->add('uuid', 'text')
                 ->add('carCnit', 'text', [
@@ -128,9 +140,6 @@ class CarAdmin extends AbstractAdmin
                 ->add('options', 'text', [
                     'required' => false
                 ])
-                ->add('pictures', 'text', [
-                    'required' => false
-                ])
             ->end()
             ->with('System Information', array('collapsed' => true))
                 ->add('createdAt', 'sonata_type_datetime_picker', [
@@ -141,7 +150,7 @@ class CarAdmin extends AbstractAdmin
                 ])
             ->end()
             ->with('Comments')
-                ->add('comments')
+                ->add('comments', 'textarea')
             ->end();
     }
 
@@ -149,6 +158,7 @@ class CarAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('uuid')
+            ->add('pictures','array', array('template' => 'backend/Media/list_image.html.twig'))
             ->add('enabled')
             ->add('registration')
             ->add('firstRegistrationAt')
@@ -173,4 +183,19 @@ class CarAdmin extends AbstractAdmin
         $datagridMapper
             ->add('enabled');
     }
+
+    public function prePersist($car) {
+        $this->saveFile($car);
+    }
+
+    public function preUpdate($car) {
+        $this->saveFile($car);
+    }
+
+    public function saveFile(Car $car) {
+        $basepath = $this->getRequest()->getBasePath();
+        $car->upload($basepath);
+    }
 }
+
+

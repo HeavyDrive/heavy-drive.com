@@ -19,6 +19,7 @@ class ClientAdmin extends AbstractAdmin
             ->add('lastName')
             ->add('telephone')
             ->add('lastLogin')
+            //->add('roles', 'collection')
             /*->add('username')
             ->add('usernameCanonical')
             ->add('email')
@@ -34,18 +35,28 @@ class ClientAdmin extends AbstractAdmin
             ->add('locked')
             ->add('expired')
             ->add('expiresAt')
-            ->add('roles')
             ->add('credentialsExpired')
             ->add('credentialsExpireAt')*/
         ;
     }
 
+    /**
+     * @param FormMapper $formMapper
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
+
+        $container = $this->getConfigurationPool()->getContainer();
+        $roles = $container->getParameter('security.role_hierarchy.roles');
+
+        dump($roles);
+
+        $rolesChoices = self::flattenRoles($roles);
+        dump($rolesChoices);
+
         $formMapper
             ->with('Général')
-                //->add('Agency', 'sonata_type_model_list')
-                ->add('email', 'text', [
+            ->add('email', 'text', [
                     'required' => false
                 ])
                 ->add('firstName', 'text')
@@ -54,10 +65,19 @@ class ClientAdmin extends AbstractAdmin
                 ->add('lastLogin', 'sonata_type_datetime_picker', [
                     'data' => new \DateTime(), 'required' => false
                 ])
+
                 //->add('enabled', null, array('required' => false))
             ->end()
             ->with('Security', array('collapsed' => true))
-                ->add('plainPassword', 'text')
+                ->add('plainPassword', 'text', [
+                    'required' => false
+                ])
+                ->add('roles', 'choice', array(
+                        'choices'  => $rolesChoices,
+                        'multiple' => true,
+                        'expanded' => true
+                    )
+                )
             ->end()
         ;
     }
@@ -84,5 +104,24 @@ class ClientAdmin extends AbstractAdmin
     {
         $datagridMapper
         ;
+    }
+
+    protected static function flattenRoles($rolesHierarchy)
+    {
+        $flatRoles = array();
+        foreach($rolesHierarchy as $roles) {
+
+            if(empty($roles)) {
+                continue;
+            }
+
+            foreach($roles as $role) {
+                if(!isset($flatRoles[$role])) {
+                    $flatRoles[$role] = $role;
+                }
+            }
+        }
+
+        return $flatRoles;
     }
 }
