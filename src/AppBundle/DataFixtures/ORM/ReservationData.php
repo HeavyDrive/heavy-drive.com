@@ -42,7 +42,7 @@ class ReservationData extends BaseFixtureLoader implements OrderedFixtureInterfa
         $carRepository = $this->container->get('doctrine')->getManagerForClass(Car::class)->getRepository(Car::class);
         $cars = $carRepository->findAll();
 
-        for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 2; $i++) {
             foreach ($clients as $client) {
                 foreach ($pickUpCenters as $pickUpCenter) {
                     $reservation = new Reservation();
