@@ -349,9 +349,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_at" type="INT"/>
+            <column name="comment_customer" type="VARCHAR(255)"/>
+            <column name="booking_options_id" remarks="(DC2Type:json_array)" type="INT"/>
             <column name="bill" type="float"/>
-
-
         </createTable>
     </changeSet>
     <changeSet author="Guillaume (generated)" id="29">
@@ -359,6 +359,9 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="path" type="VARCHAR(255)"/>
+            <column name="cni_number" type="INT"/>
         </createTable>
     </changeSet>
     <changeSet author="Guillaume (generated)" id="30">
@@ -366,6 +369,8 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="path" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
     <changeSet author="Guillaume (generated)" id="31">
@@ -373,7 +378,15 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="neph_number" type="INT">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet author="Guillaume (generated)" id="26">
@@ -422,6 +435,20 @@
             <column name="service_note" type="INT(5)"/>
             <column name="car_comment" type="varchar(255)"/>
             <column name="service_comment" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ashley (generated)" id="35">
+        <createTable tableName="booking_options">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="price" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment_options" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
     <!--<changeSet author="Guillaume (generated)" id="47">
@@ -486,6 +513,9 @@
     </changeSet>
     <changeSet author="Ashley (generated)" id="54">
         <addForeignKeyConstraint baseColumnNames="proof_of_adress_id" baseTableName="reservation" constraintName="FK_773DE69D4D42DB27D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="proof_of_adress"/>
+    </changeSet>
+    <changeSet author="Ashley (generated)" id="55">
+        <addForeignKeyConstraint baseColumnNames="booking_options_id" baseTableName="reservation" constraintName="FK_773DE69D4D42DB28D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="booking_options"/>
     </changeSet>
 
 </databaseChangeLog>
