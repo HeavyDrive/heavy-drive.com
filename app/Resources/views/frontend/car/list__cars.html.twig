@@ -1,86 +1,29 @@
 <!-- Page Content -->
+{% import 'frontend/car/macros.html.twig' as car_macro %}
 <div class="container">
     <!-- Page Features -->
     <div class="row text-center">
+        {% if cars %}
+            {% for car in cars %}
+                <div class="col-md-4 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="{{ asset('images/cayen.jpg') }}" alt="">
+                        <div class="panel-body">
+                            <h3>{{ (car.carLabel) }}</h3>
+                            <p> Place assises : {{ car.passengerCapacity }}</p>
+                            <p>Agence : Domont</p>
+                        </div>
+                        <div class="panel-footer">
 
-        <div class="col-md-4 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="{{ asset('images/cayen.jpg') }}" alt="">
-                <div class="panel-body">
-                    <h3>Feature Label</h3>
-                    <p>5 places</p>
-                    <p>A partir de 99€</p>
+                            <a href="{{ path('car_details', {'id': car.id, 'dateStart': dateStart|date('Y-m-d H:i:s'), 'dateEnd' : dateEnd|date('Y-m-d H:i:s') }) }}" class="btn btn-primary">Détails et tarifs</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-footer">
-                    <a href="{{ path('details') }}" class="btn btn-primary">Détails et tarifs</a>
+            {% endfor %}
+        {% else %}
+                <div class="jumbotron">
+                    <h2 class="centered">Aucune voiture disponible à ces dates</h2>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="{{ asset('images/cayen.jpg') }}" alt="">
-                <div class="panel-body">
-                    <h3>Feature Label</h3>
-                    <p>5 places</p>
-                    <p>A partir de 99€</p>
-                </div>
-                <div class="panel-footer">
-                    <a href="{{ path('details') }}" class="btn btn-primary">Détails et tarifs</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="{{ asset('images/cayen.jpg') }}" alt="">
-                <div class="panel-body">
-                    <h3>Feature Label</h3>
-                    <p>5 places</p>
-                    <p>A partir de 99€</p>
-                </div>
-                <div class="panel-footer">
-                    <a href="{{ path('details') }}" class="btn btn-primary">Détails et tarifs</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="{{ asset('images/cayen.jpg') }}" alt="">
-                <div class="panel-body">
-                    <h3>Feature Label</h3>
-                    <p>5 places</p>
-                    <p>A partir de 99€</p>
-                </div>
-                <div class="panel-footer">
-                    <a href="{{ path('details') }}" class="btn btn-primary">Détails et tarifs</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="{{ asset('images/cayen.jpg') }}" alt="">
-                <div class="panel-body">
-                    <h3>Feature Label</h3>
-                    <p>5 places</p>
-                    <p>A partir de 99€</p>
-                </div>
-                <div class="panel-footer">
-                    <a href="{{ path('details') }}" class="btn btn-primary">Détails et tarifs</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="{{ asset('images/cayen.jpg') }}" alt="">
-                <div class="panel-body">
-                    <h3>Feature Label</h3>
-                    <p>5 places</p>
-                    <p>A partir de 99€</p>
-                </div>
-                <div class="panel-footer">
-                    <a href="{{ path('details') }}" class="btn btn-primary">Détails et tarifs</a>
-                </div>
-            </div>
-        </div>
+        {% endif %}
     </div>
 </div>

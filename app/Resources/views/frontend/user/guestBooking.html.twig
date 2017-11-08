@@ -1,0 +1,37 @@
+{{ form_start(form1) }}
+<div class='col-sm-12'>
+    <div class="col-xs-12">
+        <div class="input__container">
+            <label for="fname">{{ 'heavy.register.firstname' | trans }}</label>
+            {{ form_widget(form1.firstName) }}
+        </div>
+        {{ form_errors(form1.firstName) }}
+        <div class="input__container">
+            <label for="name">{{ 'heavy.register.lastname' | trans }}</label>
+            {{ form_widget(form1.lastName) }}
+        </div>
+        {{ form_errors(form1.lastName) }}
+        <div class="input__container">
+            <label for="fname">{{ 'heavy.register.mobile' | trans }}</label>
+            {{ form_widget(form1.telephone) }}
+        </div>
+        {{ form_errors(form1.telephone) }}
+        <div class="input__container">
+            <label for="fname">{{ 'heavy.register.city' | trans }}</label>
+            {{ form_widget(form1.city) }}
+        </div>
+        {{ form_errors(form1.city) }}
+        <div class="input__container">
+            <label for="fname">{{ 'heavy.register.address' | trans }}</label>
+            {{ form_widget(form1.address) }}
+        </div>
+        {{ form_errors(form1.address) }}
+        <div class="input__container">
+            <label for="fname">{{ 'heavy.register.zipCode' | trans }}</label>
+            {{ form_widget(form1.zipCode) }}
+        </div>
+        {{ form_errors(form1.zipCode) }}
+        <br>
+    </div>
+</div>
+{{ form_end(form1) }}

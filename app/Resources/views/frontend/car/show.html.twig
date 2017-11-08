@@ -3,6 +3,65 @@
     <div class="container">
         <h2 class="centered">{{ 'heavy.cars.selection'|trans }}</h2>
         <hr class="star-light">
+
+        <div class="well text-center">
+            {{ form_start(form) }}
+            <div class="col-md-12">
+                <label class="col-md-2 control-label" for="location">Agence de départ</label>
+                <div class="col-md-3">
+                    <div class='input-group'>
+                        {{ form_widget(form.agency, { 'attr': {'class': 'form-control input-md'} }) }}
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </span>
+                    </div>
+                </div>
+                <label class="col-md-2 control-label" for="location">Agence de retour</label>
+                <div class="col-md-3">
+                    <div class='input-group'>
+                        {{ form_widget(form.agencyRetour, { 'attr': {'class': 'form-control input-md'} } ) }}
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="col-md-12">
+                <label class="col-md-2 control-label" for="location">Départ le :</label>
+                <div class="col-md-3">
+                    <div class='input-group date' id='js-datepicker1'>
+                        {{ form_widget(form.startDate) }}
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                </div>
+                <label class="col-md-2 control-label" for="location">Retour le :</label>
+                <div class="col-md-3">
+                    <div class='input-group date' id='js-datepicker2'>
+                        {{ form_widget(form.endDate) }}
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
         {{ include ('frontend/car/list__cars.html.twig') }}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        jQuery(function () {
+            jQuery('#js-datepicker1').datetimepicker({ format:'DD-MM-YYYY HH:mm:ss' });
+            jQuery('#js-datepicker2').datetimepicker({ format:'DD-MM-YYYY HH:mm:ss' });
+
+        });
+    </script>
 {% endblock %}
