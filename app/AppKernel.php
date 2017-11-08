@@ -16,7 +16,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-
+            //new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
 
             // Add your dependencies
             new Sonata\CoreBundle\SonataCoreBundle(),

@@ -16,7 +16,11 @@ exports.config = {
                     "bower_components/jquery/dist/jquery.min.js",
                     "bower_components/bootstrap-sass/assets/javascripts/bootstrap/*",
                     "bower_components/bootstrap-sass/assets/javascripts/bootstrap.js",
-                    "bower_components/bootstrap/js/*"
+                    "bower_components/bootstrap/js/*",
+                    "bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+                    "bower_components/moment/min/moment.min.js",
+                    "bower_components/datetimepicker/build/jquery.datetimepicker.min.js",
+
                 ]
             }
         },
@@ -30,7 +34,8 @@ exports.config = {
                     "bower_components/bootstrap-sass/assets/stylesheets/bootstrap",
                     "bower_components/bootstrap/dist/css/bootstrap.min.css",
                     "bower_components/components-font-awesome/font-awesome.min.css",
-                    "bower_components/bootstrap-social/bootstrap-social.css"
+                    "bower_components/bootstrap-social/bootstrap-social.css",
+                    "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
                 ]
             }
         }
