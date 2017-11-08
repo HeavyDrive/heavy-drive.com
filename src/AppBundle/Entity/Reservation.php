@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -81,7 +82,8 @@ class Reservation
     /**
      * @var Car
      *
-     * @ORM\OneToOne(targetEntity="Car", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Car", cascade={"persist"})
+     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
      */
     protected $car;
 
@@ -89,7 +91,7 @@ class Reservation
      * @var LicenseDriver
      *
      * @ORM\OneToOne(targetEntity="LicenseDriver", cascade={"persist"})
-     * @ORM\JoinColumn(name="license_driver_id", nullable=false)
+     * @ORM\JoinColumn(name="id", nullable=false)
      */
     protected $licenceDriver;
 
@@ -97,15 +99,23 @@ class Reservation
      * @var ProofOfAdress
      *
      * @ORM\OneToOne(targetEntity="ProofOfAdress", cascade={"persist"})
+     * @ORM\JoinColumn(name="id", nullable=false)
      */
     protected $proofOfAdress;
 
     /**
-     * @var IdentityCard
      *
      * @ORM\OneToOne(targetEntity="IdentityCard", cascade={"persist"})
+     * @ORM\JoinColumn(name="id", nullable=false)
      */
     protected $identityCard;
+
+    /**
+     * @var BookingOptions
+     *
+     * @ORM\ManyToMany(targetEntity="BookingOptions", cascade={"persist"})
+     */
+    private $bookingOptions;
 
     /**
      * @var integer
@@ -136,11 +146,27 @@ class Reservation
     protected $createdAt;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="bill", type="float")
+     */
+    protected $bill;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
+
+    /**
+     * Reservation constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->bookingOptions = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -216,10 +242,14 @@ class Reservation
 
     /**
      * @param LicenseDriver $licenceDriver
+     *
+     * @return self
      */
     public function setLicenceDriver($licenceDriver)
     {
         $this->licenceDriver = $licenceDriver;
+
+        return $this;
     }
 
     /**
@@ -265,7 +295,7 @@ class Reservation
     /**
      * @param Car $car
      *
-     * @return self
+     * @return Reservation
      */
     public function setCar(Car $car)
     {
@@ -314,8 +344,9 @@ class Reservation
      * @param \DateTime $dateStart
      *
      * @return self
+     *
      */
-    public function setDateStart($dateStart)
+    public function setDateStart(\DateTime $dateStart)
     {
         $this->dateStart = $dateStart;
 
@@ -338,6 +369,7 @@ class Reservation
      * @param \DateTime $dateEnd
      *
      * @return self
+     *
      */
     public function setDateEnd(\DateTime $dateEnd)
     {
@@ -392,5 +424,73 @@ class Reservation
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBill()
+    {
+        return $this->bill;
+    }
+
+    /**
+     * @param float $bill
+     *
+     * @return self
+     */
+    public function setBill($bill)
+    {
+        $this->bill = $bill;
+
+        return $this;
+    }
+
+    /**
+     * Set bookingOptions
+     *
+     * @param BookingOptions|ArrayCollection $bookingOptions
+     *
+     * @return $this
+     */
+    public function setBookingOptions(ArrayCollection $bookingOptions)
+    {
+        $this->bookingOptions = $bookingOptions;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingOptions
+     *
+     * @return BookingOptions|ArrayCollection
+     */
+    public function getBookingOptions()
+    {
+        return $this->bookingOptions;
+    }
+
+    /**
+     * Add bookingOption
+     *
+     * @param ArrayCollection $bookingOption
+     *
+     * @return Reservation
+     */
+    public function addBookingOption(ArrayCollection $bookingOption)
+    {
+        $this->bookingOptions[] = $bookingOption;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookingOption
+     *
+     * @param \AppBundle\Entity\BookingOptions $bookingOption
+     */
+    public function removeBookingOption(\AppBundle\Entity\BookingOptions $bookingOption)
+    {
+        $this->bookingOptions->removeElement($bookingOption);
     }
 }

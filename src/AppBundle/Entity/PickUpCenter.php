@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,6 +45,11 @@ class PickUpCenter
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
     private $enabled;
+
+    public function __construct()
+    {
+        $this->agency = new ArrayCollection();
+    }
 
     /**
      * Get id
