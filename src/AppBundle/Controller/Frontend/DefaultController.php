@@ -10,6 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+
+    public function __construct()
+    {
+
+    }
+
     /**
      * @Route("/", name="homepage")
      *
@@ -29,5 +35,16 @@ class DefaultController extends Controller
     public function contactAction()
     {
         return $this->render('frontend/default/contact.html.twig');
+    }
+
+    /**
+     * @Route("/storage", name="storage")
+     *
+     */
+    public function storageAction()
+    {
+        $cloudStorage = $this->container->get('app.services.google_cloud');
+
+        dump($cloudStorage);
     }
 }
