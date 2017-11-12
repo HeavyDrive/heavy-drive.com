@@ -78,7 +78,7 @@ class Agency
     private $enabled;
 
     /**
-     * @var \PickUpCenter
+     * @var PickUpCenter
      *
      * @ORM\ManyToOne(targetEntity="PickUpCenter")
      * @ORM\JoinColumns({
@@ -313,5 +313,9 @@ class Agency
     public function getPickUpAgency()
     {
         return $this->pickUpAgency;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }

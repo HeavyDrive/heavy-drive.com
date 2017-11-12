@@ -10,6 +10,14 @@ imports:
 parameters:
     locale: fr
 
+    cloud_storage:
+        login: heavy-drive@heavy-176518.iam.gserviceaccount.com
+        key: AIzaSyDf4I13xfPkYP73TB-Wxc28DZoTo1x9JCQ
+        bucket: heavy-cars
+        path: documents
+        scope: 'https://www.googleapis.com/auth/devstorage.full_control'
+        url: 'https://storage.googleapis.com/'
+
 framework:
     esi: { enabled: true}
     translator: { fallbacks: ['%locale%'] }
@@ -36,7 +44,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-
+    form_themes:
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
 # Doctrine Configuration
 doctrine:
     dbal:

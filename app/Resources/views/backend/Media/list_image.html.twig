@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    <div>
+    {% if object.pictures != null %}
+        <img class="img-responsive" alt="" src="{{ relative_path(object.pictures) }}" />
+    {% else %}
+        <span>No picture</span>
+    {% endif %}
+{% endblock field %}

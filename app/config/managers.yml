@@ -3,3 +3,13 @@ services:
         class: AppBundle\Manager\CarManager
         arguments:
             - '@doctrine'
+
+    heavy.manager.reservation:
+        class: AppBundle\Manager\ReservationManager
+        arguments:
+            - '@doctrine'
+
+    heavy.manager.booking_guest:
+        class: AppBundle\Manager\BookingGuestManager
+        arguments:
+            - '@doctrine'

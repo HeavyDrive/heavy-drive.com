@@ -1,5 +1,8 @@
 {% extends "frontend/base.html.twig" %}
 {% block body %}
+    {% set dateStart = date(app.request.query.get('dateStart')) %}
+    {% set dateEnd = date(app.request.query.get('dateEnd')) %}
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -29,29 +32,17 @@
             <div class="bs-five-area bs-radius" >
                 <div class="col-lg-4  ">
                     <div class="bs-five">
-                        <h2>Location cayene</h2>
+                        <h2>{{ car.carLabel }}</h2>
                         <h3><b>Tarifs selon nos prestations</b></h3>
                         <ul class="tarif_prestation">
-                            <li>
-                                <p>
-                                    Location chrono : 99 €
-                                </p>
-                                <a href="{{ path('reservation') }}">Réserver</a>
-                            </li>
-                            <li>
-                                <p>
-                                    Location week-end : 499 €
-                                </p>
-                                <a href="{{ path('reservation') }}">Réserver</a>
-                            </li>
-                            <li>
-                                <p>
-                                    Location bien-etre : 659 €
-                                </p>
-                                <a href="{{ path('reservation') }}">Réserver</a>
-                            </li>
+                            {% for price in priceCar %}
+                                <li>
+                                    <p> {{ price.service.name }} : {{ price.toPay }} </p>
+                                    <a href="{{ path('reservation', {'id': price.service.id, 'dateStart': dateStart|date('Y-m-d H:i:s'), 'dateEnd': dateEnd|date('Y-m-d H:i:s') }) }}">Réserver</a>
+                                </li>
+                            {% endfor %}
                         </ul>
-                         <a href="#" class="btn btn-success">Demande de devis</a>
+                         <a href="#details-technique" class="btn btn-success">Fiche technique</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +50,7 @@
     </div>
     <br>
 
-    <div class="row">
+    <div class="">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <a href="#">
                 <img class="img-responsive img-hover" src={{ asset('images/cayen.jpg') }} alt="">
@@ -82,8 +73,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12 details_techniques">
+    <div class="">
+        <div class="col-lg-12 details_techniques" id="details-technique">
             <h2 class="centered">Fiche technique</h2>
             <hr class="star-light">
         </div>

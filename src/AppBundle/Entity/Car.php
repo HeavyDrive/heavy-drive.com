@@ -3,6 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Car
@@ -12,6 +16,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Car
 {
+
+    /**
+     * Car status.
+     */
+    const STATUS_AVAILABLE     = 0; // car available
+    const STATUS_BUSY    = 5; // car busy
+
+    public static $statuses = [
+        self::STATUS_AVAILABLE => 'cars.status.created', // car is available
+        self::STATUS_BUSY      => 'cars.status.busy',// Car is busy
+    ];
+
     /**
      * @var integer
      *
@@ -1024,10 +1040,5 @@ class Car
     public function getPickUpOrigin()
     {
         return $this->pickUpOrigin;
-    }
-
-    public function carLabel()
-    {
-        return $this->carMaker . ' ' . $this->carModel;
     }
 }

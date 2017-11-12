@@ -39,6 +39,11 @@ class CarManager
     protected $priceRepository;
 
     /**
+     * @var CarRepository
+     */
+    protected $carRepository;
+
+    /**
      * @var EntityManager
      */
     protected $entityManager;
@@ -46,7 +51,7 @@ class CarManager
     /**
      * CarManager constructor.
      *
-     * @param Registry      $registry
+     * @param Registry $registry
      */
     public function __construct(Registry $registry)
     {
@@ -54,7 +59,8 @@ class CarManager
         $this->entityManager         = $registry->getManagerForClass(Reservation::class);
         $this->reservationRepository = $registry->getRepository(Reservation::class);
         $this->priceRepository       = $registry->getRepository(Price::class);
-        //$this->priceRepository         = $registry->getRepository(Price::class);
+        /** @var \AppBundle\Repository\CarRepository $carRepository */
+        $this->carRepository         = $registry->getRepository(Car::class);
     }
 
     /**
@@ -81,9 +87,20 @@ class CarManager
         return $this->reservationRepository->getReservationByClient($user)->getQuery()->getResult();
     }
 
+    /**
+     * @param $service
+     * @param $car
+     *
+     * @return array
+     */
     public function listPriceCarByService($service, $car)
     {
         return $this->priceRepository->getPriceCarByService($service, $car)->getQuery()->getResult();
+    }
+
+    public function getCarAvailable()
+    {
+        return $this->carRepository->getCarAvailability()->getQuery()->getMaxResults();
     }
 }
 

@@ -30,7 +30,7 @@ class ServiceData extends BaseFixtureLoader implements OrderedFixtureInterface, 
      */
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i < 10; $i++ )
+        for ($i = 0; $i < 3; $i++ )
         {
             $agency = new Service();
             $agency->setName($this->faker->name);

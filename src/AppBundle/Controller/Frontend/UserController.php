@@ -10,4 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller{
 
+    /**
+     * @Route()
+     */
+    public function redirectAfterRegister()
+    {
+
+    }
 }

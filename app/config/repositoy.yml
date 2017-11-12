@@ -1,0 +1,5 @@
+services:
+    repository.reservation:
+        class: AppBundle\Repository\ReservationRepository
+        factory: ['@doctrine', getRepository]
+        arguments: AppBundle\Entity\Reservation

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Service
  *
  * @ORM\Table(name="service", indexes={@ORM\Index(name="FK_773DE69D4D42DB4D", columns={"agency_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
  */
 class Service
 {
@@ -220,5 +220,9 @@ class Service
     public function getAgency()
     {
         return $this->agency;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }

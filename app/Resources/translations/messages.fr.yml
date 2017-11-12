@@ -1,10 +1,10 @@
 heavy:
     reservation:
-        step_1: Periode Location
-        step_2: Information personnelle
+        step_1: Information personnelle
+        step_2: Information Location
         step_3: Justificatif (Facultatif)
         step_4: Validation Pré-Réservation
-        rent_date: Choississez la durée de votre location
+        rent_option: Choississez des options pour votre location
         from_date: Date de début :
         to_date: Date de fin :
         button_next: Suivant
@@ -31,6 +31,9 @@ heavy:
             not_sold: En attente du paiement
             closed: Terminée
             cancelled: annulée
+        rent_location: Choississez le lieu de votre location
+        rent_pick_up: Lieu de retrait
+        rent_dropp_off: Lieu de dépose
     register:
         description: Créer votre compte Heavy-Drive!
         firstname: Prénom*
@@ -85,6 +88,9 @@ heavy:
                 booking: "Mes réservation"
                 historique: Mon historique
         selection: Notre Sélection
+        status:
+            available: Disponible
+            busy: Occupée
 
 
     homepage:

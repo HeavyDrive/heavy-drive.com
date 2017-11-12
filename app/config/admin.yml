@@ -5,6 +5,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Administration, label: Service }
 
+    heavy.admin.booking:
+            class: AppBundle\Admin\ReservationAdmin
+            arguments: [~, AppBundle\Entity\Reservation, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Administration, label: Reservation, label_catalogue: "AppBundle" }
+            calls:
+                - [ setTranslationDomain, [AppBundle]]
+
     heavy.admin.agency:
         class: AppBundle\Admin\AgencyAdmin
         arguments: [~, AppBundle\Entity\Agency, ~]
@@ -18,7 +26,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Gestion des véhicules, label: Car}
 
     heavy.admin.client:
-            class: AppBundle\Admin\ClientAdmin
-            arguments: [~, AppBundle\Entity\Client, ~]
-            tags:
-                - { name: sonata.admin, manager_type: orm, group: Administration, label: Client}
+        class: AppBundle\Admin\ClientAdmin
+        arguments: [~, AppBundle\Entity\Client, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Administration, label: Client}
