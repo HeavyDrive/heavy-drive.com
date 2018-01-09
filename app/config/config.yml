@@ -10,6 +10,15 @@ imports:
 parameters:
     locale: fr
 
+    #Google Cloud Storage
+    cloud_storage:
+        login: "%google_cloud_storage_login%"
+        key: "%google_cloud_storage_key%"
+        bucket: "%google_cloud_storage_bucket%"
+        path: "%google_cloud_storage_path%"
+        scope: "%google_cloud_storage_scope%"
+        url: "%google_cloud_storage_url%"
+
 framework:
     esi: { enabled: true}
     translator: { fallbacks: ['%locale%'] }
