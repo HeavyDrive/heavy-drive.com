@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Reservation
  *
+ * @property BookingOptions|ArrayCollection bookingOptions
  * @ORM\Table(name="reservation", indexes={@ORM\Index(name="FK_773DE69D4D42DB17D", columns={"client_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReservationRepository")
  */
@@ -91,7 +92,7 @@ class Reservation
      * @var LicenseDriver
      *
      * @ORM\OneToOne(targetEntity="LicenseDriver", cascade={"persist"})
-     * @ORM\JoinColumn(name="id", nullable=false)
+     * @ORM\JoinColumn(name="license_driver_id", nullable=false)
      */
     protected $licenceDriver;
 
@@ -99,14 +100,14 @@ class Reservation
      * @var ProofOfAdress
      *
      * @ORM\OneToOne(targetEntity="ProofOfAdress", cascade={"persist"})
-     * @ORM\JoinColumn(name="id", nullable=false)
+     * @ORM\JoinColumn(name="proof_of_adress_id", nullable=false)
      */
     protected $proofOfAdress;
 
     /**
      *
      * @ORM\OneToOne(targetEntity="IdentityCard", cascade={"persist"})
-     * @ORM\JoinColumn(name="id", nullable=false)
+     * @ORM\JoinColumn(name="identity_card_id", nullable=false)
      */
     protected $identityCard;
 
@@ -115,7 +116,7 @@ class Reservation
      *
      * @ORM\ManyToMany(targetEntity="BookingOptions", cascade={"persist"})
      */
-    private $bookingOptions;
+    //protected $bookingOptions;
 
     /**
      * @var integer
@@ -165,7 +166,6 @@ class Reservation
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->bookingOptions = new ArrayCollection();
     }
 
     /**
@@ -453,19 +453,19 @@ class Reservation
      *
      * @return $this
      */
-    public function setBookingOptions(ArrayCollection $bookingOptions)
+    /*public function setBookingOptions(ArrayCollection $bookingOptions)
     {
         $this->bookingOptions = $bookingOptions;
 
         return $this;
-    }
+    }*/
 
     /**
      * Get bookingOptions
      *
      * @return BookingOptions|ArrayCollection
      */
-    public function getBookingOptions()
+    /*public function getBookingOptions()
     {
         return $this->bookingOptions;
     }
@@ -477,20 +477,9 @@ class Reservation
      *
      * @return Reservation
      */
-    public function addBookingOption(ArrayCollection $bookingOption)
+    /*public function addBookingOption(ArrayCollection $bookingOption)
     {
         $this->bookingOptions[] = $bookingOption;
+    }*/
 
-        return $this;
-    }
-
-    /**
-     * Remove bookingOption
-     *
-     * @param \AppBundle\Entity\BookingOptions $bookingOption
-     */
-    public function removeBookingOption(\AppBundle\Entity\BookingOptions $bookingOption)
-    {
-        $this->bookingOptions->removeElement($bookingOption);
-    }
 }

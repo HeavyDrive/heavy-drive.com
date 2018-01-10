@@ -255,7 +255,7 @@ class Car
     private $enabled;
 
     /**
-     * @var \PickUpCenter
+     * @var PickUpCenter
      *
      * @ORM\ManyToOne(targetEntity="PickUpCenter")
      * @ORM\JoinColumns({
@@ -1040,5 +1040,171 @@ class Car
     public function getPickUpOrigin()
     {
         return $this->pickUpOrigin;
+    }
+
+    public function carLabel()
+    {
+        return $this->carMaker . ' ' . $this->carModel;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return self
+     */
+    public function setReservation(\AppBundle\Entity\Reservation $reservation = null)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \AppBundle\Entity\Reservation
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->car = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add car
+     *
+     * @param \AppBundle\Entity\Reservation $car
+     *
+     * @return Car
+     */
+    public function addCar(\AppBundle\Entity\Reservation $car)
+    {
+        $this->car[] = $car;
+
+        return $this;
+    }
+
+    /**
+     * Remove car
+     *
+     * @param \AppBundle\Entity\Reservation $car
+     */
+    public function removeCar(\AppBundle\Entity\Reservation $car)
+    {
+        $this->car->removeElement($car);
+    }
+
+    /**
+     * Get car
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCar()
+    {
+        return $this->car;
+    }
+
+    /**
+     * Add reservation
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return Car
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservation[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservation->removeElement($reservation);
+    }
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->pictures ? null : $this->getUploadRootDir().'/'.$this->pictures;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->pictures ? null : $this->getUploadDir().'/'.$this->pictures;
+    }
+
+    protected function getUploadRootDir($basepath)
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return $basepath.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'uploads/cars';
+    }
+
+    public function upload($basepath)
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->pictures) {
+            return;
+        }
+
+        if (null === $basepath) {
+            return;
+        }
+
+        // set the path property to the filename where you'ved saved the file
+        $this->setPictures($this->getUploadDir().'/'.$this->pictures->getClientOriginalName());
+
+        // we use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the target filename to move to
+        //$this->pictures->move($this->getUploadRootDir($basepath), $this->pictures->getClientOriginalName());
+
+
+        // clean up the file property as you won't need it anymore
+        //$this->pictures = null;
     }
 }
