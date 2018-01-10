@@ -1,5 +1,6 @@
 <?php
 
+namespace AppBundle\Service;
 /**
  * @package AppBundle\Service
  */
