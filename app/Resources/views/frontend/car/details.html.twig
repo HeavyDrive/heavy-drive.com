@@ -54,26 +54,26 @@
             <div class="col-md-4">
                 <div class="panel panel-info infos-car">
                     <div class="panel-heading infos_moteur">
-                        <h1 class="panel-title centered">Moteur</h1>
+                        <h1 class="panel-title centered">Véhicule</h1>
                     </div>
                     <div class="panel-body">
                         <table class="table table-hover table-inverse" cellspacing="0" width="50%">
                             <tbody>
                             <tr>
-                                <th> Nombre de cylindres :</th>
-                                <td>8</td>
+                                <th> {{ 'heavy.cars.characteristics.car_type'|trans }} </th>
+                                <td> {{ car.car_type }} </td>
                             </tr>
                             <tr>
-                                <th> Nombre de soupapes par cylindre :</th>
-                                <td>4</td>
+                                <th> {{ 'heavy.cars.characteristics.car_energy_type'|trans }} </th>
+                                <td> {{ car.car_energy_type }} </td>
                             </tr>
                             <tr>
-                                <th>Puissance din :</th>
-                                <td>510 ch au régime de 6800 tr/min</td>
+                                <th> {{ 'heavy.cars.characteristics.car_maker'|trans }} </th>
+                                <td> {{ car.car_maker }} </td>
                             </tr>
                             <tr>
-                                <th>Indicateur de chargement:</th>
-                                <td>OUI</td>
+                                <th> {{ 'heavy.cars.characteristics.car_model'|trans }} </th>
+                                <td> {{ car.car_model }} </td>
                             </tr>
                             </tbody>
                         </table>
@@ -89,25 +89,12 @@
                         <table class="table table-hover table-inverse" cellspacing="0" width="50%">
                             <tbody>
                             <tr>
-                                <th>Transmission :</th>
-                                <td>4 roues motrices</td>
+                                <th> {{ 'heavy.cars.characteristics.transmission'|trans }} </th>
+                                <td> {{ car.transmission }} </td>
                             </tr>
                             <tr>
-                                <th> Boite :</th>
-                                <td>Automatique</td>
-                            </tr>
-                            <tr>
-                                <th>Nb. vitesses :</th>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <th>Indicateur de chargement:</th>
-                                <td>OUI</td>
-                            </tr>
-
-                            <tr>
-                                <th>Categorie :</th>
-                                <td>B1</td>
+                                <th> {{ 'heavy.cars.characteristics.options'|trans }} </th>
+                                <td> {{ car.options }} </td>
                             </tr>
                             </tbody>
                         </table>
@@ -117,29 +104,26 @@
             <div class="col-md-4">
                 <div class="panel panel-info infos-car">
                     <div class="panel-heading infos_performance">
-                        <h2 class="panel-title centered">Performance</h2>
+                        <h2 class="panel-title centered">Caractéristiques</h2>
                     </div>
                     <div class="panel-body">
                         <table class="table table-hover table-inverse" cellspacing="0" width="50%">
                             <tbody>
                             <tr>
-                                <th>Vitesse maximum :</th>
-                                <td>250 km/h</td>
+                                <th> {{ 'heavy.cars.characteristics.interior_color'|trans }} </th>
+                                <td> {{ car.interior_color }} </td>
                             </tr>
                             <tr>
-                                <th>Accéleration 0/100km/h :</th>
-                                <td>5 sec</td>
+                                <th> {{ 'heavy.cars.characteristics.exterior_color'|trans }} </th>
+                                <td> {{ car.exterior_color }} </td>
                             </tr>
                             <tr>
-                                <th>Indicateur percuteur arme :</th>
+                                <th> {{ 'heavy.cars.characteristics.passenger_capacity'|trans }} </th>
+                                <td> {{ car.passenger_capacity }} </td>
                             </tr>
                             <tr>
-                                <th>Indicateur de chargement:</th>
-                                <td>OUI</td>
-                            </tr>
-                            <tr>
-                                <th>Indicateur de chargement:</th>
-                                <td>OUI</td>
+                                <th> {{ 'heavy.cars.characteristics.doors'|trans }} </th>
+                                <td> {{ car.doors }} </td>
                             </tr>
                             </tbody>
                         </table>

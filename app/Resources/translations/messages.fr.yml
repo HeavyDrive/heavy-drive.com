@@ -91,7 +91,17 @@ heavy:
         status:
             available: Disponible
             busy: Occupée
-
+        characteristics:
+            car_type: Type de véhicule :
+            car_energy_type: Type de carburant :
+            car_maker: Constructeur :
+            car_model: Modèle :
+            interior_color: Couleur de l'intérieur :
+            exterior_color: Couleur de l'extérieur :
+            passenger_capacity: Capacité :
+            doors: Nombre de portes :
+            transmission: Transmission :
+            options: Options :
 
     homepage:
         welcome: Bienvenue !
