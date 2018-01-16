@@ -4,15 +4,9 @@
   padding-top: 5px;
 }
 
-.navbar-nav li a:hover, .navbar-nav li.active a {
-  color: #FFCC00 !important;
-  background-color: #500a6f !important;
-}
-
 #navbar {
   overflow: hidden;
   background-color: #333;
-  z-index: 2;
 }
 
 #navbar a {
@@ -48,4 +42,3 @@
 .sticky + .content {
   padding-top: 60px;
 }
-
