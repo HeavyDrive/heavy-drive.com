@@ -43,6 +43,29 @@
                     data-message="Les cookies assurent le bon fonctionnement de notre site Internet.<br> En utilisant ce dernier, vous acceptez leur utilisation.<br>"
                     data-linkmsg="En savoir plus">
             </script>
+            <script type="text/javascript">
+
+                jQuery(function () {
+                    jQuery('#js-datepicker1').datetimepicker({ format:'DD-MM-YYYY HH:mm:ss' });
+                    jQuery('#js-datepicker2').datetimepicker({ format:'DD-MM-YYYY HH:mm:ss' });
+
+                });
+
+
+                window.onscroll = function() {myFunction()};
+
+                var navbar = document.getElementById("navbar");
+                console.log(navbar);
+                var sticky = navbar.offsetTop;
+
+                function myFunction() {
+                    if (window.pageYOffset >= sticky) {
+                        navbar.classList.add("sticky")
+                    } else {
+                        navbar.classList.remove("sticky");
+                    }
+                }
+            </script>
         {% endblock %}
     </body>
 </html>

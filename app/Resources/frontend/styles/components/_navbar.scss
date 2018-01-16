@@ -1,0 +1,40 @@
+/**
+*** Navigation
+**/
+.navbar-nav li a:hover, .navbar-nav li.active a {
+  color: #FFCC00 !important;
+  background-color: #500a6f !important;
+}
+
+.navbar {
+  border-radius: 0%;
+  z-index: 2;
+  margin-bottom: 0px;
+  border: none;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: white;
+  font-size: 15px;
+  font: 900 15px/22px "Roboto",sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  display: block;
+  //padding: 0 30px 0 14px;
+  line-height: 40px;
+  position: relative;
+}
+/* Page content */
+.content {
+  padding: 16px;
+}
+​.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
