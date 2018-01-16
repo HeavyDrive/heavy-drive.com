@@ -6,7 +6,7 @@
         {% for car in cars %}
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="{{ asset('images/cayen.jpg') }}" alt="">
+                    <img src="{{ car.pictures|first }}" alt="test">
                     <div class="panel-body">
                         <h3>{{ (car.carLabel) }}</h3>
                         <p> Place assises : {{ car.passengerCapacity }}</p>
