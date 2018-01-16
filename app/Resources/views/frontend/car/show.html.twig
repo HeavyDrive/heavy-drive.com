@@ -54,14 +54,3 @@
         {{ include ('frontend/car/list__cars.html.twig') }}
     </div>
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-
-        jQuery(function () {
-            jQuery('#js-datepicker1').datetimepicker({ format:'DD-MM-YYYY HH:mm:ss' });
-            jQuery('#js-datepicker2').datetimepicker({ format:'DD-MM-YYYY HH:mm:ss' });
-
-        });
-    </script>
-{% endblock %}
