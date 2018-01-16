@@ -1,0 +1,34 @@
+{% extends "frontend/base.html.twig" %}
+{% block body %}
+    <section id="faq_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1> {{ 'heavy.questions.faq_title'|trans|raw }} </h1>
+                    <hr class="star-light">
+                    {{ 'heavy.questions.faq_desc'|trans|raw }}
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="faq_body">
+        <h4><b>J'ai loué une voiture dans une de vos agences. Puis-je la restituer dans une agence différente ?</b></h4>
+        <p>Notre société possédant deux agences, vous pouvez restituer le véhicule d'ans l'une ou l'autre</p>
+
+        <h4><b>Quelles sont les conditions pour louer l'un de vos véhicules ?</b></h4>
+        <p>Il est nécessaire de disposer d'un permis de conduire valide et de justifier de trois ans de permis. Il est également nécessaire de fournir les documents justificatifs au moment de la location</p>
+
+        <h4><b>Quels sont vos tarifs ?</b></h4>
+        <p>Tout va dépendre du type de véhicule, ainsi que de la prestation souhaitée</p>
+
+        <h4><b>Puis-je effectuer le règlement de ma location directement en ligne ?</b></h4>
+        <p>Si vous le souhaitez, un dispositif de paiement en ligne est disponible. A noter que vous pourrez également fournir l'ensemble des documents nécessaires de façon numérique</p>
+
+        <h4><b>Quels sont les moyens de paiements que je peux utiliser pour régler la location d'une voiture ?</b></h4>
+        <p>Vous pouvez régler soit par carte bancaire (en ligne ou en face à face) ou bien par espèces directement dans une de nos agences</p>
+
+        <h4></h4>
+        <p></p>
+    </section>
+{% endblock %}

@@ -91,4 +91,13 @@ class DefaultController extends Controller
 
         return $mailer->send($message);
     }
+
+    /**
+     * @Route("/faq", name="faq")
+     *
+     */
+    public function faqAction()
+    {
+        return $this->render('frontend/default/faq.html.twig');
+    }
 }
