@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar" id="_navigation">
+<nav class="navbar navbar-inverse navbar" id="navbar">
     <div class="container">
         <ul class="nav navbar-nav">
             <li><a href="{{ path('homepage') }}">{{ 'heavy.navigation.homepage'|trans }}</a></li>
@@ -20,7 +20,7 @@
                 </li>
             </ul>
         {% else %}
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">_navigation
                 <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-sign-in"></i> S'inscrire</a></li>
                 <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Connexion</a></li>
             </ul>
