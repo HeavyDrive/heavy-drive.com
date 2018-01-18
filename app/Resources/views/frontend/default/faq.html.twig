@@ -1,0 +1,218 @@
+{% extends "frontend/base.html.twig" %}
+{% block body %}
+    <section id="faq_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1> {{ 'heavy.faq.title'|trans|raw }} </h1>
+                    <hr class="star-light">
+                    {{ 'heavy.faq.desc'|trans|raw }}
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="faq_body">
+        <div class="container">
+            <br />
+            <br />
+            <br />
+
+            <br />
+
+            <div class="panel-group" id="accordion">
+                <div class="faqHeader">{{ 'heavy.faq.general_label'|trans|raw }}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ 'heavy.faq.car_location_conditions_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_location_conditions_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">{{ 'heavy.faq.car_return_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTen" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_return_answer'|trans|raw  }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faqHeader">{{ 'heavy.faq.documents_label'|trans|raw }}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">{{ 'heavy.faq.documents_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.documents_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faqHeader">{{ 'heavy.faq.car_rental_label'|trans|raw }}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">{{ 'heavy.faq.car_care_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_care_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">{{ 'heavy.faq.car_delivery_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSeven" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_delivery_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">{{ 'heavy.faq.car_kilometer_restriction_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_kilometer_restriction_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">{{ 'heavy.faq.car_additional_driver_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseEight" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_additional_driver_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">{{ 'heavy.faq.car_energy_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseNine" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.car_energy_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faqHeader">{{ 'heavy.faq.pay_label'|trans|raw }}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">{{ 'heavy.faq.pay_price_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSix" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.pay_price_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">{{ 'heavy.faq.pay_mods_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseEleven" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.pay_mods_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">{{ 'heavy.faq.pay_reservation_online_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.pay_reservation_online_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faqHeader">{{ 'heavy.faq.wedding_label'|trans|raw }}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">{{ 'heavy.faq.wedding_benefits_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwelve" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.wedding_benefits_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faqHeader">{{ 'heavy.faq.particulars_label'|trans|raw }}</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">{{ 'heavy.faq.particulars_animals_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThirteen" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.particulars_animals_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen">{{ 'heavy.faq.particulars_overworld_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFourteen" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.particulars_overworld_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFifteen">{{ 'heavy.faq.particulars_accident_question'|trans|raw }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFifteen" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{ 'heavy.faq.particulars_accident_answer'|trans|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

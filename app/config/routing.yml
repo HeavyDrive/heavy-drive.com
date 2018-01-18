@@ -30,6 +30,10 @@ heavy_contactform:
     path:     /formcontact
     defaults: { _controller: AppBundle:Default:contactForm }
 
+heavy_faq:
+    path:     /faq
+    defaults: { _controller: AppBundle:Default:faq }
+
 # Admin
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
