@@ -91,8 +91,17 @@ heavy:
         status:
             available: Disponible
             busy: Occupée
-
-
+        characteristics:
+            car_type: Type de véhicule :
+            car_energy_type: Type de carburant :
+            car_maker: Constructeur :
+            car_model: Modèle :
+            interior_color: Couleur de l'intérieur :
+            exterior_color: Couleur de l'extérieur :
+            passenger_capacity: Capacité :
+            doors: Nombre de portes :
+            transmission: Transmission :
+            options: Options :
     homepage:
         welcome: Bienvenue !
         about_us:
@@ -129,6 +138,61 @@ heavy:
         forfaittwo: Forfait 2 : «Cortège Heavy H-D» Capacité de 12 Personnes
         forfaitcortege: Forfait cortège
         reserve: Réservé
+    faq:
+            title: <b>F</b>oire <b>A</b>ux <b>Q</b>uestions
+            desc: <h3>Ici vous trouverez toutes les informations concernant la location, le paiement et tout ce qui pourrait vous être utile pour répondre à vos questions</h3>
+            general_label: Général
+            car_location_conditions_question: <strong>Quelles sont les conditions pour louer l'un de vos véhicules ?</strong>
+            car_location_conditions_answer: <p>Il est nécessaire de disposer d'un permis de conduire valide et de justifier de trois ans de permis.</p>
+            car_return_question: <strong>J'ai loué une voiture dans une de vos agences. Puis-je la restituer dans une agence différente ?</strong>
+            car_return_answer: <p>Notre société possédant deux agences, vous pouvez restituer le véhicule dans l'une ou l'autre</p>
+            documents_label: Documents
+            documents_question: <strong>Quels sont les documents que je dois fournir pour louer un véhicule ?</strong>
+            documents_answer: |
+                                  <p>Les documents que vous devez <strong>OBLIGATOIREMENT</strong> fournir sont les suivants :</p>
+                                                          <ul>
+                                                            <li>Photocopie du permis de conduire (<strong>avec trois ans de permis</strong>)</li>
+                                                            <li>Photocopie de votre pièce d'identité (CNI/Passeport) en cours de validité</li>
+                                                            <li>Justificatif de domicile de moins de  trois mois (facture EDF, eau...)</li>
+                                                          </ul>
+            car_rental_label: Location
+            car_care_question: <strong>Comment se déroule la prise en charge du véhicule ?</strong>
+            car_care_answer: <p>Lorsque vous venez chercher le véhicule, un contrat de location vous est alors remis. Vous pouvez également effectuer le règlement de la location au moment où vous venez chercher le véhicule. Pour les prestations sans chauffeur, une caution vous sera demandée.</p>
+            car_delivery_question: <strong>Puis-je faire livrer un véhicule de location à mon domicile ou sur mon lieu de travail ?</strong>
+            car_delivery_answer: <p>En effet, vous pouvez bénéficier de la livraison à domicile ou sur votre lieu de travail. Selon le type de véhicule et la distance à parcourir, cette option pourra engendrer des frais supplémentaires, d'un montant minimum de 29 €</p>
+            car_kilometer_restriction_question: <strong>Combien de kilomètres puis-je parcourir avec le véhicule ?</strong>
+            car_kilometer_restriction_answer: <p>Nous sommes les premiers en France à pouvoir vous proposer l'ensemble de nos véhicules avec kilométrage illimité.</p>
+            car_additional_driver_question: <strong>Puis-je ajouter un conducteur supplémentaire lors de la location ?</strong>
+            car_additional_driver_answer: <p>Oui en effet, vous pouvez ajouter jusqu'à un conducteur supplémentaire pour le véhicule. Il devra remplir les mêmes conditions que le conducteur principal.</p>
+            car_energy_question: <strong>Ma voiture louée bénéficie-t-elle au départ d'un plein de carburant ?</strong>
+            car_energy_answer: <p>Les véhicules sont fournis avec le quart de plein du véhicule, et doit être restitué avec cette même quantité.</p>
+            pay_label: Paiement
+            pay_price_question: <strong>Quels sont les tarifs ques vous pratiquez ?</strong>
+            pay_price_answer: <p>Tout va dépendre du type de véhicule, ainsi que de la prestation souhaitée.</p>
+            pay_mods_question: <strong>Quels sont les moyens de paiements que je peux utiliser pour régler la location d'une voiture ?</strong>
+            pay_mods_answer: <p>Vous pouvez régler soit par carte bancaire (en ligne ou en face à face) ou bien par espèces directement dans l'une de nos agences</p>
+            pay_reservation_online_question: <strong>Puis-je effectuer la réservation directement en ligne ?</strong>
+            pay_reservation_online_answer: <p>Si vous le souhaitez, un dispositif de paiement en ligne est disponible. A noter que vous pourrez également fournir l'ensemble des documents nécessaires de façon numérique.</p>
+            wedding_label: Mariage
+            wedding_benefits_question: <strong>Je me marie bientôt, quel type de prestation proposez-vous ?</strong>
+            wedding_benefits_answer: <p>Nous vous proposons la prestation "Marry-Me" avec chauffeur, rapatriement au domicile si vous le souhaitez.Vous disposerez à bord du véhicule de boissons, gâteaux et bonbons à volonté, décoration, ventouse florale, mise à disposition du chauffeur pour la journée entière.</p>
+            particulars_label: Cas particuliers
+            particulars_animals_question: <strong>Les animaux sont-ils admis à bord du véhicule ?</strong>
+            particulars_animals_answer: <p>Les voitures étant des véhicules de luxe, nous ne sommes pas en mesure d'admettre les animaux à bord.</p>
+            particulars_overworld_question: <strong>Puis-je emmener mon véhicule de location à l'étranger ?</strong>
+            particulars_overworld_answer: <p>Vous pouvez effectivement emmener votre véhicule de location à l'étranger, dans la limite de la zone Europe, moyennant majoration</p>
+            particulars_accident_question: <strong>Que se passe-t-il si il arrive quelque chose au véhicule (vol, détérioration, accident...) ?</strong>
+            particulars_accident_answer: |
+                                           <p>Tout va dépendre du type d'accident :</p>
+                                                            <ul>
+                                                              <li><strong>En cas de vol :</strong> La caution dans son intégralité sera dûe</li>
+                                                              <li><strong>En cas de dégradation :</strong> Les frais supplémentaires seront proportionnels aux dégâts causés sur le véhicule</li>
+                                                              <li><strong>En cas d'accident :</strong>Selon la responsabilité du client :</li>
+                                                                  <ul>
+                                                                      <li><strong>Accident responsable :</strong> La caution dans son intégralité sera dûe</li>
+                                                                      <li><strong>Accident non responsable :</strong> En fonction de la franchise de l'assurance</li>
+                                                                  </ul>
+                                                            </ul>
     footer:
         title: Heavy Drive vous remercie de votre confiance
         subtitle: A votre dispotion
@@ -140,5 +204,5 @@ heavy:
         terms_title: Mentions légales du site
         get_started: Démarrer
         about_us: A propos de nous
-        support: support
+        support: Support
         copyright: © 2017 Copyright Heavy-Drive
