@@ -47,4 +47,57 @@ class DefaultController extends Controller
 
         dump($cloudStorage);
     }
+
+    public function contactFormAction(Request $request)
+    {
+        $form = $this->createForm('AppBundle\Form\Type\ContactType',null,array(
+            'action' => $this->generateUrl('heavy_contactform'),
+            'method' => 'POST'
+        ));
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                if ($this->sendEmail($form->getData())) {
+                    return $this->redirectToRoute('heavy_contactform');
+                } else {
+                    var_dump("Erreur :(");
+                }
+            }
+        }
+
+        return $this->render('AppBundle:Default:details.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    private function sendEmail($data){
+        $heavyContactMail = 'contact@heavy-drive.com';
+        $heavyContactPassword = 'heavy';
+
+        $transport = \Swift_SmtpTransport::newInstance('smtp.zoho.com', 465,'ssl')
+            ->setUsername($heavyContactMail)
+            ->setPassword($heavyContactPassword);
+
+        $mailer = \Swift_Mailer::newInstance($transport);
+
+        $message = \Swift_Message::newInstance("Our Contact Form ". $data["subject"])
+            ->setFrom(array($heavyContactMail => "Message by ".$data["name"]))
+            ->setTo(array(
+                $heavyContactMail => $heavyContactMail
+            ))
+            ->setBody($data["message"]."<br>ContactMail :".$data["email"]);
+
+        return $mailer->send($message);
+    }
+
+    /**
+     * @Route("/faq", name="faq")
+     *
+     */
+    public function faqAction()
+    {
+        return $this->render('frontend/default/faq.html.twig');
+    }
 }
