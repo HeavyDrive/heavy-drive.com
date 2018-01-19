@@ -26,9 +26,11 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-heavy_contactform:
-    path:     /formcontact
-    defaults: { _controller: AppBundle:Default:contactForm }
+heavy_contact:
+    path:     /contact
+    defaults: { _controller: AppBundle:Default:contact }
+    requirements:
+            _method:  GET|POST
 
 heavy_faq:
     path:     /faq

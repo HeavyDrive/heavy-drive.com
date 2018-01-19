@@ -194,6 +194,17 @@ heavy:
                                                                   <li><strong>Accident non responsable :</strong> En fonction de la franchise de l'assurance</li>
                                                               </ul>
                                                         </ul>
+    contact:
+        name_label: Prénom/Nom :
+        name_required: Entrez votre nom.
+        phone_label: Téléphone :
+        phone_required: Entrez votre numéro de téléphone.
+        mail_label: Adresse email :
+        mail_required: Entrez votre adresse email.
+        subject_label: Sujet :
+        subject_label: Entrez le sujet.
+        message_label: Message :
+        message_required: Entrez votre message.
     footer:
         title: Heavy Drive vous remercie de votre confiance
         subtitle: A votre dispotion

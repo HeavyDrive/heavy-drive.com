@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Frontend;
 
+use AppBundle\Entity\Contact;
+use AppBundle\Form\Type\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -34,7 +36,34 @@ class DefaultController extends Controller
      */
     public function contactAction()
     {
-        return $this->render('frontend/default/contact.html.twig');
+        $contact = new Contact();
+        $form = $this->createForm(new ContactType(), $contact);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject(' ')
+                    ->setFrom(' ')
+                    ->setTo('bonix.dan@gmail.com')
+                    ->setBody($this->renderView('AppBundle:Default:contactEmail.txt.twig', array('contact' => $contact)));
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Merci !');
+
+                return $this->redirect($this->generateUrl('heavy_contact'));
+            }
+        }
+
+        return $this->render('frontend/default/contact.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+
     }
 
     /**
@@ -46,50 +75,6 @@ class DefaultController extends Controller
         $cloudStorage = $this->container->get('app.services.google_cloud');
 
         dump($cloudStorage);
-    }
-
-    public function contactFormAction(Request $request)
-    {
-        $form = $this->createForm('AppBundle\Form\Type\ContactType',null,array(
-            'action' => $this->generateUrl('heavy_contactform'),
-            'method' => 'POST'
-        ));
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-
-            if ($form->isValid()) {
-                if ($this->sendEmail($form->getData())) {
-                    return $this->redirectToRoute('heavy_contactform');
-                } else {
-                    var_dump("Erreur :(");
-                }
-            }
-        }
-
-        return $this->render('AppBundle:Default:details.html.twig', array(
-            'form' => $form->createView()
-        ));
-    }
-
-    private function sendEmail($data){
-        $heavyContactMail = 'contact@heavy-drive.com';
-        $heavyContactPassword = 'heavy';
-
-        $transport = \Swift_SmtpTransport::newInstance('smtp.zoho.com', 465,'ssl')
-            ->setUsername($heavyContactMail)
-            ->setPassword($heavyContactPassword);
-
-        $mailer = \Swift_Mailer::newInstance($transport);
-
-        $message = \Swift_Message::newInstance("Our Contact Form ". $data["subject"])
-            ->setFrom(array($heavyContactMail => "Message by ".$data["name"]))
-            ->setTo(array(
-                $heavyContactMail => $heavyContactMail
-            ))
-            ->setBody($data["message"]."<br>ContactMail :".$data["email"]);
-
-        return $mailer->send($message);
     }
 
     /**
