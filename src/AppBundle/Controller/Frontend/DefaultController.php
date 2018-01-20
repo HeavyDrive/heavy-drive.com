@@ -47,13 +47,23 @@ class DefaultController extends Controller
             if ($form->isValid()) {
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject(' ')
-                    ->setFrom(' ')
-                    ->setTo('bonix.dan@gmail.com')
-                    ->setBody($this->renderView('AppBundle:Default:contactEmail.txt.twig', array('contact' => $contact)));
-                $this->get('mailer')->send($message);
+                    ->setSubject('')
+                    ->setFrom($this->get('form.type.email'))
+                    ->setTo($this->container->getParameter('heavy.emails.contact_email'))
+                    ->setBody($this->renderView('frontend/default/contactEmail.txt.twig', array('contact' => $contact)));
 
-                $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Merci !');
+                try
+                {
+                    $this->get('mailer')->send($message);
+                }
+
+                catch (\Swift_TransportException $e)
+                {
+                    $result = array( false, 'There was a problem sending email: ' . $e->getMessage() );
+
+                }
+
+                $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
 
                 return $this->redirect($this->generateUrl('heavy_contact'));
             }
