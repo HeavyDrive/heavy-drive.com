@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ServiceController extends Controller
 {
@@ -98,6 +101,11 @@ class ServiceController extends Controller
             }
         }
 
-        return $this->render('frontend/default/wedding.html.twig', ['form' => $form->createView()]);
+        return $this->render('frontend/default/wedding.html.twig', [
+            'form' => $form->createView(),
+            'cars' => $cars,
+            'dateStart' => $dateStart,
+            'dateEnd' => $dateEnd
+        ]);
     }
 }
