@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Frontend;
 
+use AppBundle\Entity\Contact;
+use AppBundle\Form\Type\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -34,7 +36,40 @@ class DefaultController extends Controller
      */
     public function contactAction()
     {
-        return $this->render('frontend/default/contact.html.twig');
+        $contact = new Contact();
+        $form = $this->createForm(new ContactType(), $contact);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('')
+                    ->setFrom($this->get('form.type.email'))
+                    ->setTo($this->container->getParameter('heavy.emails.contact_email'))
+                    ->setBody($this->renderView('frontend/default/contactEmail.txt.twig', array('contact' => $contact)));
+                try
+                {
+                    $this->get('mailer')->send($message);
+                }
+
+                catch (\Swift_TransportException $e)
+                {
+                    $result = array( false, 'There was a problem sending email: ' . $e->getMessage() );
+
+                }
+
+                $this->get('session')->getFlashBag()->Add('notice-car', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
+
+            }
+        }
+
+        return $this->render('frontend/default/contact.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -46,5 +81,14 @@ class DefaultController extends Controller
         $cloudStorage = $this->container->get('app.services.google_cloud');
 
         dump($cloudStorage);
+    }
+
+    /**
+     * @Route("/faq", name="faq")
+     *
+     */
+    public function faqAction()
+    {
+        return $this->render('frontend/default/faq.html.twig');
     }
 }

@@ -10,6 +10,8 @@ imports:
 parameters:
     locale: fr
 
+    heavy.emails.contact_email: bonix.dan@gmail.com
+
     cloud_storage:
         login: heavy-drive@heavy-176518.iam.gserviceaccount.com
         key: AIzaSyDf4I13xfPkYP73TB-Wxc28DZoTo1x9JCQ

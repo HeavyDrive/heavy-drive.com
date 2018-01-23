@@ -79,44 +79,48 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <form name="sentMessage" id="contactForm" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Full Name:</label>
-                            <input type="text" class="form-control" id="name" required
-                                   data-validation-required-message="Please enter your name.">
-                            <p class="help-block"></p>
+        <div class="container-fluid" id="content-contact">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="{{ path('heavy_contact') }}" method="post" {{ form_enctype(form) }} id="contactForm" class="contact">
+
+                        {{ form_errors(form) }}
+
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{ form_row(form.name, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Phone Number:</label>
-                            <input type="tel" class="form-control" id="phone" required
-                                   data-validation-required-message="Please enter your phone number.">
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{ form_row(form.phone, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Email Address:</label>
-                            <input type="email" class="form-control" id="email" required
-                                   data-validation-required-message="Please enter your email address.">
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{ form_row(form.email, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Message:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="message" required
-                                      data-validation-required-message="Please enter your message" maxlength="999"
-                                      style="resize:none"></textarea>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{  form_row(form.subject, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
                         </div>
-                    </div>
-                    <div id="success"></div>
-                    <button type="submit" class="btn btn-primary" id="boutton">Send Message</button>
-                </form>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{  form_row(form.message, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </form>
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        <div class="flash-notice">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

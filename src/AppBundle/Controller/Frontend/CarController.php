@@ -3,9 +3,11 @@
 namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Entity\Car;
+use AppBundle\Entity\Contact;
 use AppBundle\Entity\Price;
 use AppBundle\Entity\Reservation;
 use AppBundle\Entity\Service;
+use AppBundle\Form\Type\ContactType;
 use AppBundle\Repository\ReservationRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -136,9 +138,44 @@ class CarController extends Controller
 
         $car = $carRepository->findById($car);
 
+        // send form contact us
+        $contact = new Contact();
+        $form = $this->createForm(new ContactType(), $contact);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('')
+                    ->setFrom($this->get('form.type.email'))
+                    ->setTo($this->container->getParameter('heavy.emails.contact_email'))
+                    ->setBody($this->renderView('frontend/default/contactEmail.txt.twig', array('contact' => $contact)));
+
+                try
+                {
+                    $this->get('mailer')->send($message);
+                }
+
+                catch (\Swift_TransportException $e)
+                {
+                    $result = array( false, 'There was a problem sending email: ' . $e->getMessage() );
+
+                }
+
+                $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
+
+                //return $this->redirect($this->generateUrl('heavy_contact'));
+            }
+        }
+
         return $this->render('frontend/car/details.html.twig', [
             'car'     => $car,
-            'priceCar'   => $priceCar
+            'priceCar'   => $priceCar,
+            'form' => $form->createView()
         ]);
     }
 
