@@ -79,29 +79,48 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <form action="{{ path('heavy_contact') }}" method="post" {{ form_enctype(form) }} class="contact">
+        <div class="container-fluid" id="content-contact">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="{{ path('heavy_contact') }}" method="post" {{ form_enctype(form) }} id="contactForm" class="contact">
+
+                        {{ form_errors(form) }}
+
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{ form_row(form.name, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{ form_row(form.phone, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{ form_row(form.email, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{  form_row(form.subject, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                {{  form_row(form.message, { 'attr': {'class': 'form-control input-md'} } ) }}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </form>
                     {% for flashMessage in app.session.flashbag.get('notice') %}
                         <div class="flash-notice">
                             {{ flashMessage }}
                         </div>
                     {% endfor %}
-
-                    {{ form_errors(form) }}
-
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.phone) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.subject) }}
-                    {{ form_row(form.message) }}
-
-                    {{ form_rest(form) }}
-
-                    <input type="submit" value="Submit" />
-                </form>
+                </div>
             </div>
         </div>
     </div>

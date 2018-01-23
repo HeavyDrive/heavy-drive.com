@@ -51,7 +51,6 @@ class DefaultController extends Controller
                     ->setFrom($this->get('form.type.email'))
                     ->setTo($this->container->getParameter('heavy.emails.contact_email'))
                     ->setBody($this->renderView('frontend/default/contactEmail.txt.twig', array('contact' => $contact)));
-
                 try
                 {
                     $this->get('mailer')->send($message);
@@ -63,17 +62,14 @@ class DefaultController extends Controller
 
                 }
 
-                $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
+                $this->get('session')->getFlashBag()->Add('notice-car', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
 
-                return $this->redirect($this->generateUrl('heavy_contact'));
             }
         }
 
         return $this->render('frontend/default/contact.html.twig', array(
             'form' => $form->createView()
         ));
-
-
     }
 
     /**
