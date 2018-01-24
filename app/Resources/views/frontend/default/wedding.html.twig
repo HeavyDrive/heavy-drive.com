@@ -10,37 +10,72 @@
                     <h3>{{ 'heavy.wedding.marry'| trans }}</h3>
                 </div>
                 <br>
-                {% for car in cars %}
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-1 col-lg-6">
-                                <img class="img- img-responsive" src="https://cdn5.1001salles.com/images/17831/g/1469467580_1107_211270119.jpg">
+                <div id="my_carousel" class="carousel slide" data-ride="carousel">
+                    <!-- Bulles -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#my_carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#my_carousel" data-slide-to="1"></li>
+                        <li data-target="#my_carousel" data-slide-to="2"></li>
+                    </ol>
+                    <!-- Slides -->
+                    <div class="carousel-inner">
+                        {% for car in cars %}
+                        <div class="item active">
+                            <div class="carousel-page">
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                                            <img class="img- img-responsive" src="https://cdn5.1001salles.com/images/17831/g/1469467580_1107_211270119.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p><strong>Salle de Mariage</strong></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                                            <img class="img- img-responsive" src="https://images.caradisiac.com/images/3/0/6/0/113060/S0-le-peugeot-3008-est-elu-voiture-de-l-annee-2017-397906.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                            <p><strong>Marque + Modèle</strong></p>
+                                            <p><strong>Prix</strong></p>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Contact</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-1 col-lg-6">
-                                <img class="img- img-responsive" src="{{ car.pictures|first }}">
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-lg-3">
-                        <div class="row">
-                            <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-1 col-lg-6">
-                                <p>Salle de Mariage</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-1 col-lg-6">
-                                <p>{{ (car.carLabel) }}</p>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Contrôles -->
+                    <a class="left carousel-control" href="#my_carousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#my_carousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 </div>
-                {% endfor %}
-
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Contact</button>
             </div>
         </div>
     </section><!--section close-->
+    <section>
+        <div class="container-fluid">
+            <div id="well" class="wedding">
+                <div class="well centered bloc-wedding">
+                    <h3>{{ 'heavy.wedding.forfaitcortege'| trans }}</h3>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-offset-6">
+                        <label class="checkbox">
+                            <input onclick="verifCheck(this)" type="checkbox" name="cortege6" value="choixCortege"> 6 personnes <br />
+                            <input onclick="verifCheck(this)" type="checkbox" name="cortege9" value="choixCortege"> 9 personnes <br />
+                            <input onclick="verifCheck(this)" type="checkbox" name="cortege12" value="choixCortege"> 12 personnes
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
