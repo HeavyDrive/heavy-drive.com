@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Frontend;
 
+use AppBundle\Entity\Car;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,6 +25,13 @@ class ServiceController extends Controller
      */
     public function weddingAction(){
 
-        return $this->render('frontend/default/wedding.html.twig', []);
+        /** @var \AppBundle\Repository\CarRepository $carRepository */
+        $carRepository = $this->getDoctrine()->getRepository(Car::class);
+
+        $cars = $carRepository->findAll();
+
+        return $this->render('frontend/default/wedding.html.twig', [
+            'cars' => $cars
+        ]);
     }
 }
