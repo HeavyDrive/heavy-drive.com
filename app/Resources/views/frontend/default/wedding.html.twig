@@ -3,62 +3,6 @@
     <h2 class="centered">{{ 'heavy.wedding.marryservice'| trans }}</h2>
     <hr class="star-light">
 
-    <section class="section-wedding">
-        <div class="container-fluid">
-            <div id="well" class="wedding">
-                <div class="well centered bloc-wedding">
-                    <h3>{{ 'heavy.wedding.marry'| trans }}</h3>
-                </div>
-                <br>
-                <div id="my_carousel" class="carousel slide" data-ride="carousel">
-                    <!-- Bulles -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#my_carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#my_carousel" data-slide-to="1"></li>
-                        <li data-target="#my_carousel" data-slide-to="2"></li>
-                    </ol>
-                    <!-- Slides -->
-                    <div class="carousel-inner">
-                        {% for car in cars %}
-                        <div class="item active">
-                            <div class="carousel-page">
-                                <div class="row">
-                                    <div class="col-lg-9">
-                                        <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                            <img class="img- img-responsive" src="https://cdn5.1001salles.com/images/17831/g/1469467580_1107_211270119.jpg">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <p><strong>Salle de Mariage</strong></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-9">
-                                        <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                            <img class="img- img-responsive" src="https://images.caradisiac.com/images/3/0/6/0/113060/S0-le-peugeot-3008-est-elu-voiture-de-l-annee-2017-397906.jpg">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                            <p><strong>Marque + Modèle</strong></p>
-                                            <p><strong>Prix</strong></p>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Contact</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Contrôles -->
-                    <a class="left carousel-control" href="#my_carousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#my_carousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section><!--section close-->
     <section>
         <div class="container-fluid">
             <div id="well" class="wedding">
@@ -69,13 +13,66 @@
                 <div class="row">
                     <div class="col-lg-offset-6">
                         <label class="checkbox">
-                            <input onclick="verifCheck(this)" type="checkbox" name="cortege6" value="choixCortege"> 6 personnes <br />
-                            <input onclick="verifCheck(this)" type="checkbox" name="cortege9" value="choixCortege"> 9 personnes <br />
-                            <input onclick="verifCheck(this)" type="checkbox" name="cortege12" value="choixCortege"> 12 personnes
+                            <input onclick="verif(this)" type="checkbox" name="cortege6" value="choixCortege" id="cortege_6p"> 6 personnes <br />
+                            <input onclick="verif(this)" type="checkbox" name="cortege9" value="choixCortege" id="cortege_9p"> 9 personnes <br />
+                            <input onclick="verif(this)" type="checkbox" name="cortege12" value="choixCortege" id="cortege_12p"> 12 personnes
                         </label>
+                    </div>
+                    <div id="1" class="off">
+                        {{ include ('frontend/car/form__car__available.html.twig') }}
+
+                        {{ include ('frontend/car/list__cars.html.twig') }}
                     </div>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function verif ()
+        {
+            var cortege1 = document.getElementById('cortege_6p').checked;
+            var cortege2 = document.getElementById('cortege_9p').checked;
+            var cortege3 = document.getElementById('cortege_12p').checked;
+
+            if (cortege1 || cortege2 || cortege3) {
+                document.getElementById('1').className = 'on';
+            } else {
+                document.getElementById('1').className = 'off';
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".form-loader").show();
+
+            $("form[name='form']").submit(function (e) {
+                e.preventDefault();
+                $(".form-loader").show();
+
+                var formData = $("form[name='form']").serialize();
+
+                console.log($(".form-loader"));
+
+                /*$.ajax({
+                    type: "GET",
+                    url: "wedding",
+                    cache: false,
+                    data: formData,
+                    success: function(data){
+                        $('#grid-view').html(data);
+                        $(".form-loader").hide();
+                    },
+                    error: function(data) {
+                        $('#grid-view').html("Une erreur est survenue.");
+                        $(".form-loader").hide();
+                    }
+                });*/
+
+            });
+        });
+
+    </script>
 {% endblock %}
