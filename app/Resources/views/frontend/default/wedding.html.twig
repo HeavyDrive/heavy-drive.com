@@ -10,7 +10,7 @@
                     <h3>{{ 'heavy.wedding.marry'| trans }}</h3>
                 </div>
                 <br>
-                <div class="row col-md-6">
+                <div class="row col-md-12">
                     <div id="subtitle" class="well well-wedding centered">
                         <h3>{{ 'heavy.wedding.forfaitday'| trans }}</h3>
                         {% for car in cars %}
@@ -18,16 +18,21 @@
                             <div class="panel panel-pricing">
                                 <div class="panel-heading panel-wedding">
                                     <h3>{{ car.carLabel }}</h3>
-                                    <img src="{{ asset('images/cayen.jpg') }}" style="width: 100%">
+                                    <img src="{{ car.pictures|first }}" style="width: 100%">
                                 </div><!--panel-heading close-->
                                 <div class="panel-body centered">
-                                    <p class="p-title">Subscription Duration</p><!--p-title close-->
-                                    <p class="p-time">2 days - 30 Mins</p><!--p-time close-->
+                                    <p>{{ car.doors }} portes</p><!--p close-->
+                                    <p>{{ car.doors }} places</p><!--p close-->
+                                    <p>Puissance fiscale : {{ car.options }}</p><!--p close-->
+                                    <p>Transmission : {{ car.transmission }}</p><!--p close-->
                                 </div><!--panel-body centered close-->
                                 <div class="panel-body centered">
-                                    <p class="p-price-cortege">₦ 50.00 </p><!--p-price-cortege close-->
-                                    <p class="p-tax">All inclusive</p><!--p-tax close-->
+                                    <p class="p-title">{{ 'heavy.wedding.day_title'|trans }} ₦ 50.00 </p><!--p-title-cortege close-->
+                                    <p class="p-title">{{ 'heavy.wedding.repatriation_title'|trans }} ₦ 50.00 </p><!--p-title-cortege close-->
                                 </div><!--panel-body centered close-->
+                                <div class="panel-body centered">
+                                    <p class="p-tax">All inclusive</p><!--p-tax close-->
+                                </div>
                                 <div class="panel-footer">
                                     <a class="btn sub-btn" href="#">{{ 'heavy.wedding.reserve'| trans }}</a>
                                 </div>
@@ -36,33 +41,6 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="row col-md-6">
-                    <div id="subtitle" class="well well-wedding centered">
-                        <h3>{{ 'heavy.wedding.forfaitday'| trans }}</h3>
-                        {% for car in cars %}
-                            <div id="price" class="col-md-4 col-sm-2 col-xs-12 centered">
-                                <div class="panel panel-pricing">
-                                    <div class="panel-heading panel-wedding">
-                                        <h3>{{ car.carLabel }}</h3>
-                                        <img src="{{ asset('images/cayen.jpg') }}" style="width: 100%">
-                                    </div><!--panel-heading close-->
-                                    <div class="panel-body centered">
-                                        <p class="p-title">Subscription Duration</p><!--p-title close-->
-                                        <p class="p-time">2 days - 30 Mins</p><!--p-time close-->
-                                    </div><!--panel-body centered close-->
-                                    <div class="panel-body centered">
-                                        <p class="p-price-cortege">₦ 50.00 </p><!--p-price-cortege close-->
-                                        <p class="p-tax">All inclusive</p><!--p-tax close-->
-                                    </div><!--panel-body centered close-->
-                                    <div class="panel-footer">
-                                        <a class="btn sub-btn" href="#">{{ 'heavy.wedding.reserve'| trans }}</a>
-                                    </div>
-                                </div><!--panel panel-pricing close-->
-                            </div><!--col-md-4 col-sm-4 col-xs-12 centered close-->
-                        {% endfor %}
-                    </div>
-                </div>
-
             </div>
         </div><!--container close-->
     </section><!--section close-->
