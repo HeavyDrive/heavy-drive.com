@@ -46,7 +46,10 @@
             </script>
             <script type="text/javascript">
 
+                window.onscroll = function() {myFunction()};
+
                 var navbar = document.getElementById("navbar");
+                console.log(navbar);
                 var sticky = navbar.offsetTop;
 
                 function myFunction() {
