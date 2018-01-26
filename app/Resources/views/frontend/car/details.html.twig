@@ -22,7 +22,7 @@
                         <ul class="tarif_prestation">
                             {% for price in priceCar %}
                                 <li>
-                                    <p> {{ price.service.name }} : {{ price.toPay }} </p>
+                                    <p> {{ price.service.name }} : {{ price.toPay }} €</p>
                                     <!-- <a href="{{ path('reservation', {'id': price.service.id, 'dateStart': dateStart|date('Y-m-d H:i:s'), 'dateEnd': dateEnd|date('Y-m-d H:i:s') }) }}">Réserver</a> -->
                                 </li>
                             {% endfor %}
