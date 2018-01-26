@@ -106,7 +106,7 @@ heavy:
     homepage:
         welcome: Bienvenue !
         about_us:
-            title: <h3>Heavy-Drive est une entreprise familiale qui a pour vocation de louer et de fournir des services de transports hauts de gammes.</h3>
+            title: <h2>Heavy-Drive est une entreprise familiale qui a pour vocation de louer et de fournir des services de transports hauts de gammes.</h2>
             about_us_left: |
                               <p style = "font-size: 18px;"> L'idée est de démocratiser auprès d'un maximum de populations les différentes prestations de prestige en pratiquant des tarifications abordables, tout en conservant une qualité de service optimale. Chez Heavy-Drive, votre bien-être ainsi que la qualité de service est notre priorité.
                               Nos tarifs sont des plus concurrentiels et notre dévouement envers notre clientèle est total.</p>
@@ -141,7 +141,7 @@ heavy:
         reserve: Réservé
     faq:
         title: <b>F</b>oire <b>A</b>ux <b>Q</b>uestions
-        desc: <h3>Ici vous trouverez toutes les informations concernant la location, le paiement et tout ce qui pourrait vous être utile pour répondre à vos questions</h3>
+        desc: <h2 class ="centered">Ici vous trouverez toutes les informations concernant la location, le paiement et tout ce qui pourrait vous être utile pour répondre à vos questions</h2>
         general_label: Général
         car_location_conditions_question: <strong>Quelles sont les conditions pour louer l'un de vos véhicules ?</strong>
         car_location_conditions_answer: <p>Il est nécessaire de disposer d'un permis de conduire valide et de justifier de trois ans de permis.</p>

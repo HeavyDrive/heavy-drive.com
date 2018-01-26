@@ -1,42 +1,39 @@
-<footer class="text-center footer">
-    <div class="footer-above">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 text-center">
-                    <h3>{{ 'heavy.footer.get_started'|trans }}</h3>
+<div class="footer-above">
+    <div class="">
+        <div class="row">
+            <div class="col-sm-4 text-center">
+                <h2><span itemprop="name">Heavy-Drive</span></h2>
+                <div class="logo_header" style="width: 33%;     margin-left: 31%;">
                     <ul>
-                        <li><a href="{{ path('homepage') }}">Accueil</a></li>
-                        <li><a href="{{ path('car') }}">vehicule</a></li>
-                        <li><a href="#">Gallerie</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <h3>{{ 'heavy.footer.about_us'|trans }}</h3>
-                    <ul>
-                        <li><a href="#about_us">L'entreprise</a></li>
-                        <li><a href="{{ path('car') }}">Nos véhicules</a></li>
-                        <li><a href="{{ path('service') }}">Nos services</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <h3>{{ 'heavy.footer.support'|trans }}</h3>
-                    <ul>
-                        <li><a href="{{ path('faq') }}">FAQ</a></li>
-                        <li><a href="{{ path('contact') }}">Contactez nous</a></li>
-                        <li><a href="#">Forums</a></li>
+                        <li><a  href="{{ path('homepage') }}"><img src="{{ asset('images/logohd.ico') }}"></a></li>
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>{{ 'heavy.footer.copyright'|trans }}</p>
-                    </div>
+            <div class="col-sm-4 text-center">
+                <h2><span itemprop="name">Accès rapide</span></h2>
+                <ul>
+                    <li><a href="#about_us">L'entreprise</a></li>
+                    <li><a href="{{ path('car') }}">Nos voitures</a></li>
+                    <li><a href="{{ path('service') }}">Nos services</a></li>
+                    <li><a href="{{ path('faq') }}">FAQ</a></li>
+                </ul>
+
+            </div>
+            <div class="col-sm-4 text-center">
+                <h2><span itemprop="name">Contact Détails</span></h2>
+                <div itemscope="" itemtype="http://schema.org/Person">
+                    <h5> 15 rue de la briquetterie<br>Domont, 95330<br></h5>
+                    <h5><i class="fa fa-phone"></i>
+                        <abbr title="Phone">Téléphone</abbr>: 06 63 97 50 51</h5>
+                    <h5><i class="fa fa-envelope-o"></i>
+                        <abbr title="Email">E-mail</abbr>: <a href="">contact@heavy-drive.com</a>
+                    </h5>
+                    <h5><i class="fa fa-clock-o"></i>
+                        <abbr title="Hours">Horraire</abbr>: lundi - samedi: 9h30 -
+                        18h00 </h5>
                 </div>
+                <li><a href="{{ path('contact') }}">Contactez nous</a></li>
             </div>
         </div>
     </div>
-
-</footer>
+</div>

@@ -6,3 +6,32 @@
   opacity: 0.8;
 }
 
+.form-date .well {
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+
+.field-agency {
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.field-date {
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.form-date button {
+  margin-bottom: 2%;
+  margin-top: 2%;
+  background-color: #6E1F7C;
+  border-color: #6E1F7C;
+  color: white;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  /*display: block;*/
+  margin: 2px 0;
+  padding: 4px;
+  width: 19em;
+}

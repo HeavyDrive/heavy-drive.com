@@ -1,12 +1,12 @@
 {% extends "frontend/base.html.twig" %}
 {% block body %}
-    <div class="container">
-        <h2 class="centered">{{ 'heavy.cars.selection'|trans }}</h2>
+    <div class="container form-date">
+        <h1 class="centered">{{ 'heavy.cars.selection'|trans }}</h1>
         <hr class="star-light">
 
         <div class="well text-center">
             {{ form_start(form) }}
-            <div class="col-md-12">
+            <div class="col-md-12 field-agency centered">
                 <label class="col-md-2 control-label" for="location">Agence de départ</label>
                 <div class="col-md-3">
                     <div class='input-group'>
@@ -28,7 +28,7 @@
             </div>
             <br>
 
-            <div class="col-md-12">
+            <div class="col-md-12 field-date">
                 <label class="col-md-2 control-label" for="location">Départ le :</label>
                 <div class="col-md-3">
                     <div class='input-group date' id='js-datepicker1'>
@@ -50,7 +50,18 @@
             </div>
             {{ form_end(form) }}
         </div>
-
         {{ include ('frontend/car/list__cars.html.twig') }}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        jQuery(function () {
+            jQuery('#js-datepicker1').datetimepicker({format: 'DD-MM-YYYY HH:mm:ss'});
+            jQuery('#js-datepicker2').datetimepicker({format: 'DD-MM-YYYY HH:mm:ss'});
+        });
+    </script>
+
 {% endblock %}
