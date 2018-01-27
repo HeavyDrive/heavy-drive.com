@@ -18,7 +18,7 @@
                         {% endif %}
                     </div>
                     <div class="panel-footer">
-                        <a href="{{ path('car_details', {'id': car.id}) }}" class="btn btn-primary">Détails et tarifs</a>
+                        <a href="{{ path('car_details', {'id': car.id, 'mark': car.carMaker, 'model': car.carModel}) }}" class="btn btn-primary">Détails et tarifs</a>
                     </div>
                 </div>
             </div>

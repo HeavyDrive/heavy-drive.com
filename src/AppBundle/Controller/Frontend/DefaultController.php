@@ -84,7 +84,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/faq", name="faq")
+     * @Route("/location/foire-aux-questions", name="faq")
      *
      */
     public function faqAction()

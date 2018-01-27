@@ -133,12 +133,14 @@ heavy:
         marry: MARRY-ME
         marryservice: Nos Forfait MARRY-ME
         servicedescription: Profitez pleinement de votre mariage avec nos véhicules de Prestige. Plusieurs forfaits ci-dessous vous sont présentés afin de répondre pleinement à vos attentes.
-        forfaitday: La journée
-        forfaithome: Rapatriement au domicile
-        forfaitone: Forfait 1 : «Cortège PORSCHE» Capacité de 7 Personnes
-        forfaittwo: Forfait 2 : «Cortège Heavy H-D» Capacité de 12 Personnes
+        forfaitday: La journée et Rapatriement au domicile
+        forfaitone: Forfait 1 : «Cortège PORSCHE» Capacité de 6 Personnes
+        forfaittwo: Forfait 2 : «Cortège Heavy H-D» Capacité de 9 Personnes
+        forfaitthree: Forfait 3 : «Cortège Heavy H-D» Capacité de 12 Personnes
         forfaitcortege: Forfait cortège
-        reserve: Réservé
+        reserve: Nous contacter
+        day_title: La journée :
+        repatriation_title: Rapatriement :
     faq:
         title: <b>F</b>oire <b>A</b>ux <b>Q</b>uestions
         desc: <h2 class ="centered">Ici vous trouverez toutes les informations concernant la location, le paiement et tout ce qui pourrait vous être utile pour répondre à vos questions</h2>
