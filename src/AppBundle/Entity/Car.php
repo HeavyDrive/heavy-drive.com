@@ -265,6 +265,16 @@ class Car
     private $pickUpOrigin;
 
     /**
+     * @var(type="string")
+     */
+    protected $slug;
+
+    /**
+     *  @var(type="string")
+     */
+    protected $title;
+
+    /**
      * Get id
      *
      * @return integer
@@ -1206,5 +1216,47 @@ class Car
 
         // clean up the file property as you won't need it anymore
         //$this->pictures = null;
+    }
+
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        if (function_exists('iconv'))
+        {
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        }
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('#[^-\w]+#', '', $text);
+
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        $this->setSlug($this->title);
+
+        return $this;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $this->slugify($slug);
     }
 }

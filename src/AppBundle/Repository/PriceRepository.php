@@ -10,6 +10,7 @@ namespace AppBundle\Repository;
 
 
 use AppBundle\Entity\Car;
+use AppBundle\Entity\Price;
 use AppBundle\Entity\Service;
 use Doctrine\ORM\EntityRepository;
 
@@ -41,6 +42,22 @@ class PriceRepository extends EntityRepository
         $qb->innerJoin('price.car', 'priceCar');
         $qb->where('priceCar.id = :car');
         $qb->setParameter('car', $car);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getPriceCarForWeddingService($car)
+    {
+        $qb = $this->createPriceQueryBuilder();
+
+        $qb->addSelect('price');
+
+        $qb->innerJoin('price.car', 'priceCar');
+        $qb->innerJoin('price.service', 'priceService');
+        $qb->where('priceCar.id = :car');
+        //$qb->andWhere('priceService.id = :service_id');
+        $qb->setParameter('car', $car);
+
 
         return $qb->getQuery()->getResult();
     }

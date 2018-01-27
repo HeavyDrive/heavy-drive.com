@@ -1,4 +1,5 @@
 {% extends "frontend/base.html.twig" %}
+{% block title %}Heavy-Drive - Découvrez nos voitures en photos et leurs caractéristiques {% endblock %}
 {% block body %}
     {% set dateStart = date(app.request.query.get('dateStart')) %}
     {% set dateEnd = date(app.request.query.get('dateEnd')) %}
