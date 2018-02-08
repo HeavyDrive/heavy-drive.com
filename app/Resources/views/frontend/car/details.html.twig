@@ -38,13 +38,16 @@
     </div>
     <br>
 
-    <div class="">
+    <div class="">      
         {% for picture in car.pictures %}
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <a href="#">
-                    <img class="img-responsive img-hover" src={{ picture }} alt="">
-                </a>
-            </div>
+            {% if not loop.first %}
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <a href="#">
+                        <img class="img-responsive img-hover" src={{ picture }} alt="{{car.carMaker}}-{{car.carModel}}">
+                    </a>
+                </div>
+            {% endif %}
+
         {% endfor %}
     </div>
 

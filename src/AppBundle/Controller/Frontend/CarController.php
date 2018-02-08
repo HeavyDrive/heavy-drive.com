@@ -78,7 +78,6 @@ class CarController extends Controller
 
         $cars = array();
 
-
         if ($form->isValid() && $form->isSubmitted()) {
 
             $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
@@ -168,7 +167,7 @@ class CarController extends Controller
 
                 $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
 
-                //return $this->redirect($this->generateUrl('heavy_contact'));
+                return $this->redirect($this->generateUrl('heavy_contact'));
             }
         }
 

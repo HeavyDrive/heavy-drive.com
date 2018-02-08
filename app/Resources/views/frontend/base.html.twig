@@ -13,6 +13,15 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('images/logohd.ico') }}" />
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88944201-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-88944201-1');
+        </script>
     </head>
     {% block header %}{{ include('frontend/header.html.twig') }}{% endblock %}
     <body>
@@ -49,7 +58,6 @@
                 window.onscroll = function() {myFunction()};
 
                 var navbar = document.getElementById("navbar");
-                console.log(navbar);
                 var sticky = navbar.offsetTop;
 
                 function myFunction() {
