@@ -13,3 +13,12 @@ services:
         class: AppBundle\Manager\BookingGuestManager
         arguments:
             - '@doctrine'
+
+    tlconseil.systempay:
+            class: heavy-drive.com\src\Manager\SystemPayManager.php
+            arguments: ['@doctrine.orm.entity_manager', '@service_container']
+
+     tlconseil.systempay.twig_extension:
+            class: heavy-drive.com\app\Ressources\views\frontend\user\systempay.html.twig
+            tags:
+                - { name: twig.extension }

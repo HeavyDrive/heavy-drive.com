@@ -147,4 +147,14 @@ class ReservationController extends Controller
             'optionChoose' => $optionChoose
         ]);
     }
+    /**
+     * @Route("/systempay", name="systempay")
+     *
+     */
+    public function RedirectionAction(){
+
+        return $this->render('frontend/user/systempay.html.twig' );
+
+
+    }
 }
