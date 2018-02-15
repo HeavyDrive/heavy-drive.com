@@ -20,41 +20,73 @@ class ReservationAdmin extends AbstractAdmin
             ->add('dropOffLocationId.agency.name')
             ->add('dateStart')
             ->add('dateEnd')
+            ->add('toPay')
             ->add('createdAt')
-
             ;
     }
 
     protected function configureFormFields(FormMapper $form)
     {
         $form
-        ->with('Général')
-            //->add('client.username', 'text')
-            ->add('pickUpLocationId', 'entity', array(
+            ->with('Agence')
+                //->add('client.username', 'text')
+                ->add('pickUpLocationId', 'entity', array(
+                    'class' => 'AppBundle\Entity\PickUpCenter',
+                    'property' => 'agency.name',
+                ))
+                ->add('dropOffLocationId', 'entity', array(
                 'class' => 'AppBundle\Entity\PickUpCenter',
                 'property' => 'agency.name',
-            ))
-            ->add('dropOffLocationId', 'entity', array(
-                'class' => 'AppBundle\Entity\PickUpCenter',
-                'property' => 'agency.name',
-            ))
-            ->add('dateStart', 'sonata_type_datetime_picker')
-            ->add('dateEnd', 'sonata_type_datetime_picker')
-            ->add('createdAt', 'sonata_type_datetime_picker')
-            ->add('status', 'sonata_type_translatable_choice', [
-                'catalogue' => 'AppBundle',
-                'choices' => [
-                    Reservation::$statuses
-                ]
-            ])
-        ->end();
+                ))
+            ->end()
+            ->with('Dates')
+                ->add('dateStart', 'sonata_type_datetime_picker', [
+                    'data' => new \DateTime()
+                ])
+                ->add('dateEnd', 'sonata_type_datetime_picker', [
+                    'data' => new \DateTime()
+                ])
+            ->end()
+            ->with('Véhicule')
+                ->add('car', 'entity', array(
+                    'class' => 'AppBundle\Entity\Car',
+                    'property' => 'carModel'
+                ))
+            ->end()
+            ->with('Client')
+                ->add('licenceDriver', 'entity', array(
+                    'class' => 'AppBundle\Entity\LicenseDriver',
+                    'property' => 'id',
+                ))
+                ->add('identityCard', 'entity', array(
+                    'class' => 'AppBundle\Entity\IdentityCard',
+                    'property' => 'id',
+                ))
+                ->add('proofOfAdress', 'entity', array(
+                    'class' => 'AppBundle\Entity\ProofOfAdress',
+                    'property' => 'id',
+                ))
+            ->end()
+            ->with('Statuts')
+                ->add('createdAt', 'sonata_type_datetime_picker')
+                ->add('status', 'sonata_type_translatable_choice', [
+                    'catalogue' => 'AppBundle',
+                    'choices' => [
+                        Reservation::$statuses
+                    ]
+                ])
+            ->end();
     }
 
     protected function configureListFields(ListMapper $list)
     {
         $list
             ->add('car.maker')
+            ->add('car.model')
             ->add('client.username')
+            ->add('licenceDriver.id')
+            ->add('proofOfAdress.id')
+            ->add('identityCard.id')
             ->add('pickUpLocationId.agency.name')
             ->add('dropOffLocationId.agency.name')
             ->add('status')
