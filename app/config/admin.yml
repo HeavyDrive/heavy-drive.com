@@ -30,3 +30,13 @@ services:
         arguments: [~, AppBundle\Entity\Client, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Administration, label: Client}
+
+    heavy.admin.reservation_created:
+        class: AppBundle\Admin\ReservationCreatedAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Custom, label: Reservation Created }
+        arguments:
+            - null
+            - null
+            - AppBundle\Controller\Backend\ReservationCreatedController
+        public: true
