@@ -35,8 +35,5 @@ services:
         class: AppBundle\Admin\ReservationCreatedAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Custom, label: Reservation Created }
-        arguments:
-            - null
-            - null
-            - AppBundle\Controller\Backend\ReservationCreatedController
+        arguments: [~, ~,  AppBundle\Controller\Backend\ReservationCreatedController]
         public: true
