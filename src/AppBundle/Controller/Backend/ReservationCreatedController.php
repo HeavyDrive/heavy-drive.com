@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller\Backend;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sonata\AdminBundle\Controller\CRUDController;
 
-class ReservationCreatedController extends Controller
+class ReservationCreatedController extends CRUDController
 {
     public function listAction()
     {
-        return $this->render('backend/admin/reservation_created.html.twig', []);
+        return $this->renderWithExtraParams('backend/admin/reservation_created.html.twig');
     }
 }
