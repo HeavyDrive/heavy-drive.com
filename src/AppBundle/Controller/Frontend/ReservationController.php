@@ -160,8 +160,11 @@ class ReservationController extends Controller
      */
     public function RedirectionAction(Request $request)
     {
-        $transaction = new Transaction();
-        $transaction_form = $this->createForm(new SystemPayType(), $transaction);
+        /*$transaction = new Transaction();
+        $transaction_form = $this->createForm(new SystemPayType(), $transaction, [
+            'action' => 'https://paiement.systempay.fr/vads-payment/'
+        ]);
+
 
         $systemPay  = $this->container->get('tlconseil.systempay');
 
@@ -172,9 +175,11 @@ class ReservationController extends Controller
             die("hrer");
 
 
-        }
+        }*/
 
-        return $this->render('frontend/user/systempay.html.twig', [
+        return $this->render('frontend/user/systempay.html.twig');
+
+    }/*[
             'transaction_form' => $transaction_form->createView()
         ] );
     }
@@ -214,4 +219,6 @@ class ReservationController extends Controller
 
         return new Response();
     }
+
+
 }

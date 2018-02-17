@@ -18,7 +18,7 @@ class SystemPayManager
     /**
      * @var string
      */
-    private $paymentUrl = 'https://systempay.cyberpluspaiement.com/vads-payment/';
+    private $paymentUrl = 'https://paiement.systempay.fr/vads-payment/';
     /**
      * @var array
      */

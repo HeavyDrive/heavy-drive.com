@@ -23,7 +23,7 @@
                             {% for price in priceCar %}
                                 <li>
                                     <p> {{ price.service.name }} : {{ price.toPay }} </p>
-                                    <!-- <a href="{{ path('reservation', {'id': price.service.id, 'dateStart': dateStart|date('Y-m-d H:i:s'), 'dateEnd': dateEnd|date('Y-m-d H:i:s') }) }}">Réserver</a> -->
+                                     <a href="{{ path('reservation', {'id': price.service.id, 'dateStart': dateStart|date('Y-m-d H:i:s'), 'dateEnd': dateEnd|date('Y-m-d H:i:s') }) }}">Réserver</a>
                                 </li>
                             {% endfor %}
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Faire une demande</button><br>
