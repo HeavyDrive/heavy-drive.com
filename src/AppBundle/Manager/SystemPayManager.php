@@ -8,6 +8,10 @@
 
 namespace AppBundle\Manager;
 
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Transaction;
 
 class SystemPayManager
 {
@@ -41,6 +45,7 @@ class SystemPayManager
      * @var Transaction
      */
     private $transaction;
+
     public function __construct(EntityManager $entityManager, Container $container)
     {
         $this->entityManager = $entityManager;
@@ -144,7 +149,7 @@ class SystemPayManager
     public function findTransaction(Request $request)
     {
         $query = $request->request->all();
-        $this->transaction = $this->entityManager->getRepository('TlconseilSystempayBundle:Transaction')->find($query['vads_trans_id']);
+        $this->transaction = $this->entityManager->getRepository('AppBundle:Transaction')->find($query['vads_trans_id']);
 
         return $this->transaction;
     }

@@ -9,12 +9,31 @@
 namespace AppBundle\Form\Type;
 
 
-class SystemPayType
+use AppBundle\Entity\Transaction;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class SystemPayType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
-        $builder->add('phone', 'number');
-        $builder->add('email', 'email');
+        $builder->add('amount');
+        $builder->add('currency');
+        $builder->add('save', SubmitType::class, [
+        'label' => 'valider',
+        'attr' => array('class' => 'btn btn-default'),
+    ]);
+    }
+
+    /**
+    * @param OptionsResolver $resolver
+    */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => Transaction::class
+        ));
     }
 }

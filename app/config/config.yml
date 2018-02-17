@@ -104,6 +104,7 @@ fos_user:
     profile:
         form:
             type: AppBundle\Form\Type\UserEditType
+
 tlconseil_systempay:
     # Credentials
     site_id: 61078196

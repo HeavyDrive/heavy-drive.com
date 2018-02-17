@@ -8,15 +8,18 @@ use AppBundle\Entity\Client;
 use AppBundle\Entity\LicenseDriver;
 use AppBundle\Entity\Price;
 use AppBundle\Entity\Reservation;
+use AppBundle\Entity\Transaction;
 use AppBundle\Form\SelectedBookingDate;
 use AppBundle\Form\Type\BookingGuestType;
 use AppBundle\Form\Type\LicenseDriverType;
+use AppBundle\Form\Type\SystemPayType;
 use AppBundle\Form\Type\UserEditType;
 use AppBundle\Repository\CarRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bridge\Twig\TokenParser\TransChoiceTokenParser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -147,14 +150,68 @@ class ReservationController extends Controller
             'optionChoose' => $optionChoose
         ]);
     }
+
     /**
      * @Route("/systempay", name="systempay")
      *
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function RedirectionAction(){
+    public function RedirectionAction(Request $request)
+    {
+        $transaction = new Transaction();
+        $transaction_form = $this->createForm(new SystemPayType(), $transaction);
 
-        return $this->render('frontend/user/systempay.html.twig' );
+        $systemPay  = $this->container->get('tlconseil.systempay');
+
+        if ('POST' == $request->getMethod()) {
+            $transaction_form->handleRequest($request);
+
+            $systemPay->init();
+            die("hrer");
 
 
+        }
+
+        return $this->render('frontend/user/systempay.html.twig', [
+            'transaction_form' => $transaction_form->createView()
+        ] );
+    }
+
+    /**
+     * @Route("/initiate-payment/id-{id}", name="pay_online")
+     * @Template()
+     */
+    public function payOnlineAction($id)
+    {
+        // ...
+        $systempay = $this->get('tlconseil.systempay')
+            ->init()
+            ->setOptionnalFields(array(
+                'shop_url' => 'http://www.heavy-drive.com'
+            ))
+        ;
+        dump($systempay);
+
+        return array(
+            'paymentUrl' => $systempay->getPaymentUrl(),
+            'fields' => $systempay->getResponse(),
+        );
+    }
+
+    /**
+     * @Route("/payment/verification")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function paymentVerificationAction(Request $request)
+    {
+        // ...
+        $this->get('tlconseil.systempay')
+            ->responseHandler($request)
+        ;
+
+        return new Response();
     }
 }
