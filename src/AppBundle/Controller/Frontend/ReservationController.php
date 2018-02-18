@@ -160,30 +160,28 @@ class ReservationController extends Controller
      */
     public function RedirectionAction(Request $request)
     {
-        /*$transaction = new Transaction();
+        $transaction = new Transaction();
         $transaction_form = $this->createForm(new SystemPayType(), $transaction, [
             'action' => 'https://paiement.systempay.fr/vads-payment/'
         ]);
 
-
         $systemPay  = $this->container->get('tlconseil.systempay');
+
+
+        $signature = $systemPay->getSignature();
+
+        dump($signature);
 
         if ('POST' == $request->getMethod()) {
             $transaction_form->handleRequest($request);
+            dump($request); die;
+        }
 
-            $systemPay->init();
-            die("hrer");
-
-
-        }*/
-
-        return $this->render('frontend/user/systempay.html.twig');
-
-    }/*[
+        return $this->render('frontend/user/systempay.html.twig', [
             'transaction_form' => $transaction_form->createView()
-        ] );
-    }
+        ]);
 
+    }
     /**
      * @Route("/initiate-payment/id-{id}", name="pay_online")
      * @Template()

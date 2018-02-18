@@ -23,12 +23,12 @@ class SystemPayManager
      * @var array
      */
     private $mandatoryFields = array(
-        'action_mode' => null,
-        'ctx_mode' => null,
-        'page_action' => null,
-        'payment_config' => null,
-        'site_id' => null,
-        'version' => null,
+        'action_mode' => "INTERACTIVE",
+        'ctx_mode' => "TEST",
+        'page_action' => "PAYMENT",
+        'payment_config' => "SINGLE",
+        'site_id' => "61078196",
+        'version' => "V2",
         'redirect_success_message' => null,
         'redirect_error_message' => null,
         'url_return' => null,
@@ -108,6 +108,7 @@ class SystemPayManager
                 $this->mandatoryFields[$field] = $value;
         return $this;
     }
+
     /**
      * @return array
      */
@@ -116,9 +117,11 @@ class SystemPayManager
         $this->mandatoryFields['signature'] = $this->getSignature();
         return $this->mandatoryFields;
     }
+
     /**
      * @param Request $request
      * @return bool
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function responseHandler(Request $request)
     {
@@ -180,9 +183,10 @@ class SystemPayManager
     }
     /**
      * @param null $fields
+     *
      * @return string
      */
-    private function getSignature($fields = null)
+    public function getSignature($fields = null)
     {
         if (!$fields)
             $fields = $this->mandatoryFields = $this->setPrefixToFields($this->mandatoryFields);
