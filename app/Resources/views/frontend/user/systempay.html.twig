@@ -2,27 +2,28 @@
 {% block body %}
    <form method="POST" action="https://paiement.systempay.fr/vads-payment/" accept-charset="UTF-8">
         <input type="hidden" name="vads_action_mode" value="INTERACTIVE" />
-        <input type="hidden" name="vads_amount" value="3000" />
+        <input type="hidden" name="vads_amount" value="{{ totalOptionToPay + priceServiceToPay}}" />
         <input type="hidden" name="vads_capture_delay" value="0" />
         <input type="hidden" name="vads_ctx_mode" value="TEST" />
         <input type="hidden" name="vads_currency" value="978" />
         <input type="hidden" name="vads_page_action" value="PAYMENT" />
         <input type="hidden" name="vads_payment_config" value="SINGLE" />
         <input type="hidden" name="vads_site_id" value="61078196" />
-        <input type="hidden" name="vads_trans_date" value="20140526101407" />
+        <input type="POST" name="vads_trans_date" value="" />
         <input type="hidden" name="vads_trans_id" value="239848" />
         <input type="hidden" name="vads_version" value="V2" />
-        <input type="hidden" name="signature" value=" 37e0bab8fd75774c9ad77007e4f7c72176323284"/>
-        <input type="submit" name="payer" value="Payer"/>
+        <input type="hidden" name="signature" value="797932d2d893a30d6a15a631716454ccfc01631a" />
+        <input type="submit" name="payer" value="Payer" />
     </form>
-      {{ form_start(transaction_form) }}
-      {{ form_end(transaction_form) }}
 
-    <!--INTERACTIVE+3000+TEST+978+PAYMENT+SINGLE+61078196+20140526101407+239848+V2+6856049758297340
+
+    <!--INTERACTIVE+3000+0+TEST+978+PAYMENT+SINGLE+61078196+20180222143607+239848+V2+6856049758297340
     32b6928262b55fa06ed3b007a6bf1ae433d76bad
     32B6928262B55FA06ED3B007A6BF1AE433D76BAD
     4FABBA181FFDF33DC2EB2C92078B8BDCE2600D68
-
+f6919f63f60d9cf2d6fc8a9c158acf40e467c415
+0aa44be9ae374237cc41291ad30038ce0b021dfd
+20180221100007
     vads_action_mode
     - vads_amount
     - vads_ctx_mode
