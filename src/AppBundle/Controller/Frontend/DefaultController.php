@@ -91,4 +91,31 @@ class DefaultController extends Controller
     {
         return $this->render('frontend/default/faq.html.twig');
     }
+
+    /**
+     * @Route("/bill", name="bill")
+     */
+    public function billAction()
+    {
+        return $this->render('frontend/default/bill.html.twig');
+    }
+
+    /**
+     * @Route("/pdf", name="pdf")
+     */
+    public function pdfAction()
+    {
+        $html = $this->renderView('AppBundle:Default:bill.html.twig');
+
+        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
 }
