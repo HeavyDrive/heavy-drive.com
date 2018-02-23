@@ -54,10 +54,14 @@ class CarAdmin extends AbstractAdmin
        // dump($this->subject);
         $formMapper
             ->with('Pictures')
+                ->add('caption', 'ckeditor', [
+                    'label' > 'Caption'
+                ])
                 ->add('pictures', 'file', [
                     'required' => false,
                     'help' => 'b',
-                    "data_class" => null,
+                    "data_class" => 'Symfony\Component\HttpFoundation\File\File',
+                    'property_path' => 'file'
                 ])
             ->end()
             ->with('Général')
@@ -181,7 +185,9 @@ class CarAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('enabled');
+            ->add('enabled')
+            ->add('caption')
+            ->add('pictures');
     }
 
     public function prePersist($car) {
@@ -195,6 +201,14 @@ class CarAdmin extends AbstractAdmin
     public function saveFile(Car $car) {
         $basepath = $this->getRequest()->getBasePath();
         $car->upload($basepath);
+    }
+
+    private function manageFileUpload($picture)
+    {
+        if ($picture->getFile())
+        {
+            $picture->refreshUpdated();
+        }
     }
 }
 
