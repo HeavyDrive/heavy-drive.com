@@ -27,7 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class CarController extends Controller
 {
     /**
-     * @Route("/show-car", name="car")
+     * @Route("/location/nos-vehicules", name="car")
      *
      * @return Response
      */
@@ -118,7 +118,7 @@ class CarController extends Controller
 
 
     /**
-     * @Route("/car/{id}", name="car_details")
+     * @Route("/location/vehicule/{id}/{mark}-{model}.html", name="car_details")
      * @ParamConverter("GET, POST", class="AppBundle\Entity\Car", options={"repository_method" = "findById"})
      *
      * @param Request $request
@@ -126,7 +126,7 @@ class CarController extends Controller
      *
      * @return Response
      */
-    public function detailsAction(Request $request, Car $car)
+    public function detailsAction(Request $request, Car $car, $mark, $model)
     {
         /** @var \AppBundle\Repository\CarRepository $carRepository */
         $carRepository     = $this->getDoctrine()->getRepository(Car::class);
@@ -168,7 +168,7 @@ class CarController extends Controller
 
                 $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
 
-                //return $this->redirect($this->generateUrl('heavy_contact'));
+                return $this->redirect($this->generateUrl('heavy_contact'));
             }
         }
 

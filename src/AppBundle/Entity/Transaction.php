@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Transaction
  *
  * @ORM\Table(name="systempay_transaction")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TransactionRepository")
  */
 class Transaction
 {
@@ -73,6 +73,12 @@ class Transaction
      * @ORM\Column(name="refunded", type="boolean")
      */
     private $refunded;
+
+    /**
+     * @var int
+     * @ORM\Column(name="transaction_id", type="int")
+     */
+    protected $transactionId;
 
     /**
      * @return int
@@ -218,6 +224,20 @@ class Transaction
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * @return int
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionId;
+    }
 
+    /**
+     * @param $transactionId
+     */
+    public function setTransactionId($transactionId)
+    {
+        $this->transactionId = $transactionId;
+    }
 
 }

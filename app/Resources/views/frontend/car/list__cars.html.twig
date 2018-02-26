@@ -6,7 +6,7 @@
         {% for car in cars %}
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="{{ car.pictures|first }}" alt="test">
+                    <img src="{{ asset(car.pictures|first) }}" alt="{{ car.carMaker }}-{{ car.carModel }}">
                     <div class="panel-body">
                         <h2>{{ (car.carLabel) }}</h2>
                         <p> Place assises : {{ car.passengerCapacity }}</p>
@@ -18,7 +18,7 @@
                         {% endif %}
                     </div>
                     <div class="panel-footer">
-                        <a href="{{ path('car_details', {'id': car.id}) }}" class="btn btn-primary">Détails et tarifs</a>
+                        <a href="{{ path('car_details', {'id': car.id, 'mark': car.carMaker, 'model': car.carModel}) }}" class="btn btn-primary">Détails et tarifs</a>
                     </div>
                 </div>
             </div>

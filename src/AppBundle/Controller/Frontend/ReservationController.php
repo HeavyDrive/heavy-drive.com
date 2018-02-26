@@ -84,6 +84,9 @@ class ReservationController extends Controller
         /** @var \AppBundle\Repository\PriceRepository $priceRepository */
         $priceRepository = $this->getDoctrine()->getRepository(Price::class);
 
+        /** @var \AppBundle\Repository\TransactionRepository $transactionRepository */
+        $transactionRepository = $this->getDoctrine()->getRepository(Transaction::class);
+
         $optionChoose = new ArrayCollection();
 
         if ('POST' == $request->getMethod()) {
@@ -147,7 +150,8 @@ class ReservationController extends Controller
             'form' => $form->createView(),
             'car' => $car,
             'priceRepository' => $priceRepository,
-            'optionChoose' => $optionChoose
+            'optionChoose' => $optionChoose,
+            'transactionRepository' => $transactionRepository
         ]);
     }
 
@@ -177,7 +181,7 @@ class ReservationController extends Controller
             dump($request); die;
         }
 
-        return $this->render('frontend/user/systempay.html.twig', [
+        return $this->render('frontend/user/paymentForm.html.twig', [
             'transaction_form' => $transaction_form->createView()
         ]);
 

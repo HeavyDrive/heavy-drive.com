@@ -13,6 +13,11 @@ services:
         arguments:
             - '@doctrine'
 
+    twig.extension.sha_extension:
+        class: AppBundle\Twig\ShaExtension
+        tags:
+            - { name : twig.extension }
+
     app.services.google_cloud:
         class: AppBundle\Controller\API\GoogleCloud
         arguments: ["%cloud_storage%"]
