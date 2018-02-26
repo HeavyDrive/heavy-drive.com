@@ -105,17 +105,24 @@ class DefaultController extends Controller
      */
     public function pdfAction()
     {
-        $html = $this->renderView('AppBundle:Default:bill.html.twig');
+        $html = $this->renderView('frontend/default/bill.html.twig');
 
         $filename = sprintf('test-%s.pdf', date('Y-m-d'));
 
-        return new Response(
+        //Méthode "as response from a controller" => Erreur de Samedi
+        /*return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             [
                 'Content-Type'        => 'application/pdf',
                 'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
             ]
+        );*/
+
+        // Méthode "pdf document from a twig view" => Unable to find template "<tout le code du template bill.html.twig>"
+        $this->get('knp_snappy.pdf')->generateFromHtml(
+            $this->renderView($html),
+            '/usr/local/bin/wkhtmltopdf'
         );
     }
 }
