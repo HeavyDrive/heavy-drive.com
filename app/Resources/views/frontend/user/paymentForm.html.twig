@@ -8,7 +8,7 @@
     <input type="hidden" name="vads_payment_config" value="SINGLE" />
     <input type="hidden" name="vads_site_id" value="61078196" />
     <input type="hidden" name="vads_trans_date" value="{{ "now"|date("YmdGis") }}" />
-    <input type="hidden" name="vads_trans_id" value="239848" />
+    <input type="hidden" name="vads_trans_id" value="{{ trans_id }}"  />
     <input type="hidden" name="vads_version" value="V2" />
     <input type="hidden" name="signature" value="{{ signature|signature(total_amount, "now"|date("YmdGis")) }}" />
     <input type="submit" name="payer" value="Payer"/>

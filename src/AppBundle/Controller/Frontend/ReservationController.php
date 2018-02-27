@@ -78,6 +78,12 @@ class ReservationController extends Controller
         /** @var \AppBundle\Repository\ReservationRepository $reservationRepository */
         $reservationRepository = $this->getDoctrine()->getRepository(Reservation::class);
 
+        /** @var \AppBundle\Repository\TransactionRepository $transactionRepository */
+        $transactionRepository = $this->getDoctrine()->getRepository(Transaction::class);
+
+        $trans_id=$transactionRepository->getLastTransactionId();
+        dump($trans_id);
+        $trans_id=$trans_id+1;
         /** @var \AppBundle\Repository\CarRepository $carRepository */
         $carRepository = $this->getDoctrine()->getRepository(Car::class);
 
@@ -151,7 +157,7 @@ class ReservationController extends Controller
             'car' => $car,
             'priceRepository' => $priceRepository,
             'optionChoose' => $optionChoose,
-            'transactionRepository' => $transactionRepository
+            'trans_id' => $trans_id
         ]);
     }
 
@@ -221,6 +227,4 @@ class ReservationController extends Controller
 
         return new Response();
     }
-
-
-}
+    }
