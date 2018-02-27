@@ -78,20 +78,13 @@ class ReservationController extends Controller
         /** @var \AppBundle\Repository\ReservationRepository $reservationRepository */
         $reservationRepository = $this->getDoctrine()->getRepository(Reservation::class);
 
-        /** @var \AppBundle\Repository\TransactionRepository $transactionRepository */
-        $transactionRepository = $this->getDoctrine()->getRepository(Transaction::class);
-
-        $trans_id=$transactionRepository->getLastTransactionId();
-        dump($trans_id);
-        $trans_id=$trans_id+1;
         /** @var \AppBundle\Repository\CarRepository $carRepository */
         $carRepository = $this->getDoctrine()->getRepository(Car::class);
 
         /** @var \AppBundle\Repository\PriceRepository $priceRepository */
         $priceRepository = $this->getDoctrine()->getRepository(Price::class);
 
-        /** @var \AppBundle\Repository\TransactionRepository $transactionRepository */
-        $transactionRepository = $this->getDoctrine()->getRepository(Transaction::class);
+        $trans_id = $this->getNewTransactionId();
 
         $optionChoose = new ArrayCollection();
 
@@ -103,7 +96,7 @@ class ReservationController extends Controller
             if ($form->get('save')->isClicked()) {
                 $optionChoose = $form->get('optionBooking')->getData();
             }
-            dump($optionChoose);
+
             if ($form1->get('save')->isClicked()) {
                 $bookingGuestManager->save($bookingGuest);
             }
@@ -161,70 +154,17 @@ class ReservationController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/systempay", name="systempay")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function RedirectionAction(Request $request)
+    public function getNewTransactionId()
     {
-        $transaction = new Transaction();
-        $transaction_form = $this->createForm(new SystemPayType(), $transaction, [
-            'action' => 'https://paiement.systempay.fr/vads-payment/'
-        ]);
+        /** @var \AppBundle\Repository\TransactionRepository $transactionRepository */
+        $transactionRepository = $this->getDoctrine()->getRepository(Transaction::class);
 
-        $systemPay  = $this->container->get('tlconseil.systempay');
+        $transaction = $transactionRepository->getLastTransactionId();
 
+        $last_id = $transaction[0]["transactionId"];
 
-        $signature = $systemPay->getSignature();
+        $next_id = $last_id + 1;
 
-        dump($signature);
-
-        if ('POST' == $request->getMethod()) {
-            $transaction_form->handleRequest($request);
-            dump($request); die;
-        }
-
-        return $this->render('frontend/user/paymentForm.html.twig', [
-            'transaction_form' => $transaction_form->createView()
-        ]);
-
+        return $next_id;
     }
-    /**
-     * @Route("/initiate-payment/id-{id}", name="pay_online")
-     * @Template()
-     */
-    public function payOnlineAction($id)
-    {
-        // ...
-        $systempay = $this->get('tlconseil.systempay')
-            ->init()
-            ->setOptionnalFields(array(
-                'shop_url' => 'http://www.heavy-drive.com'
-            ))
-        ;
-        dump($systempay);
-
-        return array(
-            'paymentUrl' => $systempay->getPaymentUrl(),
-            'fields' => $systempay->getResponse(),
-        );
-    }
-
-    /**
-     * @Route("/payment/verification")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function paymentVerificationAction(Request $request)
-    {
-        // ...
-        $this->get('tlconseil.systempay')
-            ->responseHandler($request)
-        ;
-
-        return new Response();
-    }
-    }
+}

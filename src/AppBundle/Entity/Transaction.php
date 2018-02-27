@@ -76,7 +76,7 @@ class Transaction
 
     /**
      * @var int
-     * @ORM\Column(name="transaction_id", type="int")
+     * @ORM\Column(name="transaction_id", type="integer")
      */
     protected $transactionId;
 

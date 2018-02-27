@@ -145,7 +145,7 @@
                                     <em>{{ "now"|date("l d F") }}</em>
                                 </p>
                                 <p>
-                                    <em>Receipt #: 34522677W</em>
+                                    <em>Receipt #: {{ trans_id }}</em>
                                 </p>
                             </div>
                         </div>
@@ -198,8 +198,7 @@
 
                             {% set total_amount = totalOptionToPay + priceServiceToPay %}
                             {% set signature = "" %}
-                            {% set transaction_id = transactionRepository.getLastTransactionId %}
-                            {{ dump(transaction_id) }}
+
                             {{ include ('frontend/user/paymentForm.html.twig') }}
                         </div>
                     </div>

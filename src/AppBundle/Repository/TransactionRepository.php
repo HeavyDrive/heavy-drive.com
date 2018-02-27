@@ -18,17 +18,12 @@ class TransactionRepository extends EntityRepository
     {
         $qb = $this->createTransactionQueryBuilder();
 
-       $qb ->add('select', 't')
-        ->add('from', 'Transaction t')
-        ->add('where', 't.transactionId = ?1')
-        ->add('orderBy', 't.transactionId DESC');
+        $qb->select('transaction.transactionId');
+        $qb->orderBy('transaction.transactionId', 'DESC');
 
-        dump($qb->getQuery()->getFirstResult());
-        /*$qb->andWhere('transaction.transactionId = :transactionId');
-        $qb->setParameter('transactionId', "?1");
-        $qb->orderBy("ASC");*/
+        $qb->setMaxResults(1);
 
-        return $qb;
+        return $qb->getQuery()->getResult();
     }
     /*
     * @return \Doctrine\ORM\QueryBuilder
@@ -39,4 +34,7 @@ class TransactionRepository extends EntityRepository
 
         return $qb;
     }
+
+
+
 }
