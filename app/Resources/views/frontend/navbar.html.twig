@@ -1,29 +1,20 @@
-<nav class="navbar navbar-inverse navbar" id="navbar">
-    <div class="container">
-        <ul class="nav navbar-nav">
-            <li><a href="{{ path('homepage') }}">{{ 'heavy.navigation.homepage'|trans }}</a></li>
-            <li><a href="{{ path('car') }}">{{ 'heavy.navigation.cars'|trans }}</a></li>
-            <li><a href="{{ path('service') }}">{{ 'heavy.navigation.services'|trans }}</a></li>
-            <li><a href="{{ path('wedding') }}">{{ 'heavy.navigation.wedding'|trans }}</a></li>
-        </ul>
-        {% if app.user %}
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i>Mon compte ({{ app.user.username }})  <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('cars_booking') }}">Mes réservations</a></li>
-                        <li><a href="{{ path('cars_booking_done') }}">Mon historique</a></li>
-                        <li><a href="{{ path('fos_user_profile_edit') }}">Mes informations</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-                    </ul>
-                </li>
-            </ul>
-        {% else %}
-            <ul class="nav navbar-nav navbar-right">_navigation
-                <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-sign-in"></i> S'inscrire</a></li>
-                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Connexion</a></li>
-            </ul>
-        {% endif %}
-    </div>
-</nav>
+<div class="topnav" id="myTopnav">
+    <a href="{{ path('homepage') }}" class="active">{{ 'heavy.navigation.homepage'|trans }}</a>
+    <a href="{{ path('car') }}">{{ 'heavy.navigation.cars'|trans }}</a>
+    <a href="{{ path('service') }}">{{ 'heavy.navigation.services'|trans }}</a>
+    <a href="{{ path('wedding') }}">{{ 'heavy.navigation.wedding'|trans }}</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+    {% if app.user %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i>Mon compte ({{ app.user.username }})  <span class="caret"></span></a>
+        <a href="{{ path('cars_booking') }}">Mes réservations</a>
+        <a href="{{ path('cars_booking_done') }}">Mon historique</a>
+        <a href="{{ path('fos_user_profile_edit') }}">Mes informations</a>
+        <li role="separator" class="divider"></li>
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-sign-in"></i> S'inscrire</a>
+        <a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Connexion</a>
+    {% endif %}
+</div>
+
