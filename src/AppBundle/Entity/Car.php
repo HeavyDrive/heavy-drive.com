@@ -1054,7 +1054,7 @@ class Car
 
     public function carLabel()
     {
-        return $this->carMaker . ' ' . $this->carModel;
+        echo '<h2>'.$this->carMaker . '</h2> <h3>' . $this->carModel .'</h3>';
     }
 
     /**
