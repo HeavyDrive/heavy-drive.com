@@ -30,3 +30,9 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+    acl:
+        connection: default
+
+    access_decision_manager:
+        strategy: unanimous

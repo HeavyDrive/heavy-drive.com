@@ -88,6 +88,17 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
 
+sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
+
+        role_admin: ROLE_ADMIN
+        role_super_admin: ROLE_SUPER_ADMIN
+
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
+
 fos_user:
     db_driver: orm
     firewall_name: main

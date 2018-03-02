@@ -49,10 +49,7 @@ class ClientAdmin extends AbstractAdmin
         $container = $this->getConfigurationPool()->getContainer();
         $roles = $container->getParameter('security.role_hierarchy.roles');
 
-        dump($roles);
-
         $rolesChoices = self::flattenRoles($roles);
-        dump($rolesChoices);
 
         $formMapper
             ->with('Général')

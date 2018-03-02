@@ -30,3 +30,6 @@ services:
         arguments: [~, AppBundle\Entity\Client, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Administration, label: Client}
+
+parameters:
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
