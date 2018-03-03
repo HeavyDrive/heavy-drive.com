@@ -53,28 +53,39 @@ class ClientAdmin extends AbstractAdmin
 
         $formMapper
             ->with('Général')
+            ->add('username', 'text')
+            ->add('firstName', 'text')
+            ->add('lastName', 'text')
             ->add('email', 'text', [
-                    'required' => false
-                ])
-                ->add('firstName', 'text')
-                ->add('lastName', 'text')
-                ->add('telephone', 'text')
-                ->add('lastLogin', 'sonata_type_datetime_picker', [
-                    'data' => new \DateTime(), 'required' => false
-                ])
+                'required' => false
+            ])
+            ->add('address', 'text', [
+                'required' => false
+            ])
+            ->add('zipcode', 'text', [
+                'required' => false
+            ])
+            ->add('city', 'text', [
+                'required' => false
+            ])
+            ->add('telephone', 'text')
+            ->add('enabled', null)
+            ->add('lastLogin', 'sonata_type_datetime_picker', [
+                'data' => new \DateTime(), 'required' => false
+            ])
 
-                //->add('enabled', null, array('required' => false))
+            //->add('enabled', null, array('required' => false))
             ->end()
             ->with('Security', array('collapsed' => true))
-                ->add('plainPassword', 'text', [
-                    'required' => false
-                ])
-                ->add('roles', 'choice', array(
-                        'choices'  => $rolesChoices,
-                        'multiple' => true,
-                        'expanded' => true
-                    )
+            ->add('plainPassword', 'text', [
+                'required' => false
+            ])
+            ->add('roles', 'choice', array(
+                    'choices'  => $rolesChoices,
+                    'multiple' => true,
+                    'expanded' => true
                 )
+            )
             ->end()
         ;
     }
