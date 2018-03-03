@@ -54,6 +54,7 @@ class ReservationAdmin extends AbstractAdmin
                 ))
             ->end()
             ->with('Client')
+                ->add('client')
                 ->add('licenceDriver', 'entity', array(
                     'class' => 'AppBundle\Entity\LicenseDriver',
                     'property' => 'id',
@@ -70,7 +71,7 @@ class ReservationAdmin extends AbstractAdmin
             ->with('Statuts')
                 ->add('createdAt', 'sonata_type_datetime_picker')
                 ->add('status', 'sonata_type_translatable_choice', [
-                    'catalogue' => 'AppBundle',
+                    //'translation_domain' => 'messages',
                     'choices' => [
                         Reservation::$statuses
                     ]
@@ -81,8 +82,8 @@ class ReservationAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list)
     {
         $list
-            ->add('car.maker')
-            ->add('car.model')
+            ->add('car.carMaker')
+            ->add('car.carModel')
             ->add('client.username')
             ->add('licenceDriver.id')
             ->add('proofOfAdress.id')
