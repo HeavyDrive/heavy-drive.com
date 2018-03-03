@@ -12,7 +12,7 @@
 }
 
 .field-agency {
-  margin-bottom: 2%;
+  margin-bottom: 4%;
   margin-top: 2%;
 }
 
@@ -20,11 +20,16 @@
   margin-bottom: 2%;
   margin-top: 2%;
 }
+.cadre {
+  background-image: linear-gradient(to right,#3d033d, #8b308a, #8b308a, #3d033d);
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
 
 .form-date button {
-  margin-bottom: 2%;
-  margin-top: 2%;
+  margin-bottom: 0%;
+  margin-top: 5%;
   background-color: #6E1F7C;
   border-color: #6E1F7C;
-  color: white;
+  color: purple;
 }

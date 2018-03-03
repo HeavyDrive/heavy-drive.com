@@ -67,7 +67,7 @@ class CarController extends Controller
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Rechercher votre véhicule',
-                'attr' => array('class' => 'btn btn-default'),
+                'attr' => array('class' => 'btn btn-primary'),
             ])->getForm();
 
         $form->handleRequest($request);
