@@ -1,0 +1,37 @@
+.btn-primary  {
+  background-image: linear-gradient(to right, #b9b7b9, #ffffff, #ffffff, #b9b7b9);
+  color:white;
+  font:caption;
+
+}
+.btn-primary:hover {
+  color: #fff;
+  /* background-color: #286090; */
+  /* border-color: #204d74; */
+}
+.btn-primary:hover {
+  background-image: linear-gradient(to right, #3d033d, #8b308a, #8b308a, #3d033d);
+  color:lightgrey;
+  font:caption;
+  background-color: lightgrey;
+  border-color: lightgrey;
+}
+
+.btn-default {
+  background-image: linear-gradient(to right, #3d033d, #8b308a, #8b308a, #3d033d);
+  color:white;
+  font:caption;
+
+}
+.btn-default:hover {
+  background-image: linear-gradient(to right, #b9b7b9, #ffffff, #ffffff, #b9b7b9);
+  color:purple;
+  font:caption;
+}
+
+.l1{
+  color:lightgrey;
+  margin-left: 5%;
+  margin-top: 7px;
+}
+

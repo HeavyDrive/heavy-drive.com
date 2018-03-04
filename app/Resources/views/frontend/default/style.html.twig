@@ -1,0 +1,21 @@
+{% extends "frontend/base.html.twig" %}
+
+{% block body %}
+
+
+<!-- Ici tu colle les différents élément que tu peux retrouver sur les pages
+Les bouton, les liens, ect.et je laisse ce qu'il ya au dessus la ? oui c'est un exemple pour les formulaires
+Tu peux juste faire du html simple au pire tu prend élément bootstrap
+Bon ta compris :
+- tu regarde les éléments qu'on utilise actuellement
+- tu ajoute des class dans ce fichier si tu souhaite modifier le css
+- tu crée un nouve fichier css
+- tu include le nouveau fichier dans front.scss
+- une fois qu'un élément te convient tu ajoute ou supprime la class actuel par celle que tu as mis dans ce fichier
+Priorité : bouton, hover, liens(footer) hover liens, input form !-->
+
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-default ma-class">default</button>
+        <button type="button" class="bbtn sub-btn">sub</button>
+        <button type="button" class="btn btn-success">succes</button>
+{% endblock %}

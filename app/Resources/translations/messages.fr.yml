@@ -94,7 +94,7 @@ heavy:
                 default: "Notre Sélection de Voitures"
                 booking: "Mes réservations"
                 historique: Mon historique
-        selection: Notre Sélection
+        selection: Découvrez nos véhicules
         status:
             available: Disponible
             busy: Occupée
@@ -125,7 +125,7 @@ heavy:
 
                                         <p style = "font-size: 18px;">Qu'il s'agisse d'un accompagnement à l'aéroport, d'un retour à domicile en fin de soirée, ou encore d'un service de Grande Remise pour un mariage ou un événement particulier, Heavy-Drive est la solution à vos besoins. Avec Heavy-Drive, sentez-vous bien, sentez-vous libre...
                                                                     </p>
-        our_expertise: Notre expertise
+        our_expertise: Pourquoi Nous ?
     service:
         title: Nos prestations
         forfaitchrono: Forfait CHRONO 24H

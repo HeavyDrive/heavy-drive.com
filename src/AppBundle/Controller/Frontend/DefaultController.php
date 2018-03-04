@@ -12,12 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-
-    public function __construct()
-    {
-
-    }
-
     /**
      * @Route("/", name="homepage")
      *
@@ -73,17 +67,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/storage", name="storage")
-     *
-     */
-    public function storageAction()
-    {
-        $cloudStorage = $this->container->get('app.services.google_cloud');
-
-        dump($cloudStorage);
-    }
-
-    /**
      * @Route("/location/foire-aux-questions", name="faq")
      *
      */
@@ -91,4 +74,19 @@ class DefaultController extends Controller
     {
         return $this->render('frontend/default/faq.html.twig');
     }
+
+    /**
+     * @Route("/Style", name="Style")
+     *
+     */
+    public function StyleAction()
+    {
+        /*$contact = new Contact();
+        $form = $this->createForm(new ContactType(), $contact);*/
+
+        return $this->render('frontend/default/style.html.twig', [
+           // 'form' => $form
+        ]);
+    }
+
 }
