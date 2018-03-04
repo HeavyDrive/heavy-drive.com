@@ -238,6 +238,9 @@
             <column name="to_pay" type="DECIMAL">
                 <constraints nullable="false"/>
             </column>
+            <column name="total_price" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_at" type="datetime">
                 <constraints nullable="false"/>
             </column>

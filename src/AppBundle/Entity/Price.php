@@ -29,6 +29,13 @@ class Price
     private $toPay;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="total_price", type="decimal", precision=10, scale=0, nullable=false)
+     */
+    protected $totalPrice;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -82,6 +89,30 @@ class Price
     public function setToPay($toPay)
     {
         $this->toPay = $toPay;
+
+        return $this;
+    }
+
+    /**
+     * Get totalPrice
+     *
+     * @return string
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * Set totalPrice
+     *
+     * @param string $totalPrice
+     *
+     * @return Price
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
@@ -161,7 +192,7 @@ class Price
     /**
      * Get service
      *
-     * @return \AppBundle\Entity\Service
+     * @return Service
      */
     public function getService()
     {
