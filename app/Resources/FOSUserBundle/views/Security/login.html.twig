@@ -12,15 +12,14 @@
                         <form action="{{ path("fos_user_security_check") }}" method="post">
                             <div class="row fields__container">
                                 <div class="col-lg-5 fields__column--1">
-
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
                                     <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-                                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control input-md" />
                                 </div>
                                 <div class="col-lg-5 fields__column--2">
                                     <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-                                    <input type="password" id="password" name="_password" required="required" />
+                                    <input type="password" id="password" name="_password" required="required" class="form-control input-md" />
                                 </div>
                             </div>
                             <div>
@@ -28,7 +27,7 @@
                                 <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
                             </div>
                             <div>
-                                <input type="submit" class="btn btn-primary m-t-10" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                                <input type="submit" class="btn btn-default" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
                             </div>
                         </form>
                     </div>

@@ -14,25 +14,25 @@
                                 <div class="col-lg-5 fields__column--1">
                                     <div class="input__container">
                                         <label for="fname">{{ 'heavy.register.firstname' | trans }}</label>
-                                        {{ form_widget(form.firstName) }}
+                                        {{ form_widget(form.firstName, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-user"></i>
                                     </div>
                                     {{ form_errors(form.firstName) }}
                                     <div class="input__container">
                                         <label for="fname">{{ 'heavy.register.username' | trans }}</label>
-                                        {{ form_widget(form.username) }}
+                                        {{ form_widget(form.username, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-user"></i>
                                     </div>
                                     {{ form_errors(form.username) }}
                                     <div class="input__container">
                                         <label for="lname">{{ 'heavy.register.lastname' | trans }}</label>
-                                        {{ form_widget(form.lastName) }}
+                                        {{ form_widget(form.lastName, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-user"></i>
                                     </div>
                                     {{ form_errors(form.lastName) }}
                                     <div class="input__container">
                                         <label for="emailaddr" class="m-t-10">{{ 'heavy.register.mail' | trans }}</label>
-                                        {{ form_widget(form.email) }}
+                                        {{ form_widget(form.email, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-at"></i>
                                         {% if form.email.vars.required %}
                                             <i class="fa fa-asterisk"></i>
@@ -41,7 +41,7 @@
                                     {{ form_errors(form.email) }}
                                     <div class="input__container">
                                         <label for="mobile" class="m-t-10">{{ 'heavy.register.mobile' | trans }}</label>
-                                        {{ form_widget(form.telephone) }}
+                                        {{ form_widget(form.telephone, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-mobile"></i>
                                         {% if form.telephone.vars.required %}
                                             <i class="fa fa-asterisk"></i>
@@ -52,28 +52,28 @@
                                 <div class="col-lg-5 fields__column--2">
                                     <div class="input__container">
                                         <label for="fname">{{ 'heavy.register.address' | trans }}</label>
-                                        {{ form_widget(form.address) }}
+                                        {{ form_widget(form.address, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-user"></i>
                                     </div>
                                     {{ form_errors(form.address) }}
 
                                     <div class="input__container">
                                         <label for="fname">{{ 'heavy.register.city' | trans }}</label>
-                                        {{ form_widget(form.city) }}
+                                        {{ form_widget(form.city, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-user"></i>
                                     </div>
                                     {{ form_errors(form.city) }}
 
                                     <div class="input__container">
                                         <label for="fname">{{ 'heavy.register.zipCode' | trans }}</label>
-                                        {{ form_widget(form.zipCode) }}
+                                        {{ form_widget(form.zipCode, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-user"></i>
                                     </div>
                                     {{ form_errors(form.zipCode) }}
 
                                     <div class="input__container">
                                         <label for="password" class="m-t-10">{{ 'heavy.register.password' | trans }}</label>
-                                        {{ form_widget(form.plainPassword.first) }}
+                                        {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-lock"></i>
                                         {% if form.plainPassword.first.vars.required %}
                                             <i class="fa fa-asterisk"></i>
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="input__container">
                                         <label for="verifypass" class="m-t-10">{{ 'heavy.register.rewritepassword' | trans }}</label>
-                                        {{ form_widget(form.plainPassword.second) }}
+                                        {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control input-md'} } ) }}
                                         <i class="fa fa-2x fa-lock"></i>
                                         {% if form.plainPassword.second.vars.required %}
                                             <i class="fa fa-asterisk"></i>
@@ -92,7 +92,7 @@
                             </div>
                             {{ form_rest(form) }}
                             <div>
-                                <input type="submit" class="btn btn-primary m-t-10 centered" id="submitbtn" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+                                <input type="submit" class="btn btn-default" id="submitbtn" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
                             </div>
                         </form>
                     </div>

@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function connectionAction(){
 
-        return $this->render('frontend/user/connection.html.twig', []);
+        return $this->render('frontend/user/connection.html.twig');
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function registrationAction(){
 
-        return $this->render('frontend/user/register.html.twig', []);
+        return $this->render('frontend/user/register.html.twig');
     }
 
 }
