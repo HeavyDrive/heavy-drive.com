@@ -1,9 +1,8 @@
-<div class="topnav" id="myTopnav">
+<nav class="topnav navbar" id="myTopnav">
     <a href="{{ path('homepage') }}" class="active">{{ 'heavy.navigation.homepage'|trans }}</a>
     <a href="{{ path('car') }}">{{ 'heavy.navigation.cars'|trans }}</a>
     <a href="{{ path('service') }}">{{ 'heavy.navigation.services'|trans }}</a>
     <a href="{{ path('wedding') }}">{{ 'heavy.navigation.wedding'|trans }}</a>
-    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 
     {% if app.user %}
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i>Mon compte ({{ app.user.username }})  <span class="caret"></span></a>
@@ -13,8 +12,9 @@
         <li role="separator" class="divider"></li>
         <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
     {% else %}
-        <a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-sign-in"></i> S'inscrire</a>
-        <a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Connexion</a>
+        <a href="{{ path('fos_user_security_login') }}" class="right"><i class="fa fa-sign-in"></i> Connexion</a>
+        <a href="{{ path('fos_user_registration_register') }}" class="right"><i class="fa fa-sign-in"></i> S'inscrire</a>
     {% endif %}
-</div>
+    <a href="javascript:void(0);" style="font-size:17px;" class="icon" onclick="myFunction()">&#9776;</a>
+</nav>
 
