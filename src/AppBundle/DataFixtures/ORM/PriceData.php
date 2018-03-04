@@ -44,6 +44,7 @@ class PriceData extends BaseFixtureLoader implements OrderedFixtureInterface, Co
                 $price->setCar($car);
                 $price->setService($service);
                 $price->setToPay($this->faker->randomFloat(5, 1000, null));
+                $price->setTotalPrice($this->faker->randomFloat(5, 1000, null));
                 $price->setCreatedAt($this->faker->dateTime);
                 $price->setUpdatedAt($this->faker->dateTime);
 
