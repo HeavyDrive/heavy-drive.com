@@ -1,4 +1,5 @@
 {% extends "frontend/base.html.twig" %}
+{% block title %}Heavy-Drive - Découvrez nos voitures en photos et leurs caractéristiques {% endblock %}
 {% block body %}
     {% set dateStart = date(app.request.query.get('dateStart')) %}
     {% set dateEnd = date(app.request.query.get('dateEnd')) %}
@@ -22,7 +23,7 @@
                         <ul class="tarif_prestation">
                             {% for price in priceCar %}
                                 <li>
-                                    <p> {{ price.service.name }} : {{ price.toPay }} </p>
+                                    <p> {{ price.service.name }} : {{ price.toPay }} €</p>
                                     <!-- <a href="{{ path('reservation', {'id': price.service.id, 'dateStart': dateStart|date('Y-m-d H:i:s'), 'dateEnd': dateEnd|date('Y-m-d H:i:s') }) }}">Réserver</a> -->
                                 </li>
                             {% endfor %}
@@ -37,13 +38,16 @@
     </div>
     <br>
 
-    <div class="">
+    <div class="">      
         {% for picture in car.pictures %}
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <a href="#">
-                    <img class="img-responsive img-hover" src={{ picture }} alt="">
-                </a>
-            </div>
+            {% if not loop.first %}
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <a href="#">
+                        <img class="img-responsive img-hover" src={{ picture }} alt="{{car.carMaker}}-{{car.carModel}}">
+                    </a>
+                </div>
+            {% endif %}
+
         {% endfor %}
     </div>
 

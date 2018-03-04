@@ -1,130 +1,200 @@
 {% extends "frontend/base.html.twig" %}
+{% block title %}Heavy-Drive - Venez célébrer votre mariage en toutes sérénité {% endblock %}
 {% block body %}
     <section class="section-wedding">
         <div class="container-fluid">
             <h1 class="centered">{{ 'heavy.wedding.marryservice'| trans }}</h1>
             <hr class="star-light">
             <div id="well" class="wedding">
-                <div class="well centered bloc-wedding">
-                    <h3>{{ 'heavy.wedding.marry'| trans }}</h3>
-                </div>
                 <br>
-                <div class="row col-md-6">
-                    <div id="subtitle" class="well well-wedding centered">
-                        <h3>{{ 'heavy.wedding.forfaitday'| trans }}</h3>
+                <div class="row col-md-12">
+                    <!--<div id="subtitle" class="well well-wedding centered">-->
+                        <h2 class="centered">{{ 'heavy.wedding.forfaitday'| trans }}</h2>
                         {% for car in cars %}
                         <div id="price" class="col-md-4 col-sm-2 col-xs-12 centered">
                             <div class="panel panel-pricing">
                                 <div class="panel-heading panel-wedding">
                                     <h3>{{ car.carLabel }}</h3>
-                                    <img src="{{ asset('images/cayen.jpg') }}" style="width: 100%">
+                                    <img src="{{ car.pictures|first }}" style="width: 100%">
                                 </div><!--panel-heading close-->
                                 <div class="panel-body centered">
-                                    <p class="p-title">Subscription Duration</p><!--p-title close-->
-                                    <p class="p-time">2 days - 30 Mins</p><!--p-time close-->
+                                    <p><span>Nombre de porte</span> : {{ car.doors }} portes</p><!--p close-->
+                                    <p><span>Nombre de places</span> : {{ car.passengerCapacity }} places</p><!--p close-->
+                                    <p>Puissance fiscale : {{ car.options }}</p><!--p close-->
+                                    <p>Transmission : {{ car.transmission }}</p><!--p close-->
                                 </div><!--panel-body centered close-->
                                 <div class="panel-body centered">
-                                    <p class="p-price-cortege">₦ 50.00 </p><!--p-price-cortege close-->
-                                    <p class="p-tax">All inclusive</p><!--p-tax close-->
+
+                                    {% for price in priceCar %}
+                                        {% if price.service.id == 1 %}
+                                            <p class="p-title">{{ price.service.name }} : {{ price.toPay }}</p><!--p-title-cortege close-->
+                                        {% endif %}
+                                        {% if price.service.id == 2 %}
+                                            <p class="p-title">{{ price.service.name }} : {{ price.toPay }} </p><!--p-title-cortege close-->
+                                        {% endif %}
+                                    {% endfor %}
+
                                 </div><!--panel-body centered close-->
                                 <div class="panel-footer">
-                                    <a class="btn sub-btn" href="#">{{ 'heavy.wedding.reserve'| trans }}</a>
+                                    <button type="button" class="bbtn sub-btn" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Faire une demande</button><br>
                                 </div>
                             </div><!--panel panel-pricing close-->
                         </div><!--col-md-4 col-sm-4 col-xs-12 centered close-->
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="row col-md-6">
-                    <div id="subtitle" class="well well-wedding centered">
-                        <h3>{{ 'heavy.wedding.forfaitday'| trans }}</h3>
-                        {% for car in cars %}
-                            <div id="price" class="col-md-4 col-sm-2 col-xs-12 centered">
-                                <div class="panel panel-pricing">
-                                    <div class="panel-heading panel-wedding">
-                                        <h3>{{ car.carLabel }}</h3>
-                                        <img src="{{ asset('images/cayen.jpg') }}" style="width: 100%">
-                                    </div><!--panel-heading close-->
-                                    <div class="panel-body centered">
-                                        <p class="p-title">Subscription Duration</p><!--p-title close-->
-                                        <p class="p-time">2 days - 30 Mins</p><!--p-time close-->
-                                    </div><!--panel-body centered close-->
-                                    <div class="panel-body centered">
-                                        <p class="p-price-cortege">₦ 50.00 </p><!--p-price-cortege close-->
-                                        <p class="p-tax">All inclusive</p><!--p-tax close-->
-                                    </div><!--panel-body centered close-->
-                                    <div class="panel-footer">
-                                        <a class="btn sub-btn" href="#">{{ 'heavy.wedding.reserve'| trans }}</a>
-                                    </div>
-                                </div><!--panel panel-pricing close-->
-                            </div><!--col-md-4 col-sm-4 col-xs-12 centered close-->
-                        {% endfor %}
-                    </div>
-                </div>
+                            <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="contactModalLabel">Demande de réservation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ form_start(form) }}
+                                            <div class="form-group">
+                                                <label for="name" class="control-label">Nom, prénom</label>
+                                                {{ form_widget(form.name, { 'attr': {'class': 'form-control input-md'} } ) }}
+                                                {{ form_errors(form.name) }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mail" class="control-label">Email</label>
+                                                {{ form_widget(form.email, { 'attr': {'class': 'form-control input-md'} } ) }}
+                                                {{ form_errors(form.email) }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone" class="control-label">Mobile</label>
+                                                {{ form_widget(form.phone, { 'attr': {'class': 'form-control input-md'} } ) }}
+                                                {{ form_errors(form.phone) }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="subject" class="control-label">Sujet</label>
+                                                {{ form_widget(form.subject, { 'attr': {'class': 'form-control input-md'} } ) }}
+                                                {{ form_errors(form.subject) }}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message-text" class="control-label">Message</label>
+                                                {{ form_widget(form.message, { 'attr': {'class': 'form-control input-md'} } ) }}
+                                                {{ form_errors(form.message) }}
+                                            </div>
 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                            {{ form_rest(form) }}
+                                            <input type="submit" value="Submit" class="btn btn-primary" />
+                                            {% for flashMessage in app.session.flashbag.get('notice-car') %}
+                                                <div class="flash-notice">
+                                                    {{ flashMessage }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    <!--</div>-->
+                </div>
             </div>
         </div><!--container close-->
-    </section><!--section close-->
-    <section>
+
         <div class="container-fluid">
-            <div id="well" class="wedding">
-                <div class="well centered">
-                    <h3>{{ 'heavy.wedding.forfaitcortege'| trans }}</h3>
-                </div>
-                <br>
-                <div class="row col-md-6">
-                    <div id="subtitle" class="well well-wedding centered">
-                        <h3>{{ 'heavy.wedding.forfaitone'| trans }}</h3>
+            <h2 class="centered">{{ 'heavy.wedding.forfaitcortege'| trans }}</h2>
+            <br>
+            <br>
+            <div class="row col-md-4">
+                    <div id="subtitle" >
                         <div id="price-cortege" class="col-md-6 col-sm-6 col-xs-12 centered">
                             <div class="panel panel-pricing">
                                 <div class="panel-heading">
-                                    <h3>Porsche Cayenne Blanc</h3>
-                                    <h3>Mercedes-Benz ML63 AMG</h3>
-                                    <h3>Mercedes-Benz ML63 AMG</h3>
+                                    <h3><strong>{{ 'heavy.wedding.forfaitone'| trans }}</strong></h3>
                                     <br>
                                 </div><!--panel-heading close-->
                                 <div class="panel-body centered">
-                                    <p class="p-title">Subscription Duration</p><!--p-title close-->
-                                    <p class="p-time">7 days - 90 Mins</p><!--p-time close-->
+                                    <ul>
+                                        <li><h4>Porsche	Cayman S</h4></li>
+                                        <li><h4>Porsche	Cayenne Turbo</h4></li>
+                                        <li><h4>Range Rover	Evoque</h4></li>
+                                        <li><h4>Mini Cooper S</h4></li>
+                                        <li><h4>Mercedes ML63 AMG</h4></li>
+                                        <li><h4>Infiniti FX S</h4></li>
+                                        <li><h4>Jaguar XJ8 de Collection</h4></li>
+                                        <li><h4>Mercedes Classe S 500</h4></li>
+                                        <li><h4>Bentley Continental Flying Spur</h4></li>
+                                    </ul>
                                 </div><!--panel-body centered close-->
                                 <div class="panel-body centered">
-                                    <p class="p-price-cortege">₦ 150.00 </p><!--p-price-cortege close-->
-                                    <p class="p-tax">All inclusive</p><!--p-tax close-->
+                                    <p class="p-price-cortege">Deux voitures au choix </p><!--p-price-cortege close-->
+                                    <p class="p-tax"><strong>2 199 €</strong></p><!--p-tax close-->
                                 </div><!--panel-body centered close-->
                                 <div class="panel-footer">
-                                    <a class="btn sub-btn" href="#">{{ 'heavy.wedding.reserve'| trans }}</a>
+                                    <button type="button" class="btn sub-btn" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Faire une demande</button><br>
                                 </div>
                             </div><!--panel panel-pricing close-->
                         </div><!--col-md-6 col-sm-6 col-xs-12 centered close-->
                     </div>
                 </div>
-
-                    <div class="row col-md-6 line">
-                        <div id="subtitle" class="well well-wedding centered">
-                            <h3> {{ 'heavy.wedding.forfaittwo'| trans }}</h3>
-                            <div id="price-cortege" class="col-md-6 col-sm-6 col-xs-12 centered">
-                                <div class="panel panel-pricing">
-                                    <div class="panel-heading">
-                                        <h3>Porsche Cayenne Blanc</h3>
-                                        <h3>Mercedes-Benz ML63 AMG</h3>
-                                        <h3>Mercedes-Benz ML63 AMG</h3>
-                                        <br>
-                                    </div><!--panel-heading close-->
-                                    <div class="panel-body centered">
-                                        <p class="p-title">Subscription Duration</p><!--p-title close-->
-                                        <p class="p-time">7 days - 90 Mins</p><!--p-time close-->
-                                    </div><!--panel-body centered close-->
-                                    <div class="panel-body centered">
-                                        <p class="p-price-cortege">₦ 150.00 </p><!--p-price-cortege close-->
-                                        <p class="p-tax">All inclusive</p><!--p-tax close-->
-                                    </div><!--panel-body centered close-->
-                                    <div class="panel-footer">
-                                        <a class="btn sub-btn" href="#">{{ 'heavy.wedding.reserve'| trans }}</a>
-                                    </div>
-                                </div><!--panel panel-pricing close-->
-                            </div><!--col-md-6 col-sm-6 col-xs-12 centered close-->
-                        </div>
-                    </div>
-            </div><!--container close-->
+            <div class="row col-md-4">
+                <div id="subtitle" >
+                    <div id="price-cortege" class="col-md-6 col-sm-6 col-xs-12 centered">
+                        <div class="panel panel-pricing">
+                            <div class="panel-heading">
+                                <h3><strong>{{ 'heavy.wedding.forfaittwo'| trans }}</strong></h3>
+                                <br>
+                            </div><!--panel-heading close-->
+                            <div class="panel-body centered">
+                                <ul>
+                                    <li><h4>Porsche	Cayman S</h4></li>
+                                    <li><h4>Porsche	Cayenne Turbo</h4></li>
+                                    <li><h4>Range Rover	Evoque</h4></li>
+                                    <li><h4>Mini Cooper S</h4></li>
+                                    <li><h4>Mercedes ML63 AMG</h4></li>
+                                    <li><h4>Infiniti FX S</h4></li>
+                                    <li><h4>Jaguar XJ8 de Collection</h4></li>
+                                    <li><h4>Mercedes Classe S 500</h4></li>
+                                    <li><h4>Bentley Continental Flying Spur</h4></li>
+                                </ul>
+                            </div><!--panel-body centered close-->
+                            <div class="panel-body centered">
+                                <p class="p-price-cortege">Deux voitures minimum au choix </p><!--p-price-cortege close-->
+                                <p class="p-tax"><strong>2 999€</strong></p><!--p-tax close-->
+                            </div><!--panel-body centered close-->
+                            <div class="panel-footer">
+                                <button type="button" class="btn sub-btn" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Faire une demande</button><br>
+                            </div>
+                        </div><!--panel panel-pricing close-->
+                    </div><!--col-md-6 col-sm-6 col-xs-12 centered close-->
+                </div>
+            </div>
+            <div class="row col-md-4">
+                <div id="subtitle" >
+                    <div id="price-cortege" class="col-md-6 col-sm-6 col-xs-12 centered">
+                        <div class="panel panel-pricing">
+                            <div class="panel-heading">
+                                <h3><strong>{{ 'heavy.wedding.forfaitthree'| trans }}</strong></h3>
+                                <br>
+                            </div><!--panel-heading close-->
+                            <div class="panel-body centered">
+                                <ul>
+                                    <li><h4>Porsche	Cayman S</h4></li>
+                                    <li><h4>Porsche	Cayenne Turbo</h4></li>
+                                    <li><h4>Range Rover	Evoque</h4></li>
+                                    <li><h4>Mini Cooper S</h4></li>
+                                    <li><h4>Mercedes ML63 AMG</h4></li>
+                                    <li><h4>Infiniti FX S</h4></li>
+                                    <li><h4>Jaguar XJ8 de Collection</h4></li>
+                                    <li><h4>Mercedes Classe S 500</h4></li>
+                                    <li><h4>Bentley Continental Flying Spur</h4></li>
+                                </ul>
+                            </div><!--panel-body centered close-->
+                            <div class="panel-body centered">
+                                <p class="p-price-cortege">Trois ou quatre voitures maximum au choix </p><!--p-price-cortege close-->
+                                <p class="p-tax"><strong>3 799 €</strong></p><!--p-tax close-->
+                            </div><!--panel-body centered close-->
+                            <div class="panel-footer">
+                                <button type="button" class="btn sub-btn" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo">Faire une demande</button><br>
+                            </div>
+                        </div><!--panel panel-pricing close-->
+                    </div><!--col-md-6 col-sm-6 col-xs-12 centered close-->
+                </div>
+            </div>
         </div>
+    </section>
 {% endblock %}

@@ -1,10 +1,10 @@
 heavy:
     reservation:
-        step_1: Information personnelle
-        step_2: Information Location
-        step_3: Justificatif (Facultatif)
+        step_1: Informations Personnelles
+        step_2: Informations Location
+        step_3: Justificatifs (Facultatif)
         step_4: Validation Pré-Réservation
-        rent_option: Choississez des options pour votre location
+        rent_option: Choisissez des options pour votre location
         from_date: Date de début :
         to_date: Date de fin :
         button_next: Suivant
@@ -15,11 +15,11 @@ heavy:
         login_or: Login or
         login: Login
         signup: Inscription
-        licence_driver: Numero de permis
+        licence_driver: Numéro de permis
         facebook: Facebook
         google: Google
         or: ou
-        password_error: mot de passe érroné
+        password_error: Mot de Passe érroné
         remember_me: Se souvenir de moi
         proof_paper: Pièces justificatives
         status:
@@ -30,30 +30,37 @@ heavy:
             sold : Paiement reçu
             not_sold: En attente du paiement
             closed: Terminée
-            cancelled: annulée
+            cancelled: Annulée
         rent_location: Choississez le lieu de votre location
         rent_pick_up: Lieu de retrait
-        rent_dropp_off: Lieu de dépose
+        rent_dropp_off: Lieu de dépôt
+    client:
+        roles:
+            client: Client
+            sonata_admin: Admin Sonata
+            admin: Admin
+            super_admin: Super Admin
+            allowed_to_switch: Impersonate
     register:
         description: Créer votre compte Heavy-Drive!
-        firstname: Prénom*
-        lastname: Nom*
-        username : Nom d'utilisateur*
-        gender: Sexe*
+        firstname: Prénom *
+        lastname: Nom *
+        username : Nom d'utilisateur *
+        gender: Sexe *
         male: Masculin
         female: Féminin
-        city: Ville*
-        address: Adresse*
-        mail: Adresse mail*
+        city: Ville *
+        address: Adresse *
+        mail: Adresse mail *
         mailexample: Example: john.smith@gmail.com
-        password: Mot de passe*
+        password: Mot de passe *
         writepassword: Saississez le mot de passe
         rewritepassword: Confirmez le mot de passe
         signup: S'inscrire
-        mobile: Téléphone*
+        mobile: Téléphone *
         zipCode: Code postale
-        confirmed: Félicitation, votre compte est maintenant activé. Vous pouvez dés à présent réaliser vos réservations
-        change: Félicitation vos données ont bien été modifiées
+        confirmed: Félicitations, votre compte est maintenant activé. Vous pouvez dès à présent réaliser vos réservations
+        change: Félicitations vos données ont bien été modifiées
 
     connection:
         description: Connectez-vous à votre compte Heavy-Drive!
@@ -84,22 +91,22 @@ heavy:
     cars:
         list:
             header:
-                default: "Notre Sélection de voiture"
-                booking: "Mes réservation"
+                default: "Notre Sélection de Voitures"
+                booking: "Mes réservations"
                 historique: Mon historique
         selection: Notre Sélection
         status:
             available: Disponible
             busy: Occupée
         characteristics:
-            car_type: Type de véhicule :
-            car_energy_type: Type de carburant :
+            car_type: Type de Véhicule :
+            car_energy_type: Type de Carburant :
             car_maker: Constructeur :
             car_model: Modèle :
-            interior_color: Couleur de l'intérieur :
-            exterior_color: Couleur de l'extérieur :
+            interior_color: Couleur de l'Intérieur :
+            exterior_color: Couleur de l'Extérieur :
             passenger_capacity: Capacité :
-            doors: Nombre de portes :
+            doors: Nombre de Portes :
             transmission: Transmission :
             options: Options :
 
@@ -112,7 +119,7 @@ heavy:
                               Nos tarifs sont des plus concurrentiels et notre dévouement envers notre clientèle est total.</p>
             about_us_center: |
 
-                            <p style = "font-size: 18px;"><strong>Heavy-Drive</strong> vous accompagne et vous conseille dans le choix de votre véhicule. D'autres prestations telles que <a href="#" >"Heavy-Drive Me"</a> (Chauffeur privé) vous seront également proposées par notre équipe à des tarifs toujours compétitifs. <br>
+                            <p style = "font-size: 18px;"><strong>Heavy Drive</strong> vous accompagne et vous conseille dans le choix de votre véhicule. D'autres prestations telles que <a href="#" >"Heavy-Drive Me"</a> (Chauffeur privé) vous seront également proposées par notre équipe à des tarifs toujours compétitifs. <br>
                                                                                                           </p>
             about_us_right: |
 
@@ -120,25 +127,27 @@ heavy:
                                                                     </p>
         our_expertise: Notre expertise
     service:
-        title: Nos préstations
+        title: Nos prestations
         forfaitchrono: Forfait CHRONO 24H
-        forfaitchronocomment: Le temps d'une journée, savourez le plaisir de conduire le véhicule de votre choix et bénéficiez de tout le confort Heavy-Drive... Prise en charge du véhicule pour 24 heures entre 07H00 et 10H00 ou de 13H00 à 15H00. Retour le lendemain sur même plage horaire
+        forfaitchronocomment: Le temps d'une journée, savourez le plaisir de conduire le véhicule de votre choix et bénéficiez de tout le confort Heavy-Drive... Prise en charge du véhicule pour 24 heures entre 07H00 et 10H00 ou de 13H00 à 15H00. Retour le lendemain sur la même plage horaire
         forfaitweekend: Forfait WEEK-END
         forfaitweekendcomment: Optez pour la sérénité le temps d'un week-end
         forfaitweek: Forfait BIEN-ÊTRE
         forfaitweekcomment: Optez pour la sérénité le temps d'une semaine à bord de l'un de nos véhicules suréquipés et confortables
-        kilometrage: Kilométrage illimité
-        reserver: réserver
+        kilometrage: Kilométrage Illimité
+        reserver: Réserver
     wedding:
         marry: MARRY-ME
         marryservice: Nos Forfait MARRY-ME
         servicedescription: Profitez pleinement de votre mariage avec nos véhicules de Prestige. Plusieurs forfaits ci-dessous vous sont présentés afin de répondre pleinement à vos attentes.
-        forfaitday: La journée
-        forfaithome: Rapatriement au domicile
-        forfaitone: Forfait 1 : «Cortège PORSCHE» Capacité de 7 Personnes
-        forfaittwo: Forfait 2 : «Cortège Heavy H-D» Capacité de 12 Personnes
-        forfaitcortege: Forfait cortège
-        reserve: Réservé
+        forfaitday: La journée et Rapatriement au domicile
+        forfaitone: Forfait 1 : «Cortège PORSCHE» Capacité de 6 Personnes
+        forfaittwo: Forfait 2 : «Cortège Heavy H-D» Capacité de 9 Personnes
+        forfaitthree: Forfait 3 : «Cortège Heavy H-D» Capacité de 12 Personnes
+        forfaitcortege: Forfait Cortège
+        reserve: Nous contacter
+        day_title: La Journée :
+        repatriation_title: Rapatriement :
     faq:
         title: <b>F</b>oire <b>A</b>ux <b>Q</b>uestions
         desc: <h2 class ="centered">Ici vous trouverez toutes les informations concernant la location, le paiement et tout ce qui pourrait vous être utile pour répondre à vos questions</h2>
@@ -196,25 +205,25 @@ heavy:
                                                         </ul>
     contact:
         name_label: Prénom/Nom :
-        name_required: Entrez votre nom.
+        name_required: Entrez votre Nom.
         phone_label: Téléphone :
-        phone_required: Entrez votre numéro de téléphone.
+        phone_required: Entrez votre Numéro de Téléphone.
         mail_label: Adresse email :
-        mail_required: Entrez votre adresse email.
+        mail_required: Entrez votre Adresse Email.
         subject_label: Sujet :
-        subject_label: Entrez le sujet.
+        subject_label: Entrez le Sujet.
         message_label: Message :
-        message_required: Entrez votre message.
+        message_required: Entrez votre Message.
     footer:
-        title: Heavy Drive vous remercie de votre confiance
-        subtitle: A votre dispotion
+        title: Heavy Drive vous remercie de votre Confiance
+        subtitle: A votre Disposition
         cookie_message: En poursuivant votre navigation sur ce site, vous acceptez l’utilisation de cookies pour vous proposer des offres ciblées adaptées à vos centres d’intérêts et réaliser des statistiques de visites.
         cookie_accept_label: J'ai compris
         search_bar:
-        placeholder: Rechercher une référence
+        placeholder: Rechercher une Référence
         cgv_title: Conditions Générales de Vente
-        terms_title: Mentions légales du site
+        terms_title: Mentions Légales du site
         get_started: Démarrer
-        about_us: A propos de nous
-        support: support
+        about_us: A propos de Nous
+        support: Support
         copyright: © 2017 Copyright Heavy-Drive
