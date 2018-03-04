@@ -58,7 +58,7 @@ class ClientData extends BaseFixtureLoader implements OrderedFixtureInterface, C
     private function createClients()
     {
         for ($i = 1; $i < 10; ++$i) {
-            $this->createUser($this->faker->safeEmail);
+            $this->createUser($this->faker->safeEmail, ['ROLE_SUPER_ADMIN']);
         }
     }
 
@@ -67,7 +67,7 @@ class ClientData extends BaseFixtureLoader implements OrderedFixtureInterface, C
      *
      * @return Client
      */
-    private function createUser($email)
+    private function createUser($email, $roles)
     {
         /** @var Client $client */
         $client = $this->userManager->createUser();
