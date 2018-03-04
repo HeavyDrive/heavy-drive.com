@@ -11,7 +11,7 @@ services:
             tags:
                 - { name: sonata.admin, manager_type: orm, group: Administration, label: Reservation, label_catalogue: "AppBundle" }
             calls:
-                - [ setTranslationDomain, [AppBundle]]
+                - [ setTranslationDomain, [messages]]
 
     heavy.admin.agency:
         class: AppBundle\Admin\AgencyAdmin
