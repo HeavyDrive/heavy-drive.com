@@ -14,8 +14,8 @@
                         <div id="price" class="col-md-4 col-sm-2 col-xs-12 centered">
                             <div class="panel panel-pricing">
                                 <div class="panel-heading panel-wedding">
-                                    <h3>{{ car.carLabel }}</h3>
                                     <img src="https://storage.gra3.cloud.ovh.net/v1/AUTH_6729d1b5e1244b699d7f372ca10dd650/cars/cayenne_profil_avant_gauche.png" style="width: 100%">
+                                    <h3>{{ car.carLabel }}</h3>
                                 </div><!--panel-heading close-->
                                 <div class="panel-body centered">
                                     <p><span>Nombre de porte</span> : {{ car.doors }} portes</p><!--p close-->
@@ -27,10 +27,10 @@
 
                                     {% for price in priceCar %}
                                         {% if price.service.id == 1 %}
-                                            <p class="p-title">{{ price.service.name }} : {{ price.toPay }}</p><!--p-title-cortege close-->
+                                            <p class="p-title">{{ price.service.name }} : {{ price.toPay }} €</p><!--p-title-cortege close-->
                                         {% endif %}
                                         {% if price.service.id == 2 %}
-                                            <p class="p-title">{{ price.service.name }} : {{ price.toPay }} </p><!--p-title-cortege close-->
+                                            <p class="p-title">{{ price.service.name }} : {{ price.toPay }} €</p><!--p-title-cortege close-->
                                         {% endif %}
                                     {% endfor %}
 
