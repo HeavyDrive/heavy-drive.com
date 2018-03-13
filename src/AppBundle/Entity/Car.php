@@ -1259,4 +1259,8 @@ class Car
     {
         $this->slug = $this->slugify($slug);
     }
+
+    public function getAgency(){}
+    public function getAgencyRetour(){}
 }
+

@@ -8,6 +8,7 @@ use AppBundle\Entity\Client;
 use AppBundle\Entity\LicenseDriver;
 use AppBundle\Entity\Price;
 use AppBundle\Entity\Reservation;
+use AppBundle\Entity\Service;
 use AppBundle\Form\SelectedBookingDate;
 use AppBundle\Form\Type\BookingGuestType;
 use AppBundle\Form\Type\LicenseDriverType;
@@ -42,7 +43,7 @@ class ReservationController extends Controller
      *
      * @throws \Exception
      */
-    public function reservationAction(Request $request, Car $car)
+    public function reservationAction(Request $request)
     {
         $booking       = new Reservation();
         $bookingGuest  = new BookingGuest();
@@ -86,7 +87,7 @@ class ReservationController extends Controller
         if ('POST' == $request->getMethod()) {
             $form->handleRequest($request);
             $form1->handleRequest($request);
-            $formDate->handleRequest($request);
+
 
             if ($form->get('save')->isClicked()) {
                 $optionChoose = $form->get('optionBooking')->getData();
@@ -96,25 +97,6 @@ class ReservationController extends Controller
                 $bookingGuestManager->save($bookingGuest);
             }
             if ($formDate->get('save')->isClicked()) {
-                $licenseDriver = $formDate->get('licenceDriver')->getData();
-
-                if ($licenseDriver != null)
-                {
-                    $file = $licenseDriver->getFile();
-
-                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-                    $file->move(
-                        $this->getParameter('upload_file_directory'),
-                        $fileName
-                    );
-
-                    $licenseDriver->setPath($this->getParameter('upload_file_directory') .'/'.  $fileName);
-
-                    $em = $this->getDoctrine()->getEntityManager();
-                    $em->persist($licenseDriver);
-                    $em->flush();
-                }
 
                 $format = 'Y-m-d H:i:s';
 

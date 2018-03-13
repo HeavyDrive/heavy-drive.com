@@ -28,14 +28,24 @@ class AppExtension extends \Twig_Extension
         );
     }
 
-    public function serviceFilter($id)
+    public function serviceFilter($dateStart, $dateEnd, $car)
     {
-         /**@var \AppBundle\Repository\ServiceRepository $serviceRepository **/
-        $serviceRepository = $this->doctrine->getRepository(Service::class);
+        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
+        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
 
-        $service =  $serviceRepository->find($id);
+        $nbJours = $dateEnd - $dateStart;
 
-        return $service;
+        if($nbJours === 1) {
+            $price = $priceRepository->getPriceCarByService($car, 1);
+        }
+        elseif ($nbJours === 4) {
+            $price = $priceRepository->getPriceCarByService($car, 2);
+        }
+        else {
+            $price = $priceRepository->getPriceCarByService($car, 1) * $nbJours + 3600 * 24;
+        }
+
+        return $price;
     }
 
 }

@@ -49,6 +49,11 @@
                     </div>
                 </div>
             </div>
+            {% for flashMessage in app.session.flashbag.get('notice-dateWeek') %}
+                <div class="flash-notice">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
             {{ form_end(form) }}
         </div>
         {{ include ('frontend/car/list__cars.html.twig') }}

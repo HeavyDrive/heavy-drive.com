@@ -30,7 +30,7 @@ class PriceRepository extends EntityRepository
         $qb->andWhere('priceService.id = :service');
         $qb->setParameter('service', $service);
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleResult();
     }
 
     public function getPriceCar($car)

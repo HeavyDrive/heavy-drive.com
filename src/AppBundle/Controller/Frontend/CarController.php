@@ -6,8 +6,10 @@ use AppBundle\Entity\Car;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\Price;
 use AppBundle\Entity\Reservation;
+use AppBundle\Entity\SearchCar;
 use AppBundle\Entity\Service;
 use AppBundle\Form\Type\ContactType;
+use AppBundle\Form\Type\SearchCarsType;
 use AppBundle\Repository\ReservationRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -33,56 +35,37 @@ class CarController extends Controller
      */
     public function showAction(Request $request)
     {
+        $searchCars = new SearchCar();
 
-        $form = $this->get('form.factory')->createBuilder()
-            ->add('agency', 'entity', array(
-                    'class' => 'AppBundle:Agency',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('a')
-                            ->groupBy('a.id')
-                            ->orderBy('a.name', 'ASC');
-                    },)
-            )
-            ->add('agencyRetour', 'entity', array(
-                    'class' => 'AppBundle:Agency',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('a')
-                            ->groupBy('a.id')
-                            ->orderBy('a.name', 'ASC');
-                    },)
-            )
-            ->add('startDate', DateTimeType::class, [
-                'data' => new \DateTime('now'), //default value
-                'format' => 'dd-MM-yyyy HH:mm:ss',
-                'model_timezone' => 'Europe/Paris',
-                'widget' => 'single_text',
-                'attr' => ['class' => 'js-datepicker1 form-control'],
-            ])
-            ->add('endDate', DateTimeType::class, [
-                'data' => new \DateTime('now'), //default value
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy HH:mm:ss',
-                'model_timezone' => 'Europe/Paris',
-                'attr' => ['class' => 'js-datepicker2 form-control'],
-            ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Rechercher votre véhicule',
-                'attr' => array('class' => 'btn btn-primary'),
-            ])->getForm();
-
-        $form->handleRequest($request);
-
-        $agency = $form->get('agency')->getData();
-        $dateStart =  $form->get('startDate')->getData();
-        $dateEnd = $form->get('endDate')->getData();
+        $form = $this->createForm(new SearchCarsType(), $searchCars);
 
         $cars = array();
 
-        if ($form->isValid() && $form->isSubmitted()) {
+        $dateStart = "";
+        $dateEnd = "";
 
-            $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
+        if ('POST' == $request->getMethod()) {
 
-            $query = $em->createQuery("SELECT DISTINCT c.id, r.dateStart, r.dateEnd
+            $form->handleRequest($request);
+
+            $dateDebut = $form->get('startDate')->getData();
+            $dateStart = $dateDebut->format('Y-m-d H:i:s');
+
+            $dateFin = $form->get('endDate')->getData();
+            $dateEnd = $dateFin->format('Y-m-d H:i:s');
+
+            if(strtotime($dateStart) > strtotime($dateEnd)) {
+                $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'La date de fin est inférieure à la date de début');
+            }
+
+            //weekend ici : vendredi, samedi, dimanche
+            if ($this->isWeekend($dateStart)) {
+                if(strtotime($dateStart) + 2 * 3600 * 24 >= strtotime($dateEnd)){
+                    $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'Le week-end toute réservation doit être supérieur à 2 jours');
+                } else {
+                    $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
+
+                    $query = $em->createQuery("SELECT DISTINCT c.id, r.dateStart, r.dateEnd
                                        FROM AppBundle:Car c 
                                        JOIN AppBundle:Reservation r 
                                        WHERE c.id = r.car 
@@ -90,30 +73,68 @@ class CarController extends Controller
                                        OR r.dateStart > :dateStart AND r.dateEnd <= :dateEnd
                                        OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                
                                       ");
-            $query->setParameter('dateStart', $dateStart);
-            $query->setParameter('dateEnd', $dateEnd);
+                    $query->setParameter('dateStart', $dateStart);
+                    $query->setParameter('dateEnd', $dateEnd);
 
-            $listCars = $query->getResult();
+                    $listCars = $query->getResult();
 
-            /** @var \AppBundle\Repository\CarRepository $carRepository */
-            $carRepository = $this->getDoctrine()->getRepository(Car::class);
+                    /** @var \AppBundle\Repository\CarRepository $carRepository */
+                    $carRepository = $this->getDoctrine()->getRepository(Car::class);
 
-            if (!$listCars) {
-                $cars = $carRepository->findAll();
-            }
-            else {
-                $cars = $carRepository->getWhatYouWant($listCars);
+                    if (!$listCars) {
+                        $cars = $carRepository->findAll();
+                    }
+                    else {
+                        $cars = $carRepository->getWhatYouWant($listCars);
+                    }
+                }
+            } else {
+
+                $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
+
+                $query = $em->createQuery("SELECT DISTINCT c.id, r.dateStart, r.dateEnd
+                                       FROM AppBundle:Car c 
+                                       JOIN AppBundle:Reservation r 
+                                       WHERE c.id = r.car 
+                                       AND r.dateStart <= :dateStart AND r.dateEnd >= :dateEnd
+                                       OR r.dateStart > :dateStart AND r.dateEnd <= :dateEnd
+                                       OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                
+                                      ");
+                $query->setParameter('dateStart', $dateStart);
+                $query->setParameter('dateEnd', $dateEnd);
+
+                $listCars = $query->getResult();
+
+                /** @var \AppBundle\Repository\CarRepository $carRepository */
+                $carRepository = $this->getDoctrine()->getRepository(Car::class);
+
+                if (!$listCars) {
+                    $cars = $carRepository->findAll();
+                }
+                else {
+                    $cars = $carRepository->getWhatYouWant($listCars);
+                }
             }
         }
+
+
+        $price = 0;
+        foreach ($cars as $value) {
+            $price = $this->getPriceToPay($value);
+        }
+
+        dump($price);
+
+
 
         return $this->render('frontend/car/show.html.twig', [
             'form' => $form->createView(),
             'cars' => $cars,
             'dateStart' => $dateStart,
-            'dateEnd' => $dateEnd
+            'dateEnd' => $dateEnd,
+            'price'=> $price
         ]);
     }
-
 
 
     /**
@@ -129,11 +150,6 @@ class CarController extends Controller
     {
         /** @var \AppBundle\Repository\CarRepository $carRepository */
         $carRepository     = $this->getDoctrine()->getRepository(Car::class);
-
-        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
-        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
-
-        $priceCar = $priceRepository->getPriceCar($car);
 
         $car = $carRepository->findById($car);
 
@@ -162,7 +178,6 @@ class CarController extends Controller
                 catch (\Swift_TransportException $e)
                 {
                     $result = array( false, 'There was a problem sending email: ' . $e->getMessage() );
-
                 }
 
                 $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
@@ -173,7 +188,7 @@ class CarController extends Controller
 
         return $this->render('frontend/car/details.html.twig', [
             'car'     => $car,
-            'priceCar'   => $priceCar,
+            //'priceCar'   => $priceCar,
             'form' => $form->createView()
         ]);
     }
@@ -223,4 +238,35 @@ class CarController extends Controller
             "carsBooking" => $carsBooking
         ]);
     }
+
+    public function isWeekend($date)
+    {
+        $weekDay = date('w', strtotime($date));
+        return ($weekDay == 0 || $weekDay == 5 ||$weekDay == 6);
+    }
+
+    // fonction qui calcul un nouveau timestamp en fonction d'un timestamp et d'un decalage
+    // 3600 * 24 = nombre de seconde par jour
+    // $decalage = nombre de jour (positif ou negatif)
+    function getNewDate($ma_date, $decalage) {
+        return  $ma_date + ($decalage * 3600 * 24);
+    }
+
+    /**
+     * @param $dateStart
+     * @param $dateEnd
+     * @param $car
+     * @return array|int
+     */
+    public function getPriceToPay($car)
+    {
+        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
+        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
+
+        $price = $priceRepository->getPriceCarByService(4, $car);
+
+        return $price;
+
+    }
+
 }
