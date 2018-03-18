@@ -11,11 +11,8 @@
                         <h2>{{ (car.carLabel) }}</h2>
                         <p> Place assises : {{ car.passengerCapacity }}</p>
                         <p>Agence : Domont</p>
-                        {% if car.status == 1 %}
-                            <div class="disponible"> </div>
-                        {% else %}
-                            <div class="occupe"> </div>
-                        {% endif %}
+                        {% set priceServiceToPay = priceRepository.getPriceCarByService(1, car.id).toPay %}
+                        <p>A partir de :<strong> {{ priceServiceToPay }} € </strong></p>
                     </div>
                     <div class="panel-footer">
                         <a href="{{ path('car_details', {'id': car.id, 'mark': car.carMaker, 'model': car.carModel}) }}" class="btn btn-default">Détails et tarifs</a>

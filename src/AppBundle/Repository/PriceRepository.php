@@ -20,7 +20,7 @@ class PriceRepository extends EntityRepository
     {
         $qb = $this->createPriceQueryBuilder();
 
-        $qb->addSelect('price');
+        $qb->addSelect('price.toPay');
 
         $qb->innerJoin('price.car', 'priceCar');
         $qb->where('priceCar.id = :car');
@@ -30,14 +30,15 @@ class PriceRepository extends EntityRepository
         $qb->andWhere('priceService.id = :service');
         $qb->setParameter('service', $service);
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleResult();
     }
 
     public function getPriceCar($car)
     {
         $qb = $this->createPriceQueryBuilder();
 
-        $qb->addSelect('price');
+        $qb->select('price.toPay');
+        $qb->addSelect('price.totalPrice');
 
         $qb->innerJoin('price.car', 'priceCar');
         $qb->where('priceCar.id = :car');

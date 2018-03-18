@@ -49,4 +49,14 @@ class CarRepository extends EntityRepository
 
         return $qb;
     }
+
+    public function getWhatYouWant(array $cars)
+    {
+        $qb = $this->createCarQueryBuilder();
+        $qb->where('car.id NOT IN (?1)')
+            ->setParameter(1, $cars);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -2,8 +2,7 @@ heavy:
     reservation:
         step_1: Informations Personnelles
         step_2: Informations Location
-        step_3: Justificatifs (Facultatif)
-        step_4: Validation Pré-Réservation
+        step_3: Validation Pré-Réservation
         rent_option: Choisissez des options pour votre location
         from_date: Date de début :
         to_date: Date de fin :

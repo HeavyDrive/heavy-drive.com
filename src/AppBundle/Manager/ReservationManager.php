@@ -71,13 +71,13 @@ class ReservationManager
      * @param \DateTime $dateStart
      * @param \DateTime $dateEnd
      */
-    public function Booking(Reservation $reservation, Car $car, $dateStart, $dateEnd)
+    public function Booking(Reservation $reservation, $dateStart, $dateEnd)
     {
         $reservation->setDateStart($dateStart);
         $reservation->setDateEnd($dateEnd);
         $reservation->setStatus(Reservation::STATUS_CREATED);
-        $car->setStatus(Car::STATUS_BUSY);
-        $reservation->setCar($car);
+        /*$car->setStatus(Car::STATUS_BUSY);
+        $reservation->setCar($car);*/
     }
 
     /**

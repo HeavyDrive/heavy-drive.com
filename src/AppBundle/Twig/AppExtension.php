@@ -28,14 +28,16 @@ class AppExtension extends \Twig_Extension
         );
     }
 
-    public function serviceFilter($id)
+    public function serviceFilter($price)
     {
-         /**@var \AppBundle\Repository\ServiceRepository $serviceRepository **/
-        $serviceRepository = $this->doctrine->getRepository(Service::class);
+        dump($price); die;
+        $nbJour = 4;
 
-        $service =  $serviceRepository->find($id);
+        for ($i=0; $i<$nbJour; $i++) {
+            $price0 = 100 + $price;
+        }
 
-        return $service;
+        return $price;
     }
 
 }

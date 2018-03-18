@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <div class="container-fluid">
         <div class="row row-step">
             <div class="process">
@@ -24,16 +25,9 @@
                     </div>
                     <div class="process-step">
                         <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu3"><i
-                                    class="glyphicon glyphicon-plus"></i></button>
-                        <p>
-                            <small>{{ 'heavy.reservation.step_3' | trans }}</small>
-                        </p>
-                    </div>
-                    <div class="process-step">
-                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu4"><i
                                     class="fa fa-check fa-3x"></i></button>
                         <p>
-                            <small>{{ 'heavy.reservation.step_4' | trans }}</small>
+                            <small>{{ 'heavy.reservation.step_3' | trans }}</small>
                         </p>
                     </div>
                 </div><!--process-row nav nav-tabs close-->
@@ -50,7 +44,7 @@
                                 <h1 class="centered"> Nouveau client</h1><br>
                                 <p> Inscrivez vous pour profiter du suivi de vos réservation et la consultation de vos factures</p>
                                 <p>Ainsi que le programme de fidélité vous procurant des réductions sur les prochainnes réservations</p>
-                                <a class=" btn btn-default " href="{{ path('fos_user_registration_register') }}"><i class="fa fa-sign-in"></i> S'inscrire</a></li>
+                                <a class=" btn btn-default " href="{{ path('fos_user_registration_register') }}"><i class="fa fa-sign-in"></i> S'inscrire</a>
                             </div>
 
                             <div class="well text-center">
@@ -69,7 +63,6 @@
                         </div>
                     {% endif %}
                 </div><!--container-fluid-->
-
             </div><!--menu2 tab-pane fade active in close-->
             <div id="menu2" class="tab-pane fade">
                 <div class="container-fluid" id="validDate">
@@ -80,51 +73,22 @@
                                 {{ 'heavy.reservation.rent_option' | trans }}
                             </div>
                             <div class="panel-body">
-                                {{ form_start(form) }}
+                                {{ form_start(bookingOptionForm) }}
                                 <ul class="list-group" id="optionsService">
-                                    {% for t in form.optionBooking %}
+                                    {% for t in bookingOptionForm.optionBooking %}
                                         <li class="list-group-item" >
                                             {{ form_row(t) }}
                                         </li>
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="panel-footer">{{ form_end(form) }}</div>
+                            <div class="panel-footer">{{ form_end(bookingOptionForm) }}</div>
                         </div>
                     </div>
                 </div>
             </div><!--container-fluid close-->
 
             <div id="menu3" class="tab-pane fade">
-                <div class="container-fluid">
-                    {{ form_start(formDate) }}
-                    <div class="col-md-4">
-                        <div class="well text-center">
-                            <h3 class="centered"> Justificatif du permis</h3><br>
-                            <label for="fname">Nom du document</label>
-                            {{ form_widget(formDate.licenceDriver) }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="well text-center">
-                            <h3 class="centered"> Justificatif d'identité </h3><br>
-                            <label for="fname">Nom du document</label>
-                            {{ form_widget(formDate.IdentityCard) }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="well text-center">
-                            <h3 class="centered"> Justificatif de domicile </h3><br>
-                            <label for="fname">Nom du document</label>
-                            {{ form_widget(formDate.proofOfAdress) }}
-                        </div>
-                    </div>
-                </div><!--container-fluid-->
-            </div><!--menu3 tab-pane fade active in close-->
-
-            <div id="menu4" class="tab-pane fade">
                 <div class="container-fluid">
                     <h3>CHOISISSEZ VOTRE MÉTHODE DE PAIEMENT</h3>
                     <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
@@ -145,7 +109,7 @@
                                     <em>{{ "now"|date("l d F") }}</em>
                                 </p>
                                 <p>
-                                    <em>Receipt #: 34522677W</em>
+                                    <em>Receipt #: {{ trans_id }}</em>
                                 </p>
                             </div>
                         </div>
@@ -153,35 +117,33 @@
                             <div class="text-center">
                                 <h1>Récapitulatif</h1>
                             </div>
-                            </span>
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>Product</th>
                                     <th>#</th>
-                                    <th class="text-center">Prix</th>
+                                    <th class="text-center">Prix unitaire</th>
                                     <th class="text-center">Total</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="col-md-7"><em>{{ car.carMaker }} {{ car.carModel }}</em></h4></td>
-                                    <td class="col-md-1" style="text-align: center"> 1 </td>
-                                    <td class="col-md-1 text-center">0€</td>
-                                    <td class="col-md-1 text-center">0€</td>
+                                    <td class="col-md-7"><em>{{ car.carMaker }} {{ car.carModel }}</em></td>
+                                    <td class="col-md-1" style="text-align: center"> </td>
+                                    <td class="col-md-1 text-center"> {{ uniqPrice }}</td>
+                                    <td class="col-md-1 text-center"> {{ priceTotalToPay }}</td>
                                 </tr>
                                 <tr>
-                                    {% set priceServiceToPay = priceRepository.getPriceCarByService(app.request.get('id'), car.id)[0].toPay %}
-                                    <td class="col-md-7"><em>{{ app.request.get('id')|service.name(app.request.get('id')) }}</em></h4></td>
-                                    <td class="col-md-1" style="text-align: center"> 1 </td>
-                                    <td class="col-md-2 text-center">{{ priceServiceToPay }} €</td>
-                                    <td class="col-md-2 text-center">{{ priceServiceToPay }} €</td>
+                                    <td class="col-md-7"><em>Caution obligatoire</em></td>
+                                    <td class="col-md-1" style="text-align: center"> </td>
+                                    <td class="col-md-1 text-center"> {{ caution }}</td>
+                                    <td class="col-md-1 text-center"> {{ caution }}</td>
                                 </tr>
                                 {% set totalOptionToPay = 0 %}
                                 {% for option in optionChoose %}
                                     {% set totalOptionToPay = totalOptionToPay + option.price %}
                                     <tr>
-                                        <td class="col-md-7"><em>{{ option.name }}</em></h4></td>
+                                        <td class="col-md-7"><em>{{ option.name }}</em></td>
                                         <td class="col-md-1" style="text-align: center"> 1 </td>
                                         <td class="col-md-2 text-center">{{ option.price }}</td>
                                         <td class="col-md-2 text-center">{{ option.price }}</td>
@@ -191,36 +153,34 @@
                                     <td class="text-left"><h4><strong>Total: </strong></h4></td>
                                     <td>   </td>
                                     <td>   </td>
-                                    <td class="col-md-2 text-center text-danger"><h4><strong>{{ totalOptionToPay + priceServiceToPay }} €</strong></h4></td>
+                                    <td class="col-md-2 text-center text-danger"><h4><strong>{{ totalOptionToPay + priceTotalToPay + caution }} €</strong></h4></td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-success btn-lg btn-block">
-                                Pay Now   <span class="glyphicon glyphicon-chevron-right"></span>
-                            </button>{{ form_end(formDate) }}</td>
+                            {% set total_amount = totalOptionToPay + priceTotalToPay + caution %}
+                            {% set signature = "" %}
                         </div>
                     </div>
                 </div>
+                {% set totalCaution = caution %}
 
                 <div class="container">
-
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer par carte bancaire</a>
+                                    <a href="#">Payer uniquement la caution</a>
                                 </h4>
                             </div>
                             <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div align="center">
-                                        Vous utilisez le formulaire sécurisé standard SSL, choisissez une carte ci-dessous <img border="0" src="{{ asset('images/CLEF.gif') }}"> :<br><br>
-                                    </div>
-                                    <div align="center">
-                                        <input type="IMAGE" name="CB" border="0" src="{{ asset('images/CB.gif') }}">
-                                        <input type="IMAGE" name="VISA" border="0" src="{{ asset('images/VISA.gif') }}">
-                                        <input type="IMAGE" name="MASTERCARD" border="0" src="{{ asset('images/MASTERCARD.gif') }}"><br><br>
+                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
+                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
+                                        <p> - Le prix de la caution s'élève à :<b> {{ totalCaution }} </b></p>
+                                        <p> - Vous avez décider de payer uniquement la caution au prix indiqué ci-dessus <br> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {{ include ('frontend/reservation/paymentForm.html.twig') }}
                                     </div>
                                 </div>
                             </div>
@@ -229,18 +189,16 @@
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer en plusieurs fois sans frais</a>
+                                    <a href="#">Payer la totalité de la commmande</a>
                                 </h4>
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div align="center">
-                                        Vous utilisez le formulaire sécurisé standard SSL, choisissez une carte ci-dessous <img border="0" src="{{ asset('images/CLEF.gif') }}"> :<br><br>
-                                    </div>
-                                    <div align="center">
-                                        <input type="IMAGE" name="CB" border="0" src="{{ asset('images/CB.gif') }}">
-                                        <input type="IMAGE" name="VISA" border="0" src="{{ asset('images/VISA.gif') }}">
-                                        <input type="IMAGE" name="MASTERCARD" border="0" src="{{ asset('images/MASTERCARD.gif') }}"><br><br>
+                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
+                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
+                                        <p> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {{ include ('frontend/reservation/paymentForm.html.twig') }}
                                     </div>
                                 </div>
                             </div>
@@ -249,61 +207,18 @@
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer par virement bancaire</a>
+                                    <a href="#">Payer la totalité de la commande en plusieurs fois</a>
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <form action="" method="post">
-                                        <h3 class="authentication-subheading"> Paiement par virement bancaire</h3>
-                                        <div class="box cheque-box">
-                                            <p class="cheque-indent"> <strong class="dark"> Vous avez choisi de régler par virement bancaire. Voici un bref récapitulatif de votre commande : </strong></p>
-                                            <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ totalOptionToPay + priceServiceToPay }} €</span> TTC</p>
-                                            <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
-                                            <p> - Nos coordonnées bancaires seront affichées sur la page suivante. <br> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
-                                            <p class="submit clearfix" id="cart_navigation" style="margin-top: 20px;">
-                                                <button class="button btn btn-default btn-auth" type="submit"> <span>Je confirme ma commande</span> </button>
-                                            </p>
-                                        </div>
-                                    </form>
+                                    <div align="center">
+                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
+                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
+                                        <p> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {{ include ('frontend/reservation/paymentForm.html.twig') }}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="panel-title expand">
-                                    <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer par chèque</a>
-                                </h4>
-                            </div>
-                            <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <form action="" method="post">
-                                        <h3 class="authentication-subheading"> Paiement par chèque</h3>
-                                        <div class="box cheque-box">
-                                            <p class="cheque-indent"> <strong class="dark"> Vous avez choisi de régler par chèque. Voici un bref récapitulatif de votre commande : </strong></p>
-                                            <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ totalOptionToPay + priceServiceToPay }} €</span> TTC</p>
-                                            <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
-                                            <p> - L'ordre et l'adresse du chèque seront affichés sur la page suivante. <br> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
-                                            <p class="submit clearfix" id="cart_navigation" style="margin-top: 20px;">
-                                                <button class="button btn btn-default btn-auth" type="submit"> <span>Je confirme ma commande</span> </button>
-                                            </p>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse5" class="panel-title expand">
-                                    <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer par compte paypal</a>
-                                </h4>
-                            </div>
-                            <div id="collapse5" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                             </div>
                         </div>
                     </div>
@@ -318,7 +233,7 @@
                 </li>
                 <li>
                     <button type="button"
-                            class="btn btn-info next-step">{{ 'heavy.reservation.button_next' | trans }}<i
+                            class="btn btn-default next-step">{{ 'heavy.reservation.button_next' | trans }}<i
                                 class="fa fa-chevron-right"></i></button>
                 </li>
             </ul>

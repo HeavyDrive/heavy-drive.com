@@ -13,3 +13,8 @@ services:
         class: AppBundle\Manager\BookingGuestManager
         arguments:
             - '@doctrine'
+
+    tlconseil.systempay:
+            class: AppBundle\Manager\SystemPayManager
+            arguments: ['@doctrine.orm.entity_manager', '@service_container']
+

@@ -45,12 +45,6 @@ class BookingOptions
      * @ORM\Column(name="comment_options", type="string", length=255, nullable=false)
      */
     protected $commentOptions;
-
-    /**
-     * Many Groups have Many Users.
-     * @ORM\ManyToMany(targetEntity="Reservation", mappedBy="bookingOptions")
-     */
-    protected $reservations;
     
     /**
      * Get id
@@ -170,5 +164,10 @@ class BookingOptions
 
     public function __toString() {
         return $this->name;
+    }
+
+    public function optionBooking()
+    {
+        return $this->optionBooking;
     }
 }
