@@ -27,5 +27,4 @@ class UserManager
     {
         $this->fosUserManager = $userManager;
     }
-
 }
