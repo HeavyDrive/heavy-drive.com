@@ -4,7 +4,6 @@
     <!-- Page Features -->
     <div class="row text-center">
         {% for car in cars %}
-
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
                     <img src="https://storage.gra3.cloud.ovh.net/v1/AUTH_6729d1b5e1244b699d7f372ca10dd650/cars/cayenne_profil_avant_gauche.png" alt="{{ car.carMaker }}-{{ car.carModel }}">
@@ -12,8 +11,8 @@
                         <h2>{{ (car.carLabel) }}</h2>
                         <p> Place assises : {{ car.passengerCapacity }}</p>
                         <p>Agence : Domont</p>
-                        <p> {{ price.toPay }}</p>
-
+                        {% set priceServiceToPay = priceRepository.getPriceCarByService(1, car.id).toPay %}
+                        <p>A partir de :<strong> {{ priceServiceToPay }} € </strong></p>
                     </div>
                     <div class="panel-footer">
                         <a href="{{ path('car_details', {'id': car.id, 'mark': car.carMaker, 'model': car.carModel}) }}" class="btn btn-default">Détails et tarifs</a>

@@ -1,27 +1,36 @@
 {% extends "frontend/base.html.twig" %}
 {% block title %}Heavy-Drive - Découvrez nos voitures en photos et leurs caractéristiques {% endblock %}
 {% block body %}
-    {% set dateStart = date(app.request.query.get('dateStart')) %}
-    {% set dateEnd = date(app.request.query.get('dateEnd')) %}
-
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div id="myCarousel" class="carousel  slide">
                     <!-- Items -->
                     <div class="carousel-inner">
-                        <div class="active item">  <img src="{{ car.pictures|first }}" class="img-responsive"></div>
+                        <div class="active item">
+                            <!--<img src="{{ car.pictures|first }}" class="img-responsive">-->
+                            <img src="https://storage.gra3.cloud.ovh.net/v1/AUTH_6729d1b5e1244b699d7f372ca10dd650/cars/cayenne_profil_avant_gauche.png" alt="{{ car.carMaker }}-{{ car.carModel }}">
+
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="bs-five-area bs-radius" >
                 <div class="col-lg-4  ">
                     <div class="bs-five">
                         <h1>{{ car.carLabel }}</h1>
-
-
-                         <a href="#details-technique" class="btn btn-default">Voir fiche technique</a>
+                        <h2><b>Prix de la réservation</b></h2>
+                        <ul class="tarif_prestation">
+                            <li>
+                                <p><strong>Du {{ dateStart|date('d-m-Y') }} au {{ dateEnd|date('d-m-Y') }}</strong></p>
+                                <p>Prix de la caution : {{ caution }} €</p>
+                                <h3> {{ price }} €</h3>
+                                <a href="{{ path('reservation') }}" class="btn btn-primary">Faire une réservation</a>
+                            </li>
+                            <li>
+                                <a href="#details-technique" class="btn btn-primary">Voir fiche technique</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -43,59 +52,6 @@
 
     <div class="">
         <div class="col-lg-12 details_techniques" id="details-technique">
-            <!-- Bouton modal -->
-
-            <!-- Modal -->
-            <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="contactModalLabel">Demande de réservation</h4>
-                        </div>
-                        <div class="modal-body">
-                            {{ form_start(form) }}
-                                <div class="form-group">
-                                    <label for="name" class="control-label">Nom, prénom</label>
-                                    {{ form_widget(form.name, { 'attr': {'class': 'form-control input-md'} } ) }}
-                                    {{ form_errors(form.name) }}
-                                </div>
-                                <div class="form-group">
-                                    <label for="mail" class="control-label">Email</label>
-                                    {{ form_widget(form.email, { 'attr': {'class': 'form-control input-md'} } ) }}
-                                    {{ form_errors(form.email) }}
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone" class="control-label">Mobile</label>
-                                    {{ form_widget(form.phone, { 'attr': {'class': 'form-control input-md'} } ) }}
-                                    {{ form_errors(form.phone) }}
-                                </div>
-                                    <div class="form-group">
-                                    <label for="subject" class="control-label">Sujet</label>
-                                    {{ form_widget(form.subject, { 'attr': {'class': 'form-control input-md'} } ) }}
-                                    {{ form_errors(form.subject) }}
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text" class="control-label">Message</label>
-                                    {{ form_widget(form.message, { 'attr': {'class': 'form-control input-md'} } ) }}
-                                    {{ form_errors(form.message) }}
-                                </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                            {{ form_rest(form) }}
-                            <input type="submit" value="Submit" class="btn btn-default" />
-                            {% for flashMessage in app.session.flashbag.get('notice-car') %}
-                                <div class="flash-notice">
-                                    {{ flashMessage }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <h2 class="centered">Fiche technique</h2>
             <hr class="star-light">
         </div>
