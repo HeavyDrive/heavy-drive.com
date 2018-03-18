@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet author="Ashley (generated)" id="1">
-        <createTable tableName="booking_options">
+        <createTable tableName="systempay_transaction">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="status_code" type="VARCHAR(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="price" type="DECIMAL">
+            <column name="amount" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="comment_options" type="VARCHAR(255)"/>
+            <column name="currency" type="INT"/>
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="log_response" type="VARCHAR(255)"/>
+            <column name="paid" type="bool"/>
+            <column name="refunded" type="bool"/>
+            <column name="transaction_id" type="INT(6)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
-
