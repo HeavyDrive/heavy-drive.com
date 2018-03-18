@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CarController extends Controller
 {
@@ -35,6 +36,8 @@ class CarController extends Controller
      */
     public function showAction(Request $request)
     {
+        $session = $request->getSession();
+
         $searchCars = new SearchCar();
 
         $form = $this->createForm(new SearchCarsType(), $searchCars);
@@ -54,88 +57,36 @@ class CarController extends Controller
             $dateFin = $form->get('endDate')->getData();
             $dateEnd = $dateFin->format('Y-m-d H:i:s');
 
+            $session->set('dateStart', $dateStart);
+            $session->set('dateEnd', $dateEnd);
+
             if(strtotime($dateStart) > strtotime($dateEnd)) {
                 $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'La date de fin est inférieure à la date de début');
             }
 
             //weekend ici : vendredi, samedi, dimanche
             if ($this->isWeekend($dateStart)) {
-                if(strtotime($dateStart) + 2 * 3600 * 24 >= strtotime($dateEnd)){
+                if(strtotime($dateStart) + 2 * 3600 * 24 > strtotime($dateEnd)){
                     $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'Le week-end toute réservation doit être supérieur à 2 jours');
                 } else {
-                    $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
-
-                    $query = $em->createQuery("SELECT DISTINCT c.id, r.dateStart, r.dateEnd
-                                       FROM AppBundle:Car c 
-                                       JOIN AppBundle:Reservation r 
-                                       WHERE c.id = r.car 
-                                       AND r.dateStart <= :dateStart AND r.dateEnd >= :dateEnd
-                                       OR r.dateStart > :dateStart AND r.dateEnd <= :dateEnd
-                                       OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                
-                                      ");
-                    $query->setParameter('dateStart', $dateStart);
-                    $query->setParameter('dateEnd', $dateEnd);
-
-                    $listCars = $query->getResult();
-
-                    /** @var \AppBundle\Repository\CarRepository $carRepository */
-                    $carRepository = $this->getDoctrine()->getRepository(Car::class);
-
-                    if (!$listCars) {
-                        $cars = $carRepository->findAll();
-                    }
-                    else {
-                        $cars = $carRepository->getWhatYouWant($listCars);
-                    }
+                    $cars = $this->getAvailableCar($dateStart, $dateEnd);
                 }
             } else {
-
-                $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
-
-                $query = $em->createQuery("SELECT DISTINCT c.id, r.dateStart, r.dateEnd
-                                       FROM AppBundle:Car c 
-                                       JOIN AppBundle:Reservation r 
-                                       WHERE c.id = r.car 
-                                       AND r.dateStart <= :dateStart AND r.dateEnd >= :dateEnd
-                                       OR r.dateStart > :dateStart AND r.dateEnd <= :dateEnd
-                                       OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                
-                                      ");
-                $query->setParameter('dateStart', $dateStart);
-                $query->setParameter('dateEnd', $dateEnd);
-
-                $listCars = $query->getResult();
-
-                /** @var \AppBundle\Repository\CarRepository $carRepository */
-                $carRepository = $this->getDoctrine()->getRepository(Car::class);
-
-                if (!$listCars) {
-                    $cars = $carRepository->findAll();
-                }
-                else {
-                    $cars = $carRepository->getWhatYouWant($listCars);
-                }
+                $cars = $this->getAvailableCar($dateStart, $dateEnd);
             }
         }
 
-
-        $price = 0;
-        foreach ($cars as $value) {
-            $price = $this->getPriceToPay($value);
-        }
-
-        dump($price);
-
-
+        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
+        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
 
         return $this->render('frontend/car/show.html.twig', [
             'form' => $form->createView(),
             'cars' => $cars,
             'dateStart' => $dateStart,
             'dateEnd' => $dateEnd,
-            'price'=> $price
+            'priceRepository'=> $priceRepository
         ]);
     }
-
 
     /**
      * @Route("/location/vehicule/{id}/{mark}-{model}.html", name="car_details")
@@ -148,10 +99,30 @@ class CarController extends Controller
      */
     public function detailsAction(Request $request, Car $car, $mark, $model)
     {
+        $session = $request->getSession();
+        $session->set('car', $car);
+
         /** @var \AppBundle\Repository\CarRepository $carRepository */
         $carRepository     = $this->getDoctrine()->getRepository(Car::class);
 
+        // Find car by id
         $car = $carRepository->findById($car);
+
+        if ($this->isWeekend($session->get('dateStart'))) {
+            $price = $this->priceWeekToPay($car, $session->get('dateStart'), $session->get('dateEnd'));
+        } else {
+            //Count day booked car and calcul price
+            $price = $this->priceToPay($car, $session->get('dateStart'), $session->get('dateEnd'));
+        }
+
+        $caution = $this->cautionToPay($car);
+
+        $session->set('priceTotalToPay', $price);
+        $session->set('cautionToPay', $caution);
+
+        $dateStart = $session->get('dateStart');
+        $dateEnd = $session->get('dateEnd');
+        $caution = $session->get('cautionToPay');
 
         // send form contact us
         $contact = new Contact();
@@ -188,8 +159,11 @@ class CarController extends Controller
 
         return $this->render('frontend/car/details.html.twig', [
             'car'     => $car,
-            //'priceCar'   => $priceCar,
-            'form' => $form->createView()
+            'price'   => $price,
+            'form' => $form->createView(),
+            'dateStart' => $dateStart,
+            'dateEnd' => $dateEnd,
+            'caution' => $caution
         ]);
     }
 
@@ -245,28 +219,122 @@ class CarController extends Controller
         return ($weekDay == 0 || $weekDay == 5 ||$weekDay == 6);
     }
 
-    // fonction qui calcul un nouveau timestamp en fonction d'un timestamp et d'un decalage
-    // 3600 * 24 = nombre de seconde par jour
-    // $decalage = nombre de jour (positif ou negatif)
-    function getNewDate($ma_date, $decalage) {
-        return  $ma_date + ($decalage * 3600 * 24);
-    }
-
-    /**
-     * @param $dateStart
-     * @param $dateEnd
-     * @param $car
-     * @return array|int
-     */
-    public function getPriceToPay($car)
+    public function priceToPay($car, $date1, $date2)
     {
         /** @var \AppBundle\Repository\PriceRepository $priceRepository */
         $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
 
-        $price = $priceRepository->getPriceCarByService(4, $car);
+        $priceCar = $priceRepository->getPriceCar($car);
+
+        $price = (int)$priceCar[0]["totalPrice"];
+
+        // On transforme les 2 dates en timestamp
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+
+        // On récupère la différence de timestamp entre les 2 précédents
+        $nbJoursTimestamp = $date2 - $date1;
+
+        // ** Pour convertir le timestamp (exprimé en secondes) en jours **
+        // On sait que 1 heure = 60 secondes * 60 minutes et que 1 jour = 24 heures donc :
+        $nbJours = $nbJoursTimestamp/86400; // 86 400 = 60*60*24
+
+        if ($nbJours >= 1) {
+            $price = $price * $nbJours;
+        } else {
+            return $price;
+        }
 
         return $price;
+    }
 
+    public function priceWeekToPay ($car, $date1, $date2)
+    {
+        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
+        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
+
+        $priceCar = $priceRepository->getPriceCar($car);
+
+        $price = (int)$priceCar[0]["totalPrice"];
+        $price2 = (int)$priceCar[2]["totalPrice"];
+
+        // On transforme les 2 dates en timestamp
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+
+        // On récupère la différence de timestamp entre les 2 précédents
+        $nbJoursTimestamp = $date2 - $date1;
+
+        // ** Pour convertir le timestamp (exprimé en secondes) en jours **
+        // On sait que 1 heure = 60 secondes * 60 minutes et que 1 jour = 24 heures donc :
+        $nbJours = $nbJoursTimestamp/86400; // 86 400 = 60*60*24
+
+        if ($nbJours === 2) {
+            $price = $price * 2.5;
+        } else {
+            $price = $price2;
+        }
+
+        return $price;
+    }
+
+    public function cautionToPay($car)
+    {
+        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
+        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
+
+        $cautionToPay = $priceRepository->getPriceCar($car);
+
+        $cautionToPay = (int)$cautionToPay[0]["toPay"];
+
+        return $cautionToPay;
+    }
+
+    public function unitPrice($car)
+    {
+        /** @var \AppBundle\Repository\PriceRepository $priceRepository */
+        $priceRepository   = $this->getDoctrine()->getRepository(Price::class);
+
+        $uniqPrice = $priceRepository->getPriceCar($car);
+
+        return (int)$uniqPrice[0]["totalPrice"];
+    }
+
+
+    /**
+     * @param $dateStart
+     * @param $dateEnd
+     *
+     * @return array
+     */
+    public function getAvailableCar($dateStart, $dateEnd)
+    {
+        $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
+
+        $query = $em->createQuery("SELECT DISTINCT c.id, r.dateStart, r.dateEnd
+                                       FROM AppBundle:Car c 
+                                       JOIN AppBundle:Reservation r 
+                                       WHERE c.id = r.car 
+                                       AND r.dateStart <= :dateStart AND r.dateEnd >= :dateEnd
+                                       OR r.dateStart > :dateStart AND r.dateEnd <= :dateEnd
+                                       OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                
+                                      ");
+        $query->setParameter('dateStart', $dateStart);
+        $query->setParameter('dateEnd', $dateEnd);
+
+        $listCars = $query->getResult();
+
+        /** @var \AppBundle\Repository\CarRepository $carRepository */
+        $carRepository = $this->getDoctrine()->getRepository(Car::class);
+
+        if (!$listCars) {
+            $cars = $carRepository->findAll();
+        }
+        else {
+            $cars = $carRepository->getWhatYouWant($listCars);
+        }
+
+        return $cars;
     }
 
 }
