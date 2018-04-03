@@ -64,14 +64,17 @@ class CarController extends Controller
                 $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'La date de fin est inférieure à la date de début');
             }
 
+
             //weekend ici : vendredi, samedi, dimanche
             if ($this->isWeekend($dateStart)) {
-                if(strtotime($dateStart) + 2 * 3600 * 24 > strtotime($dateEnd)){
-                    $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'Le week-end toute réservation doit être supérieur à 2 jours');
-                } else {
+                if(strtotime($dateStart) + 2 * 3600 * 23 <=  strtotime($dateEnd)){
                     $cars = $this->getAvailableCar($dateStart, $dateEnd);
+                    dump($cars);
+                }  else {
+                    $this->get('session')->getFlashBag()->Add('notice-dateWeek', 'Le week-end toute réservation doit être supérieur à 2 jours');
                 }
-            } else {
+            }
+            else {
                 $cars = $this->getAvailableCar($dateStart, $dateEnd);
             }
         }
@@ -116,13 +119,16 @@ class CarController extends Controller
         }
 
         $caution = $this->cautionToPay($car);
+        $accompte = $this->accompteToPay($price);
 
         $session->set('priceTotalToPay', $price);
         $session->set('cautionToPay', $caution);
+        $session->set('accompte', $accompte);
 
         $dateStart = $session->get('dateStart');
         $dateEnd = $session->get('dateEnd');
         $caution = $session->get('cautionToPay');
+
 
         // send form contact us
         $contact = new Contact();
@@ -130,40 +136,14 @@ class CarController extends Controller
 
         $request = $this->getRequest();
 
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('')
-                    ->setFrom($this->get('form.type.email'))
-                    ->setTo($this->container->getParameter('heavy.emails.contact_email'))
-                    ->setBody($this->renderView('frontend/default/contactEmail.txt.twig', array('contact' => $contact)));
-
-                try
-                {
-                    $this->get('mailer')->send($message);
-                }
-
-                catch (\Swift_TransportException $e)
-                {
-                    $result = array( false, 'There was a problem sending email: ' . $e->getMessage() );
-                }
-
-                $this->get('session')->getFlashBag()->Add('notice', 'Votre message a été correctement envoyé. Nous mettons tout en oeuvre pour vous répondre dans les meilleurs délais.');
-
-                return $this->redirect($this->generateUrl('heavy_contact'));
-            }
-        }
-
         return $this->render('frontend/car/details.html.twig', [
             'car'     => $car,
             'price'   => $price,
             'form' => $form->createView(),
             'dateStart' => $dateStart,
             'dateEnd' => $dateEnd,
-            'caution' => $caution
+            'caution' => $caution,
+            'accompte' => $accompte
         ]);
     }
 
@@ -177,7 +157,7 @@ class CarController extends Controller
      *
      * @return Response
      */
-    public function listOfReservationDone(Request $request)
+    public function listOfReservationDoneAction(Request $request)
     {
         $carManager = $this->container->get('heavy.manager.car');
 
@@ -200,7 +180,7 @@ class CarController extends Controller
      *
      * @return Response
      */
-    public function listOfReservation(Request $request)
+    public function listOfReservationAction(Request $request)
     {
         $carManager = $this->container->get('heavy.manager.car');
 
@@ -232,6 +212,9 @@ class CarController extends Controller
         $date1 = strtotime($date1);
         $date2 = strtotime($date2);
 
+        $heureDateStart = date("G", $date1);
+        $heureDateFin = date("G", $date2);
+
         // On récupère la différence de timestamp entre les 2 précédents
         $nbJoursTimestamp = $date2 - $date1;
 
@@ -240,7 +223,13 @@ class CarController extends Controller
         $nbJours = $nbJoursTimestamp/86400; // 86 400 = 60*60*24
 
         if ($nbJours >= 1) {
-            $price = $price * $nbJours;
+            if ($heureDateStart < 12 && $heureDateFin < 14 || $heureDateStart > 14 && $heureDateFin > 14) {
+                dump($heureDateFin); dump($heureDateStart);
+                $price = $price * $nbJours;
+                dump($price);
+            }elseif ($heureDateStart < 12 && $heureDateFin > 14 || $heureDateStart > 14 && $heureDateFin < 12) {
+                $price = $price * $nbJours;
+            }
         } else {
             return $price;
         }
@@ -290,6 +279,13 @@ class CarController extends Controller
         return $cautionToPay;
     }
 
+    public function accompteToPay($priceToPay)
+    {
+        $accompte = $priceToPay * 0.4;
+
+        return $accompte;
+    }
+
     public function unitPrice($car)
     {
         /** @var \AppBundle\Repository\PriceRepository $priceRepository */
@@ -317,7 +313,7 @@ class CarController extends Controller
                                        WHERE c.id = r.car 
                                        AND r.dateStart <= :dateStart AND r.dateEnd >= :dateEnd
                                        OR r.dateStart > :dateStart AND r.dateEnd <= :dateEnd
-                                       OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                
+                                       OR r.dateStart > :dateStart AND r.dateEnd = :dateEnd                                                                    
                                       ");
         $query->setParameter('dateStart', $dateStart);
         $query->setParameter('dateEnd', $dateEnd);
@@ -336,5 +332,4 @@ class CarController extends Controller
 
         return $cars;
     }
-
 }

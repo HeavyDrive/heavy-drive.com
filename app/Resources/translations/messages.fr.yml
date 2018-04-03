@@ -3,6 +3,7 @@ heavy:
         step_1: Informations Personnelles
         step_2: Informations Location
         step_3: Validation Pré-Réservation
+        step_4: Paiement
         rent_option: Choisissez des options pour votre location
         from_date: Date de début :
         to_date: Date de fin :
@@ -112,7 +113,7 @@ heavy:
     homepage:
         welcome: Bienvenue !
         about_us:
-            title: <h2>Heavy-Drive est une entreprise familiale qui a pour vocation de louer et de fournir des services de transports hauts de gammes.</h2>
+            title: <h2>Heavy-Drive est une entreprise familiale qui a pour Vocation de Louer et de Fournir des Services de transports Haut de Gamme.</h2>
             about_us_left: |
                               <p style = "font-size: 18px;"> L'idée est de démocratiser auprès d'un maximum de populations les différentes prestations de prestige en pratiquant des tarifications abordables, tout en conservant une qualité de service optimale. Chez Heavy-Drive, votre bien-être ainsi que la qualité de service est notre priorité.
                               Nos tarifs sont des plus concurrentiels et notre dévouement envers notre clientèle est total.</p>
@@ -140,13 +141,12 @@ heavy:
         marryservice: Nos Forfait MARRY-ME
         servicedescription: Profitez pleinement de votre mariage avec nos véhicules de Prestige. Plusieurs forfaits ci-dessous vous sont présentés afin de répondre pleinement à vos attentes.
         forfaitday: La journée et Rapatriement au domicile
-        forfaitone: Forfait 1 : «Cortège PORSCHE» Capacité de 6 Personnes
-        forfaittwo: Forfait 2 : «Cortège Heavy H-D» Capacité de 9 Personnes
-        forfaitthree: Forfait 3 : «Cortège Heavy H-D» Capacité de 12 Personnes
+        forfaitone: Cortège HD 1
+        forfaittwo: Cortège HD 2
+        forfaitthree: Cortège HD 3
         forfaitcortege: Forfait Cortège
         reserve: Nous contacter
-        day_title: La Journée :
-        repatriation_title: Rapatriement :
+        day_title: La Journée :        repatriation_title: Rapatriement :
     faq:
         title: <b>F</b>oire <b>A</b>ux <b>Q</b>uestions
         desc: <h2 class ="centered">Ici vous trouverez toutes les informations concernant la location, le paiement et tout ce qui pourrait vous être utile pour répondre à vos questions</h2>

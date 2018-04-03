@@ -13,21 +13,28 @@
                         <button type="button" class="btn btn-info btn-circle" data-toggle="tab" href="#menu1"><i
                                     class="fa fa-user fa-3x"></i></button>
                         <p>
-                            <small>{{ 'heavy.reservation.step_1' | trans }}</small>
+                            <medium>{{ 'heavy.reservation.step_1' | trans }}</medium>
                         </p>
                     </div>
                     <div class="process-step">
                         <button type="button" class="btn btn-default btn-circle " data-toggle="tab" href="#menu2"><i
                                     class="fa fa-info fa-3x"></i></button>
                         <p>
-                            <small>{{ 'heavy.reservation.step_2' | trans }}</small>
+                            <medium>{{ 'heavy.reservation.step_2' | trans }}</medium>
                         </p>
                     </div>
                     <div class="process-step">
                         <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu3"><i
                                     class="fa fa-check fa-3x"></i></button>
                         <p>
-                            <small>{{ 'heavy.reservation.step_3' | trans }}</small>
+                            <medium>{{ 'heavy.reservation.step_3' | trans }}</medium>
+                        </p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu4"><i
+                                    class="fa fa-credit-card fa-3x"></i></button>
+                        <p>
+                            <medium>{{ 'heavy.reservation.step_4' | trans }}</medium>
                         </p>
                     </div>
                 </div><!--process-row nav nav-tabs close-->
@@ -36,9 +43,7 @@
         <div class="tab-content">
             <div id="menu1" class="tab-pane fade active in">
                 <div class="container-fluid">
-                    {% if app.user %}
-
-                    {% else %}
+                    {% if not app.user %}
                         <div class="col-xs-6">
                             <div class="well text-center">
                                 <h1 class="centered"> Nouveau client</h1><br>
@@ -82,7 +87,7 @@
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="panel-footer">{{ form_end(bookingOptionForm) }}</div>
+                            <div class="panel-footer">{{ form_widget(bookingOptionForm.save) }}</div>
                         </div>
                     </div>
                 </div>
@@ -90,11 +95,11 @@
 
             <div id="menu3" class="tab-pane fade">
                 <div class="container-fluid">
-                    <h3>CHOISISSEZ VOTRE MÉTHODE DE PAIEMENT</h3>
+                    <h3>Validation de vos informations</h3>
                     <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                                <address>
+                                <!--<address>
                                     <strong>Elf Cafe</strong>
                                     <br>
                                     2135 Sunset Blvd
@@ -102,14 +107,14 @@
                                     Los Angeles, CA 90026
                                     <br>
                                     <abbr title="Phone">P:</abbr> (213) 484-6829
-                                </address>
+                                </address>!-->
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                 <p>
-                                    <em>{{ "now"|date("l d F") }}</em>
+                                    <em>{{ "now"|date("d-m-Y", "Europe/Paris") }}</em>
                                 </p>
                                 <p>
-                                    <em>Receipt #: {{ trans_id }}</em>
+                                    <em>Numéro de Réservation #: {{ trans_id }}</em>
                                 </p>
                             </div>
                         </div>
@@ -134,7 +139,13 @@
                                     <td class="col-md-1 text-center"> {{ priceTotalToPay }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="col-md-7"><em>Caution obligatoire</em></td>
+                                    <td class="col-md-7"><em>Accompte obligatoire </em></td>
+                                    <td class="col-md-1" style="text-align: center"> </td>
+                                    <td class="col-md-1 text-center"> {{ accompte }}</td>
+                                    <td class="col-md-1 text-center"> {{ accompte }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-7"><em>Caution obligatoire sur place</em></td>
                                     <td class="col-md-1" style="text-align: center"> </td>
                                     <td class="col-md-1 text-center"> {{ caution }}</td>
                                     <td class="col-md-1 text-center"> {{ caution }}</td>
@@ -153,24 +164,27 @@
                                     <td class="text-left"><h4><strong>Total: </strong></h4></td>
                                     <td>   </td>
                                     <td>   </td>
-                                    <td class="col-md-2 text-center text-danger"><h4><strong>{{ totalOptionToPay + priceTotalToPay + caution }} €</strong></h4></td>
+                                    <td class="col-md-2 text-center text-danger"><h4><strong>{{ totalOptionToPay + priceTotalToPay + accompte }} €</strong></h4></td>
                                 </tr>
                                 </tbody>
                             </table>
-                            {% set total_amount = totalOptionToPay + priceTotalToPay + caution %}
-                            {% set signature = "" %}
                         </div>
+                        <div style="text-align: center">{{ form_widget(bookingOptionForm.add_booking) }}</div>
+                        {{ form_end(bookingOptionForm) }}
                     </div>
                 </div>
-                {% set totalCaution = caution %}
-
+                {% set total_amount = totalOptionToPay + priceTotalToPay + accompte %}
+                {% set total_accompte = accompte %}
+                {% set signature = "" %}
+            </div><!--menu4 tab-pane fade active in close-->
+            <div id="menu4" class="tab-pane fade">
                 <div class="container">
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
                                     <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer uniquement la caution</a>
+                                    <a href="#">Payer uniquement l'accompte</a>
                                 </h4>
                             </div>
                             <div id="collapse1" class="panel-collapse collapse">
@@ -178,8 +192,11 @@
                                     <div align="center">
                                         <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
                                         <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
-                                        <p> - Le prix de la caution s'élève à :<b> {{ totalCaution }} </b></p>
-                                        <p> - Vous avez décider de payer uniquement la caution au prix indiqué ci-dessus <br> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        <p> - Le prix de l'accompte s'élève à :<b> {{ total_accompte }} </b></p>
+                                        <p> - Vous avez décider de payer uniquement l'accompte au prix indiqué ci-dessus <br> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {% set total_amount = totalOptionToPay + priceTotalToPay + accompte %}
+                                        {% set total_accompte = accompte %}
+                                        {% set signature = "" %}
                                         {{ include ('frontend/reservation/paymentForm.html.twig') }}
                                     </div>
                                 </div>
@@ -198,32 +215,16 @@
                                         <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
                                         <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
                                         <p> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
-                                        {{ include ('frontend/reservation/paymentForm.html.twig') }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
-                                    <div class="right-arrow pull-right">+</div>
-                                    <a href="#">Payer la totalité de la commande en plusieurs fois</a>
-                                </h4>
-                            </div>
-                            <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div align="center">
-                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
-                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
-                                        <p> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
-                                        {{ include ('frontend/reservation/paymentForm.html.twig') }}
+                                        {% set total_amount = totalOptionToPay + priceTotalToPay + accompte %}
+                                        {% set total_accompte = accompte %}
+                                        {% set signature = "" %}
+                                        {{ include ('frontend/reservation/paymentFormTotal.html.twig') }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div><!--menu4 tab-pane fade active in close-->
             <ul class="list-unstyled list-inline pull-right">
                 <li>
@@ -295,5 +296,8 @@
                 }
             });
         });
+
+
+
     </script>
 {% endblock %}

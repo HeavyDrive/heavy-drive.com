@@ -136,6 +136,16 @@ class ReservationRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getLastBillId()
+    {
+        $qb = $this->createReservationQueryBuilder();
+        $qb->select('reservation.bill');
+        $qb->orderBy('reservation.bill', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getResult();
+    }
+
     /*
     * @return \Doctrine\ORM\QueryBuilder
     */
@@ -145,6 +155,4 @@ class ReservationRepository extends EntityRepository
 
         return $qb;
     }
-
-
 }

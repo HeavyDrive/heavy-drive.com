@@ -37,3 +37,10 @@ services:
         arguments: [~, AppBundle\Entity\Price, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des véhicules, label: Prix }
+
+    heavy.admin.list.reservation_created:
+        class: AppBundle\Admin\ReservationListAdmin
+        arguments: [~, ~, AppBundle\StatsCRUD, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion Réservation, label: step 1 : Reservation créer }
+

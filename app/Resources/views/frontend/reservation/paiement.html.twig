@@ -1,0 +1,155 @@
+{% extends "frontend/base.html.twig" %}
+{% block body %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <div class="container-fluid">
+
+                {% set total_amount = totalOptionToPay + priceTotalToPay + accompte %}
+                {% set total_accompte = accompte %}
+                {% set signature = "" %}
+            </div><!--menu4 tab-pane fade active in close-->
+            <div id="menu4" class="tab-pane fade">
+                <div class="container">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
+                                    <div class="right-arrow pull-right">+</div>
+                                    <a href="#">Payer uniquement l'accompte</a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div align="center">
+                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
+                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
+                                        <p> - Le prix de l'accompte s'élève à :<b> {{ total_accompte }} </b></p>
+                                        <p> - Vous avez décider de payer uniquement l'accompte au prix indiqué ci-dessus <br> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {% set total_amount = totalOptionToPay + priceTotalToPay + accompte %}
+                                        {% set total_accompte = accompte %}
+                                        {% set signature = "" %}
+                                        {{ include ('frontend/reservation/paymentForm.html.twig') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
+                                    <div class="right-arrow pull-right">+</div>
+                                    <a href="#">Payer la totalité de la commmande</a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div align="center">
+                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
+                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
+                                        <p> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {% set total_amount = totalOptionToPay + priceTotalToPay + accompte %}
+                                        {% set total_accompte = accompte %}
+                                        {% set signature = "" %}
+                                        {{ include ('frontend/reservation/paymentFormTotal.html.twig') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
+                                    <div class="right-arrow pull-right">+</div>
+                                    <a href="#">Payer la totalité de la commande en plusieurs fois</a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div align="center">
+                                        <p> - Le montant total de votre commande s'élève à <span id="amount" class="price">{{ total_amount }} €</span> TTC</p>
+                                        <p> - Nous acceptons la devise suivante pour votre paiement :&nbsp;<b>Euro</b> <input type="hidden" name="currency_payment" value="1"></p>
+                                        <p> - Veuillez confirmer votre commande en cliquant sur «&nbsp;Je confirme ma commande&nbsp;».</p>
+                                        {{ include ('frontend/reservation/paymentForm_X3.html.twig') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--menu4 tab-pane fade active in close-->
+            <ul class="list-unstyled list-inline pull-right">
+                <li>
+                    <button type="button" class="btn btn-default prev-step"><i
+                                class="fa fa-chevron-left"></i>{{ 'heavy.reservation.button_previous' | trans }}
+                    </button>
+                </li>
+                <li>
+                    <button type="button"
+                            class="btn btn-default next-step">{{ 'heavy.reservation.button_next' | trans }}<i
+                                class="fa fa-chevron-right"></i></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.btn-circle').on('click', function () {
+                $('.btn-circle.btn-info').removeClass('btn-info').addClass('btn-default');
+                $(this).addClass('btn-info').removeClass('btn-default').blur();
+            });
+
+            $('.next-step, .prev-step').on('click', function (e) {
+                var $activeTab = $('.tab-pane.active');
+
+                $('.btn-circle.btn-info').removeClass('btn-info').addClass('btn-default');
+
+                if ($(e.target).hasClass('next-step')) {
+                    var nextTab = $activeTab.next('.tab-pane').attr('id');
+                    $('[href="#' + nextTab + '"]').addClass('btn-info').removeClass('btn-default');
+                    $('[href="#' + nextTab + '"]').tab('show');
+                }
+                else {
+                    var prevTab = $activeTab.prev('.tab-pane').attr('id');
+                    $('[href="#' + prevTab + '"]').addClass('btn-info').removeClass('btn-default');
+                    $('[href="#' + prevTab + '"]').tab('show');
+                }
+            });
+        });
+        $(function () {
+            $(document).on('click', '.btn-add', function (e) {
+                e.preventDefault();
+
+                var controlForm = $('.controls:first'),
+                    currentEntry = $(this).parents('.entry:first'),
+                    newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+                newEntry.find('input').val('');
+                controlForm.find('.entry:not(:last) .btn-add')
+                    .removeClass('btn-add').addClass('btn-remove')
+                    .removeClass('btn-success').addClass('btn-danger')
+                    .html('<span class="glyphicon glyphicon-minus"></span>');
+            }).on('click', '.btn-remove', function (e) {
+                $(this).parents('.entry:first').remove();
+
+                e.preventDefault();
+                return false;
+            });
+        });
+        $(function() {
+            $(".expand").on( "click", function() {
+                // $(this).next().slideToggle(200);
+                $expand = $(this).find(">:first-child");
+
+                if($expand.text() == "+") {
+                    $expand.text("-");
+                } else {
+                    $expand.text("+");
+                }
+            });
+        });
+
+
+
+    </script>
+{% endblock %}

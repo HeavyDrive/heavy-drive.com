@@ -23,8 +23,8 @@
                         <ul class="tarif_prestation">
                             <li>
                                 <p><strong>Du {{ dateStart|date('d-m-Y') }} au {{ dateEnd|date('d-m-Y') }}</strong></p>
-                                <p>Prix de la caution : {{ caution }} €</p>
-                                <h3> {{ price }} €</h3>
+                                <p>Prix de la caution : {{ caution|number_format(2, ',', '') }} €</p>
+                                <h3> {{ price|number_format(2, ',', '') }} €</h3>
                                 <a href="{{ path('reservation') }}" class="btn btn-primary">Faire une réservation</a>
                             </li>
                             <li>

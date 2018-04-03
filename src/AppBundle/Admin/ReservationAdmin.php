@@ -39,34 +39,31 @@ class ReservationAdmin extends AbstractAdmin
                 'property' => 'agency.name',
                 ))
             ->end()
-            ->with('Dates')
-                ->add('dateStart', 'sonata_type_datetime_picker', [
-                    'data' => new \DateTime()
-                ])
-                ->add('dateEnd', 'sonata_type_datetime_picker', [
-                    'data' => new \DateTime()
-                ])
-            ->end()
-            ->with('Véhicule')
+            ->with('Information location')
                 ->add('car', 'entity', array(
                     'class' => 'AppBundle\Entity\Car',
                     'property' => 'carModel'
                 ))
+            ->add('dateStart', 'datetime', [
+                'required' => false,
+                'label' => 'Date début',
+                'format'=>'YYYY-MM-DD hh:mm:ss',
+                'attr' => array(
+                    'data-date-format' => 'YYYY-MM-DD hh:mm:ss',
+                )
+            ])
+            ->add('dateEnd', 'datetime', [
+                'required' => false,
+                'label' => 'Date fin',
+                'format'=>'YYYY-MM-DD hh:mm:ss',
+                'attr' => array(
+                    'data-date-format' => 'YYYY-MM-DD hh:mm:ss',
+                )
+            ])
             ->end()
             ->with('Client')
                 ->add('client')
-                ->add('licenceDriver', 'entity', array(
-                    'class' => 'AppBundle\Entity\LicenseDriver',
-                    'property' => 'id',
-                ))
-                ->add('identityCard', 'entity', array(
-                    'class' => 'AppBundle\Entity\IdentityCard',
-                    'property' => 'id',
-                ))
-                ->add('proofOfAdress', 'entity', array(
-                    'class' => 'AppBundle\Entity\ProofOfAdress',
-                    'property' => 'id',
-                ))
+
             ->end()
             ->with('Statuts')
                 ->add('createdAt', 'sonata_type_datetime_picker')
@@ -85,9 +82,6 @@ class ReservationAdmin extends AbstractAdmin
             ->add('car.carMaker')
             ->add('car.carModel')
             ->add('client.username')
-            ->add('licenceDriver.id')
-            ->add('proofOfAdress.id')
-            ->add('identityCard.id')
             ->add('pickUpLocationId.agency.name')
             ->add('dropOffLocationId.agency.name')
             ->add('status')
@@ -102,6 +96,17 @@ class ReservationAdmin extends AbstractAdmin
                     'delete' => array(),
                 )
             ));
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('dateStart', 'doctrine_orm_date_range')
+            ->add('dateEnd', 'doctrine_orm_date_range')
+            ->add('status')
+            ->add('car.carMaker')
+            ->add('car.carModel')
+        ;
     }
 
     protected $datagridValues = array(

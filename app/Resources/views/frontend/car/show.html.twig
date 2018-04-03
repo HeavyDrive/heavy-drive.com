@@ -49,12 +49,14 @@
                     </div>
                 </div>
             </div>
+            {{ form_end(form) }}<br>
             {% for flashMessage in app.session.flashbag.get('notice-dateWeek') %}
                 <div class="flash-notice">
-                    {{ flashMessage }}
+                    <div class="alert alert-danger" role="alert">
+                        {{ flashMessage }}
+                    </div>
                 </div>
             {% endfor %}
-            {{ form_end(form) }}
         </div>
         {{ include ('frontend/car/list__cars.html.twig') }}
     </div>
@@ -62,11 +64,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/locale/fr.js"></script>
 
     <script>
         jQuery(function () {
-            jQuery('#js-datepicker1').datetimepicker({format: 'DD-MM-YYYY HH:mm:ss'});
-            jQuery('#js-datepicker2').datetimepicker({format: 'DD-MM-YYYY HH:mm:ss'});
+            jQuery('#js-datepicker1').datetimepicker({format: 'DD-MM-YYYY HH:mm:ss', locale: 'fr', daysOfWeekDisabled: [0]});
+            jQuery('#js-datepicker2').datetimepicker({format: 'DD-MM-YYYY HH:mm:ss', locale: 'fr'});
         });
     </script>
 

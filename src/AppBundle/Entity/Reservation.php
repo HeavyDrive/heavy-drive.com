@@ -116,7 +116,7 @@ class Reservation
      *
      * @ORM\ManyToMany(targetEntity="BookingOptions", cascade={"persist"})
      */
-    //protected $bookingOptions;
+    protected $bookingOptions;
 
     /**
      * @var integer
@@ -453,12 +453,12 @@ class Reservation
      *
      * @return $this
      */
-    /*public function setBookingOptions(ArrayCollection $bookingOptions)
+    public function setBookingOptions(ArrayCollection $bookingOptions)
     {
         $this->bookingOptions = $bookingOptions;
 
         return $this;
-    }*/
+    }
 
     /**
      * Get bookingOptions

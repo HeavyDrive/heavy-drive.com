@@ -88,17 +88,6 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
 
-sonata_admin:
-    security:
-        handler: sonata.admin.security.handler.role
-
-        role_admin: ROLE_ADMIN
-        role_super_admin: ROLE_SUPER_ADMIN
-
-        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
-
-        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
-
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -121,6 +110,6 @@ tlconseil_systempay:
         site_id: 61078196
         # Keys
         key_dev: 6856049758297340
-        key_prod: XXXXX
+        key_prod: 3935879327992243
         # Return
         url_return: http://heavy-drive.com/

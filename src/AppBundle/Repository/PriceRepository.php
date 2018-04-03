@@ -20,7 +20,7 @@ class PriceRepository extends EntityRepository
     {
         $qb = $this->createPriceQueryBuilder();
 
-        $qb->addSelect('price.toPay');
+        $qb->addSelect('price.totalPrice');
 
         $qb->innerJoin('price.car', 'priceCar');
         $qb->where('priceCar.id = :car');

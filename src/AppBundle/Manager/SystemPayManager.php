@@ -33,15 +33,16 @@ class SystemPayManager
     /**
      * @var string
      */
-    private $key;
+    protected $key;
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    protected $entityManager;
     /**
      * @var Transaction
      */
-    private $transaction;
+    protected $transaction;
+
     public function __construct(EntityManager $entityManager, Container $container)
     {
         $this->entityManager = $entityManager;
@@ -52,21 +53,27 @@ class SystemPayManager
         else
             $this->key = $container->getParameter('tlconseil_systempay.key_prod');
     }
+
     /**
      * @param $currency
      * @param $amount
      * @return Transaction
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function newTransaction($currency, $amount)
+    public function newTransaction($currency, $amount, $transId)
     {
         $transaction = new Transaction();
+
         $transaction->setAmount($amount);
         $transaction->setCurrency($currency);
         $transaction->setCreatedAt(new \DateTime());
         $transaction->setUpdatedAt(new \DateTime());
         $transaction->setPaid(false);
         $transaction->setRefunded(false);
-        $transaction->setStatus("");
+        $transaction->setTransactionId($transId);
+        $transaction->setStatus("test");
+
         $this->entityManager->persist($transaction);
         $this->entityManager->flush();
         return $transaction;
@@ -148,6 +155,7 @@ class SystemPayManager
         $this->transaction = $this->entityManager->getRepository('AppBundle:Transaction')->find($query['vads_trans_id']);
         return $this->transaction;
     }
+
     /**
      * @return string
      */

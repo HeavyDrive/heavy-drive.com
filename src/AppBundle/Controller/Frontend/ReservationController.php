@@ -16,6 +16,7 @@ use AppBundle\Form\Type\BookingGuestType;
 use AppBundle\Form\Type\BookingOptionsType;
 use AppBundle\Form\Type\LicenseDriverType;
 use AppBundle\Form\Type\RegistrationType;
+use AppBundle\Form\Type\SystemPayType;
 use AppBundle\Form\Type\UserEditType;
 use AppBundle\Repository\CarRepository;
 use DateTime;
@@ -36,7 +37,7 @@ class ReservationController extends Controller
 {
     /**
      * @Route("/Reservation", name="reservation")
-     * @Method({"GET", "POST"})
+     * @Method({"POST", "GET"})
      *
      * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
      *
@@ -52,11 +53,14 @@ class ReservationController extends Controller
         $booking       = new Reservation();
         $bookingGuest  = new BookingGuest();
         $user          = new Client();
+        $user          = $this->getUser();
+        $transaction   = new Transaction();
 
         $session         = $request->getSession();
         $priceTotalToPay = $session->get('priceTotalToPay');
         $caution         = $session->get('cautionToPay');
         $car             = $session->get('car');
+        $accompte        = $session->get('accompte');
 
         $bookingOptionForm = $this->get('form.factory')->createBuilder()
             ->add('optionBooking', 'entity', array(
@@ -72,11 +76,16 @@ class ReservationController extends Controller
                     },)
             )
             ->add('save', SubmitType::class, array(
-                'label' => 'Enregistré',
+                'label' => 'Valider',
+                'attr'=> array('class' => 'btn btn-default centered')
+            ))
+            ->add('add_booking', SubmitType::class, array(
+                'label' => 'Confirmer réservation',
                 'attr'=> array('class' => 'btn btn-default centered')
             ))->getForm();
 
         $form1             = $this->createForm(new BookingGuestType(), $bookingGuest);
+        $formTransaction   = $this->createForm(new SystemPayType(), $transaction);
 
         $reservationManager  = $this->container->get('heavy.manager.reservation');
         $bookingGuestManager = $this->container->get('heavy.manager.booking_guest');
@@ -92,43 +101,55 @@ class ReservationController extends Controller
 
         $trans_id = $this->getNewTransactionId();
 
+
         $optionChoose = new ArrayCollection();
 
-        if ('POST' == $request->getMethod()) {
+        $form1->handleRequest($request);
+        $formTransaction->handleRequest($request);
+        $bookingOptionForm->handleRequest($request);
 
-            $form1->handleRequest($request);
-            $bookingOptionForm->handleRequest($request);
-
-            if ($bookingOptionForm->get('save')->isClicked()) {
-                $optionChoose = $bookingOptionForm->get('optionBooking')->getData();
-            }
+        if ($request->getMethod() == 'POST')
+        {
             if ($form1->get('save')->isClicked()) {
                 $bookingGuestManager->save($bookingGuest);
             }
 
-            $format = 'Y-m-d H:i:s';
-
-            $dateStart = $session->get('dateStart');
-            $dateStart = DateTime::createFromFormat($format, $dateStart);
-
-            $dateEnd = $session->get('dateEnd');
-            $dateEnd = DateTime::createFromFormat($format, $dateEnd);
-
-            $canBooking = $reservationManager->canBooking($booking);
-
-            if ($canBooking) {
-                //$booking->setClient($user);
-                $booking->setDateStart($dateStart);
-                $booking->setDateEnd($dateEnd);
-
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->persist($booking);
-                $em->flush();
-            } else {
-                throw new \Exception("vous devez etre connecté ou poursuivre en tant qu'invité");
+            if ($bookingOptionForm->get('save')->isClicked()) {
+                $optionChoose = $bookingOptionForm->get('optionBooking')->getData();
             }
 
-           // $reservationManager->save($booking);
+            if ($bookingOptionForm->get('add_booking')->isClicked()) {
+
+                $canBooking = $reservationManager->canBooking($user, $booking);
+
+                if ($canBooking) {
+
+                    $format = 'Y-m-d H:i:s';
+
+                    $dateStart = $session->get('dateStart');
+                    $dateStart = DateTime::createFromFormat($format, $dateStart);
+
+                    $dateEnd = $session->get('dateEnd');
+                    $dateEnd = DateTime::createFromFormat($format, $dateEnd);
+
+                    $booking->setDateStart($dateStart);
+                    $booking->setDateEnd($dateEnd);
+                    $booking->setCar($car);
+                    $booking->setStatus(Reservation::STATUS_CREATED);
+                    $booking->setBill($trans_id);
+
+                    if ($user != null)
+                    {
+                        $booking->setClient($user);
+                    }
+
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $em->persist($booking);
+                    $em->flush();
+                }
+
+                $session->clear();
+            }
         }
 
         return $this->render('frontend/user/reservation.html.twig', [
@@ -140,7 +161,9 @@ class ReservationController extends Controller
             'priceTotalToPay' => $priceTotalToPay,
             'caution' => $caution,
             'uniqPrice' => $priceUniq,
-            'trans_id' => $trans_id
+            'trans_id' => $trans_id,
+            'accompte' => $accompte,
+            'formTransaction' => $formTransaction->createView()
         ]);
     }
 
@@ -156,14 +179,24 @@ class ReservationController extends Controller
 
     public function getNewTransactionId()
     {
-        /** @var \AppBundle\Repository\TransactionRepository $transactionRepository */
-        $transactionRepository = $this->getDoctrine()->getRepository(Transaction::class);
+        /** @var \AppBundle\Repository\ReservationRepository $reservationRepository */
+        $reservationRepository = $this->getDoctrine()->getRepository(Reservation::class);
 
-        $transaction = $transactionRepository->getLastTransactionId();
+        $reservation_bill = $reservationRepository->getLastBillId();
 
-        $last_id = $transaction[0]["transactionId"];
+        $last_id = $reservation_bill[0]["bill"];
         $next_id = $last_id + 1;
 
         return $next_id;
+    }
+
+    public function getLastTransactionId()
+    {
+        /** @var \AppBundle\Repository\ReservationRepository $reservationRepository */
+        $reservationRepository = $this->getDoctrine()->getRepository(Reservation::class);
+
+        $reservation_bill = $reservationRepository->getLastBillId();
+
+        return $reservation_bill[0]["bill"];
     }
 }

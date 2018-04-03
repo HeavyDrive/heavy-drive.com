@@ -48,14 +48,40 @@ class ReservationManager
     /**
      * User can do an booking
      *
-     * @param Client      $user
+     * @param       $user
      * @param Reservation $reservation
      *
      * @return bool
      */
-    public function canBooking(Reservation $reservation)
+    public function canBooking($user, Reservation $reservation )
     {
         if (!$reservation instanceof Reservation)
+        {
+            return false;
+        }
+        if (!$user)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * User can do an booking
+     *
+     * @param       $guestBooking
+     * @param Reservation $reservation
+     *
+     * @return bool
+     */
+    public function canGuestBooking($guestBooking, Reservation $reservation )
+    {
+        if (!$reservation instanceof Reservation)
+        {
+            return false;
+        }
+        if ($guestBooking != null)
         {
             return false;
         }

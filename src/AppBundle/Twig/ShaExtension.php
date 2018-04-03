@@ -17,8 +17,10 @@ class ShaExtension extends \Twig_Extension
     }
     public function encodeToSha1($null, $amount, $date, $transId)
     {
-        $str = "INTERACTIVE+".$amount."+0+TEST+978+PAYMENT+SINGLE+61078196+".$date."+".$transId."+V2+6856049758297340";
+        $str = "INTERACTIVE+".$amount."00+0+TEST+978+PAYMENT+SINGLE+61078196+".$date."+".$transId."+V2+6856049758297340";
+
         $signature = sha1($str);
+
         return $signature;
     }
     public function getName()

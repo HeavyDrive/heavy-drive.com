@@ -39,6 +39,7 @@ class PriceAdmin extends AbstractAdmin
             ->add('totalPrice', 'text', [
                 'label' => "Prix"
             ])
+            ->add('createdAt', 'sonata_type_datetime_picker')
             ->end()
         ;
     }

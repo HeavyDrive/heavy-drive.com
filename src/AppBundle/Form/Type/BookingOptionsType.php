@@ -35,8 +35,8 @@ class BookingOptionsType extends AbstractType
                     },)
             )
             ->add('save', SubmitType::class, array(
-                'label' => 'Enregistré',
-                'attr'=> array('class' => 'btn btn-default')
+                'label' => 'Valider mes informations',
+                'attr'=> array('class' => 'btn btn-default next-step')
             ));
     }
 

@@ -1,6 +1,6 @@
 <form method="POST" action="https://paiement.systempay.fr/vads-payment/" accept-charset="UTF-8">
     <input type="hidden" name="vads_action_mode" value="INTERACTIVE" />
-    <input type="hidden" name="vads_amount" value="{{ total_amount }}" />
+    <input type="hidden" name="vads_amount" value="{{ total_accompte }}00" />
     <input type="hidden" name="vads_capture_delay" value="0" />
     <input type="hidden" name="vads_ctx_mode" value="TEST" />
     <input type="hidden" name="vads_currency" value="978" />
@@ -10,6 +10,6 @@
     <input type="hidden" name="vads_trans_date" value="{{ "now"|date("YmdGis") }}" />
     <input type="hidden" name="vads_trans_id" value="{{ trans_id }}"  />
     <input type="hidden" name="vads_version" value="V2" />
-    <input type="hidden" name="signature" value="{{ signature|signature(total_amount, "now"|date("YmdGis"), trans_id) }}" />
-    <button class="button btn btn-default" type="submit"> <span>Je confirme ma commande</span> </button>
+    <input type="hidden" name="signature" value="{{ signature|signature(total_accompte, "now"|date("YmdGis"), trans_id) }}" />
+    <button class="button btn btn-default" type="submit"> <span>Je passe au paiement</span> </button>
 </form>
